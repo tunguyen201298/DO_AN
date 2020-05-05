@@ -1,0 +1,18 @@
+<?php
+
+namespace App\models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Addresse extends Model
+{
+    protected $fillable = [
+         'customer_id',
+         'street'
+   ];
+
+   public function customer()
+   {
+         return $this->belongsTo(\App\model\Customer::class);
+   }
+}
