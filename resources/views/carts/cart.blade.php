@@ -2,6 +2,7 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
+
 <div class="container">
     <div class="row ">
         <div class="breadcrumb">
@@ -18,61 +19,63 @@
         <div class="shopping-cart">
             <div class="shopping-cart-table ">
                 <div class="table-responsive">
+                    @if($subtotal != 0)
                     <form action="{{ url('cart-update') }}" method="post">
                         {{ csrf_field() }}
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="cart-romove item">Remove</th>
-                                <th class="cart-description item">Image</th>
-                                <th class="cart-product-name item">Product Name</th>
-                                <th class="cart-edit item">Edit</th>
-                                <th class="cart-qty item">Quantity</th>
-                                <th class="cart-sub-total item">Subtotal</th>
-                                <th class="cart-total last-item">Grandtotal</th>
+                                <th class="cart-romove item">Xóa</th>
+                                <th class="cart-description item">Hình ảnh</th>
+                                <th class="cart-product-name item">Tên sản phẩm</th>
+                                <th class="cart-qty item">Số lượng</th>
+                                <th class="cart-sub-total item">Giá tiền</th>
+                                <th class="cart-total last-item">Thành tiền</th>
                             </tr>
                         </thead><!-- /thead -->
                         
                         <tbody>
-                        	@foreach($cart as $item)
-                            <tr>
-                                <td class="romove-item"><a href="{{route('remove-cart',[ 'rowId' => $item->rowId])}}" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
-                                <td class="cart-image">
-                                    <a class="entry-thumbnail" href="detail.html">
-                                        <img src="{{ asset('storage/app/products/'.$item->options->img) }}" alt="">
+                            
+                            	@foreach($cart as $item)
+                                <tr>
+                                    <td class="romove-item"><a href="{{route('remove-cart',[ 'rowId' => $item->rowId])}}" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
+                                    <td class="cart-image">
+                                        <a class="entry-thumbnail" href="detail.html">
+                                            <img src="{{ asset('storage/app/products/'.$item->options->img) }}" alt="">
 
-                                    </a>
-                                </td>
-                                <td class="cart-product-name-info">
-                                    <h4 class='cart-product-description'><a href="detail.html">{{ $item->name}}</a></h4>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="rating rateit-small"></div>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <div class="reviews">
-                                                (06 Reviews)
+                                        </a>
+                                    </td>
+                                    <td class="cart-product-name-info">
+                                        <h4 class='cart-product-description'><a href="detail.html">{{ $item->name}}</a></h4>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="rating rateit-small"></div>
                                             </div>
+                                            <div class="col-sm-8">
+                                                <div class="reviews">
+                                                    (06 Reviews)
+                                                </div>
+                                            </div>
+                                        </div><!-- /.row -->
+                                        <div class="cart-product-info">
+                                            <span class="product-color">COLOR:<span>Blue</span></span>
                                         </div>
-                                    </div><!-- /.row -->
-                                    <div class="cart-product-info">
-                                        <span class="product-color">COLOR:<span>Blue</span></span>
-                                    </div>
-                                </td>
-                                <td class="cart-product-edit"><a href="#" class="product-edit">Edit</a></td>
-                                <td class="cart-product-quantity">
-                                    <div class="quant-input">
-                                        <div class="arrows">
-                                            <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
-                                            <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+                                    </td>
+                                    <td class="cart-product-quantity">
+                                        <div class="quant-input">
+                                            <div class="arrows">
+                                                <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
+                                                <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+                                            </div>
+                                            <input type="text" value="{{$item->qty}}" name="qty">
                                         </div>
-                                        <input type="text" value="{{$item->qty}}" name="qty">
-                                    </div>
-                                </td>
-                                <td class="cart-product-grand-total"><span class="cart-grand-total-price">{{ number_format($item->price*$item->qty)."₫" }}</span></td>
-                                <input type="hidden" name="id" value="{{$item->id}}">
-                            </tr>
-                            @endforeach
+                                    </td>
+                                    <td class="cart-product-grand-total"><span class="cart-grand-total-price">{{ number_format($item->price)." ₫" }}</span></td>
+                                    <td class="cart-product-grand-total"><span class="cart-grand-total-price">{{ number_format($item->price*$item->qty)." ₫" }}</span></td>
+                                    <input type="hidden" name="id" value="{{$item->id}}">
+                                </tr>
+                                @endforeach
+
                         </tbody><!-- /tbody -->
                         <tfoot>
                             <tr>
@@ -90,8 +93,12 @@
                         </tfoot>
                     </table><!-- /table -->
                     </form>
+                    @else
+                        {!! $error !!}
+                    @endif
                 </div>
-            </div><!-- /.shopping-cart-table -->				<div class="col-md-4 col-sm-12 estimate-ship-tax">
+            </div><!-- /.shopping-cart-table -->				
+            <!-- <div class="col-md-4 col-sm-12 estimate-ship-tax">
                 <table class="table">
                     <thead>
                         <tr>
@@ -100,7 +107,7 @@
                                 <p>Enter your destination to get shipping and tax.</p>
                             </th>
                         </tr>
-                    </thead><!-- /thead -->
+                    </thead>
                     <tbody>
                         <tr>
                             <td>
@@ -137,15 +144,15 @@
                         </tr>
                     </tbody>
                 </table>
-            </div><!-- /.estimate-ship-tax -->
+            </div> --><!-- /.estimate-ship-tax -->
 
-            <div class="col-md-4 col-sm-12 estimate-ship-tax">
+            <div class="col-md-8 col-sm-12 estimate-ship-tax">
                 <table class="table">
                     <thead>
                         <tr>
                             <th>
-                                <span class="estimate-title">Discount Code</span>
-                                <p>Enter your coupon code if you have one..</p>
+                                <span class="estimate-title">Mã giảm giá</span>
+                                <p>Nhập mã phiếu giảm giá nếu có.</p>
                             </th>
                         </tr>
                     </thead>
@@ -153,10 +160,10 @@
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" class="form-control unicase-form-control text-input" placeholder="You Coupon..">
+                                    <input type="text" class="form-control unicase-form-control text-input" placeholder="Mã phiếu">
                                 </div>
                                 <div class="clearfix pull-right">
-                                    <button type="submit" class="btn-upper btn btn-primary">APPLY COUPON</button>
+                                    <button type="submit" class="btn-upper btn btn-primary">Áp dụng</button>
                                 </div>
                             </td>
                         </tr>
@@ -170,10 +177,7 @@
                         <tr>
                             <th>
                                 <div class="cart-sub-total">
-                                    Subtotal<span class="inner-left-md">{{ Cart::subtotal() }}</span>
-                                </div>
-                                <div class="cart-grand-total">
-                                    Grand Total<span class="inner-left-md">{{ $total }}</span>
+                                    Tổng tiền hàng<span class="inner-left-md">{{ $subtotal." ₫" }}</span>
                                 </div>
                             </th>
                         </tr>
@@ -182,12 +186,11 @@
                         <tr>
                             <td>
                                 <div class="cart-checkout-btn pull-right">
-                                    <form action="{{ url('checkout') }}" method="post">
+                                    <form action="{{ url('checkout') }}" method="get">
                                         
-                                        <button type="submit" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</button>
+                                        <button type="submit" class="btn btn-primary checkout-btn"><b>THANH TOÁN</b></button>
                                         {{ csrf_field() }}
                                     </form>
-                                    <span class="">Checkout with multiples address!</span>
                                 </div>
                             </td>
                         </tr>

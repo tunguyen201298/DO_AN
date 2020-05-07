@@ -48,6 +48,8 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	/*----------------------------------------------------------------------------*/
 	Route::get('slider', 'SlideController@sliderShow')->name('slider');
 	Route::get('slider/create', 'SlideController@create');
+	Route::get('slider/edit/{id}', 'SlideController@edit');
+	Route::post('slider/update/{id}', 'SlideController@update');
 });
 
 /*----------------------------------------------------------------------------*/
@@ -79,7 +81,7 @@ Route::post('add-cart', 'CartsController@addCart')->name('add-cart');
 Route::get('cart-show', 'CartsController@showCart')->name('cart-show');
 Route::get('delete-all', 'CartsController@deleteAll')->name('delete-all');
 Route::get('remove-cart/{rowId}', 'CartsController@removeCart')->name('remove-cart');
-Route::post('checkout', 'CartsController@checkout')->name('checkout');
+Route::get('checkout', 'CartsController@checkout')->name('checkout');
 Route::post('cart-update', 'CartsController@cartUpdate')->name('cart-update');
 /*----------------------------------------------------------------------------*/
 //User

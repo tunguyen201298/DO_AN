@@ -12,6 +12,7 @@ use App\models\Category;
 use App\models\Product;
 use App\models\Slide;
 use Validator;
+use Cart;
 
 class HomesController extends Controller
 {
@@ -20,6 +21,7 @@ class HomesController extends Controller
         $title = "Trang Sức Bạc PNJSilver";
         $products = Product::select('id','name', 'discount', 'price','img_link')
             ->get();
+        
         $slide = Slide::select('title','content', 'image')->get();
         return view('homes.index', compact('title', 'products','slide'));
         

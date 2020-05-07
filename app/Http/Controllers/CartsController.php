@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\collection;
 use App\models\Product;
 use Cart;
+use Illuminate\Support\Facades\Auth;
 
 class CartsController extends Controller
 {
@@ -47,8 +48,9 @@ class CartsController extends Controller
     {
         $title = "Giỏ Hàng";
         $cart = Cart::content();
-        $total = Cart::total();
-        return view('carts.cart', compact('title','cart', 'total'));
+        $subtotal = Cart::subtotal(0,0,',');
+        $error = 'Giỏ hàng rỗng';
+        return view('carts.cart', compact('title','cart', 'subtotal','error'));
     }
     public function cartUpdate(Request $request)
     {
@@ -71,8 +73,19 @@ class CartsController extends Controller
     }
     public function checkout()
     {
-        $title = 'Thanh toán';
-        return view('carts.checkout', compact('title'));
+        
+        if (!Auth::check()) {
+            $title = "Đăng Nhập";
+            return view('accounts.login', compact('title'));
+        }else{
+            $title = 'Thanh toán';
+            $user = Auth::check() ? Auth::user() : '';
+            $cart = Cart::content();
+
+            return view('carts.checkout', compact('title', 'user', 'cart'));
+        }
+
+        
     }
 
 

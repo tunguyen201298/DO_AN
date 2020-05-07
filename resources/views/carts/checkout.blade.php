@@ -14,7 +14,7 @@
 		<div class="panel-heading">
     	<h4 class="unicase-checkout-title">
 	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
-	          <span>1</span>Checkout Method
+	          <span>1</span>Địa chỉ nhận hàng
 	        </a>
 	     </h4>
     </div>
@@ -28,48 +28,53 @@
 
 				<!-- guest-login -->			
 				<div class="col-md-6 col-sm-6 guest-login">
-					<h4 class="checkout-subtitle">Guest or Register Login</h4>
-					<p class="text title-tag-line">Register with us for future convenience:</p>
+					<tbody >
+						<tr style="border-bottom: 2px solid #ddd;">{{ $user->name }}</tr>
+						<tr>{{ $user->phone }}</tr>
+						<tr>{{ $user->street }}</tr>
+					</tbody>
+
+					<!-- fsdfgujhnbmngbnvbnvbnvbnvbnvbncbnvbnvbdfhgfdsgfd -->
+					<h4 class="checkout-subtitle">Bạn chưa có tài khoản?</h4>
 
 					<!-- radio-form  -->
 					<form class="register-form" role="form">
 					    <div class="radio radio-checkout-unicase">  
 					        <input id="guest" type="radio" name="text" value="guest" checked="">  
-					        <label class="radio-button guest-check" for="guest">Checkout as Guest</label>  
+					        <label class="radio-button guest-check" for="guest">Thanh toán với tư cách là khách</label>  
 					          <br>
 					        <input id="register" type="radio" name="text" value="register">  
-					        <label class="radio-button" for="register">Register</label>  
+					        <label class="radio-button" for="register">Đăng ký</label>  
 					    </div>  
 					</form>
 					<!-- radio-form  -->
 
 					<h4 class="checkout-subtitle outer-top-vs">Register and save time</h4>
-					<p class="text title-tag-line ">Register with us for future convenience:</p>
+					<p class="text title-tag-line ">Đăng ký với chúng tôi để thuận tiện trong tương lai:</p>
 					
 					<ul class="text instruction inner-bottom-30">
-						<li class="save-time-reg">- Fast and easy check out</li>
-						<li>- Easy access to your order history and status</li>
+						<li>- Dễ dàng truy cập vào lịch sử đặt hàng và trạng thái của bạn:</li>
 					</ul>
 
-					<button type="submit" class="btn-upper btn btn-primary checkout-page-button checkout-continue ">Continue</button>
+					<button type="submit" class="btn-upper btn btn-primary checkout-page-button checkout-continue ">Tiếp Tục</button>
 				</div>
 				<!-- guest-login -->
 
 				<!-- already-registered-login -->
 				<div class="col-md-6 col-sm-6 already-registered-login">
-					<h4 class="checkout-subtitle">Already registered?</h4>
-					<p class="text title-tag-line">Please log in below:</p>
+					<h4 class="checkout-subtitle">Bạn đã đăng ký</h4>
+					<p class="text title-tag-line">Vui lòng đăng nhập bên dưới:</p>
 					<form class="register-form" role="form">
 						<div class="form-group">
-					    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
+					    <label class="info-title" for="exampleInputEmail1">Địa chỉ Email <span>*</span></label>
 					    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">
 					  </div>
 					  <div class="form-group">
-					    <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
+					    <label class="info-title" for="exampleInputPassword1">Mật khẩu <span>*</span></label>
 					    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="">
-					    <a href="#" class="forgot-password">Forgot your Password?</a>
+					    <a href="#" class="forgot-password">Quên mật khẩu?</a>
 					  </div>
-					  <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
+					  <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Đăng nhập</button>
 					</form>
 				</div>	
 				<!-- already-registered-login -->		
@@ -81,90 +86,6 @@
 	</div><!-- row -->
 </div>
 <!-- checkout-step-01  -->
-					    <!-- checkout-step-02  -->
-					  	<div class="panel panel-default checkout-step-02">
-						    <div class="panel-heading">
-						      <h4 class="unicase-checkout-title">
-						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
-						          <span>2</span>Billing Information
-						        </a>
-						      </h4>
-						    </div>
-						    <div id="collapseTwo" class="panel-collapse collapse" style="height: 0px;">
-						      <div class="panel-body">
-						      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-						      </div>
-						    </div>
-					  	</div>
-					  	<!-- checkout-step-02  -->
-
-						<!-- checkout-step-03  -->
-					  	<div class="panel panel-default checkout-step-03">
-						    <div class="panel-heading">
-						      <h4 class="unicase-checkout-title">
-						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseThree">
-						       		<span>3</span>Shipping Information
-						        </a>
-						      </h4>
-						    </div>
-						    <div id="collapseThree" class="panel-collapse collapse" style="height: 0px;">
-						      <div class="panel-body">
-						      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-						      </div>
-						    </div>
-					  	</div>
-					  	<!-- checkout-step-03  -->
-
-						<!-- checkout-step-04  -->
-					    <div class="panel panel-default checkout-step-04">
-						    <div class="panel-heading">
-						      <h4 class="unicase-checkout-title">
-						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseFour">
-						        	<span>4</span>Shipping Method
-						        </a>
-						      </h4>
-						    </div>
-						    <div id="collapseFour" class="panel-collapse collapse" style="height: 0px;">
-							    <div class="panel-body">
-							     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							    </div>
-					    	</div>
-						</div>
-						<!-- checkout-step-04  -->
-
-						<!-- checkout-step-05  -->
-					  	<div class="panel panel-default checkout-step-05">
-						    <div class="panel-heading">
-						      <h4 class="unicase-checkout-title">
-						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseFive">
-						        	<span>5</span>Payment Information
-						        </a>
-						      </h4>
-						    </div>
-						    <div id="collapseFive" class="panel-collapse collapse" style="height: 0px;">
-						      <div class="panel-body">
-						       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-						      </div>
-						    </div>
-					    </div>
-					    <!-- checkout-step-05  -->
-
-						<!-- checkout-step-06  -->
-					  	<div class="panel panel-default checkout-step-06">
-						    <div class="panel-heading">
-						      <h4 class="unicase-checkout-title">
-						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseSix">
-						        	<span>6</span>Order Review
-						        </a>
-						      </h4>
-						    </div>
-					    	<div id="collapseSix" class="panel-collapse collapse" style="height: 0px;">
-					      		<div class="panel-body">
-					        		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-					      		</div>
-					    	</div>
-					  	</div>
-					  	<!-- checkout-step-06  -->
 					  	
 					</div><!-- /.checkout-steps -->
 				</div>
@@ -174,14 +95,20 @@
 	<div class="panel-group">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-		    	<h4 class="unicase-checkout-title">Your Checkout Progress</h4>
+		    	<h4 class="unicase-checkout-title">Đơn hàng của bạn</h4>
 		    </div>
+		     <div class="">
+				<ul class="nav nav-checkout-progress list-unstyled">
+					<li class="checkout-item1"><h5 class="unicase-checkout-title">SẢN PHẨM</h5></li>
+					<li class="checkout-item2"><h5 class="unicase-checkout-title">THÀNH TIỀN</h5></li>
+				</ul>	
+			</div>
+			<hr>
 		    <div class="">
 				<ul class="nav nav-checkout-progress list-unstyled">
-					<li><a href="#">Billing Address</a></li>
-					<li><a href="#">Shipping Address</a></li>
-					<li><a href="#">Shipping Method</a></li>
-					<li><a href="#">Payment Method</a></li>
+					@foreach($cart as $item)
+					<li ><p class="checkout-item3">{{ $item->name }}</p><p class="checkout-item3">{{ "x ".$item->qty}}</p><p class="checkout-item3">{{ "x ".$item->qty*$item->price}}</p></li>
+					@endforeach
 				</ul>		
 			</div>
 		</div>

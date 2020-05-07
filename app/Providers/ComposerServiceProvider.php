@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Http\ViewComposers\MenuComposer;
+use App\Http\ViewComposers\CartComposer;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,13 @@ class ComposerServiceProvider extends ServiceProvider
             'homes.index',
             'products.product_detail'
         ], MenuComposer::class);
+        view()->composer([
+            'homes.index',
+            'products.product_detail',
+            'carts.cart',
+            'carts.checkout',
+            'accounts.login'
+        ], CartComposer::class);
     }
 
     /**

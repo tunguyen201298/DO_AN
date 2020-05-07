@@ -6,51 +6,39 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group">
-            <label class="required" for="input_area_name">{{trans('Tên nhà cung cấp')}}</label>
-            {!! Form::text('name', $suppliers->name, array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_supplier_name', 'placeholder' => trans('Tên nhà cung cấp'))) !!} 
-            @if ($errors->has('name'))
+            <label class="required" for="input_area_name">{{trans('Tiêu đề')}}</label>
+            {!! Form::text('title', $slide->title, array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_slider_title', 'placeholder' => trans('Tiêu đề'))) !!} 
+            @if ($errors->has('title'))
                 <span class="help-block">
-                    {{ $errors->first('name') }}
+                    {{ $errors->first('title') }}
                 </span>
             @endif
         </div>
         <div class="form-group">
-            <label class="required" for="input_area_name">{{trans('Địa chỉ 1')}}</label>
-            {!! Form::text('street_1', $suppliers->street_1, array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_supplier_street_1', 'placeholder' => trans('Địa chỉ 1'))) !!} 
-            @if ($errors->has('street_1'))
+            <label class="required" for="input_area_name">{{trans('Nội dung')}}</label>
+            {!! Form::text('content', $slide->content, array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_slide_content', 'placeholder' => trans('Địa chỉ 1'))) !!} 
+            @if ($errors->has('content'))
                 <span class="help-block">
-                    {{ $errors->first('street_1') }}
+                    {{ $errors->first('content') }}
                 </span>
             @endif
         </div>
         <div class="form-group">
-            <label class="" for="input_area_name">{{trans('Địa chỉ 2')}}</label>
-            {!! Form::text('street_2', $suppliers->street_2, array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_supplier_street_2', 'placeholder' => trans('Địa chỉ 2'))) !!} 
-            @if ($errors->has('street_2'))
+            @if($slide->is_visible == 0)
+                <img src="{{ asset('storage/app/sliders/'.$slide->image) }}" style="width: 100px"  ></br>
+                <label class="" for="input_area_name">{{trans('Hình ảnh')}}</label>
+                {!! Form::file('image', array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_slide_image', 'placeholder' => trans('Hình ảnh'))) !!} 
+            @else
+            <label class="" for="input_area_name">{{trans('Hình ảnh')}}</label>
+            {!! Form::file('image', array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_slide_image', 'placeholder' => trans('Hình ảnh'))) !!} 
+            @endif
+            @if ($errors->has('image'))
                 <span class="help-block">
-                    {{ $errors->first('street_2') }}
+                    {{ $errors->first('image') }}
                 </span>
             @endif
         </div>
-        <div class="form-group">
-            <label class="required" for="input_area_name">{{trans('Số điện thoại')}}</label>
-            {!! Form::text('phone', $suppliers->phone, array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_supplier_phone', 'placeholder' => trans('Số điện thoại'))) !!} 
-            @if ($errors->has('phone'))
-                <span class="help-block">
-                    {{ $errors->first('phone') }}
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label class="required" for="input_area_name">{{trans('Email')}}</label>
-            {!! Form::email('email', $suppliers->email, array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_supplier_email', 'placeholder' => trans('Email'))) !!} 
-            @if ($errors->has('email'))
-                <span class="help-block">
-                    {{ $errors->first('email') }}
-                </span>
-            @endif
-        </div>
-       
+        
         <div class="form-group">
             <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{trans('Lưu')}}</button>
             <a href="{{url('admin/supplier')}}" class="btn btn-default"><i class="fa fa-reply"></i> {{trans('Trở lại')}}</a>

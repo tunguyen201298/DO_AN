@@ -19,8 +19,8 @@
         <h3 class="box-title">{{$title}}</h3>
         <div class="box-action pull-right">
             <ul class="header-action">
-                <li><a href="{{url('admin/img/slide/create')}}" class="btn btn-primary"><i class="fa fa-plus-square"></i> {{trans('Thêm mới')}}</a></li>
-                <li><a href="{{url('admin/admin/img')}}" class="btn btn-default" ><i class="fa fa-refresh"></i> {{trans('Tải lại')}}</a></li>
+                <li><a href="{{url('admin/slider/create')}}" class="btn btn-primary"><i class="fa fa-plus-square"></i> {{trans('Thêm mới')}}</a></li>
+                <li><a href="{{url('admin/slider')}}" class="btn btn-default" ><i class="fa fa-refresh"></i> {{trans('Tải lại')}}</a></li>
             </ul>
         </div>
     </div>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Cart;
 
 class AccountsController extends Controller
 {
@@ -38,7 +39,8 @@ class AccountsController extends Controller
     {
         $remember = $request->has('remember') ? true : false;
          if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
-            return redirect(url('/'));
+            
+            return redirect()->back();
         } else {
             return redirect()->back()->with('messenger', 'Đăng nhập thất bại');
         }
@@ -90,6 +92,7 @@ class AccountsController extends Controller
 
             if($user->save()){
                 Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+                
                 return redirect('/')->with('alert','Thêm thành công');
             }else{
                 return redirect('/login')->with('alert','Không thành công');
@@ -101,6 +104,7 @@ class AccountsController extends Controller
 
     public function logout()
     {
+        Cart::destroy();
         Auth::logout();
         return redirect('/');
     }

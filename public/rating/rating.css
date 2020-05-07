@@ -49,3 +49,18 @@
 	    top:2px;
 	    left:2px;
 	}
+	.checkout-item1{
+		display: inline-block !important;
+    	margin-right: 120px;
+	}
+	.checkout-item2{
+		display: inline-block !important;
+	}
+	.checkout-item3{
+		white-space: nowrap;
+		width: 100px;
+		text-overflow: ellipsis;    
+		overflow: hidden; 
+		color: #777777;
+		display: inline-block !important;
+	}
