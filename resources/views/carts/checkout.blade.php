@@ -24,69 +24,60 @@
 
 		<!-- panel-body  -->
 	    <div class="panel-body">
-			<div class="row">		
-
-				<!-- guest-login -->			
-				<div class="col-md-6 col-sm-6 guest-login">
-					<tbody >
-						<tr style="border-bottom: 2px solid #ddd;">{{ $user->name }}</tr>
-						<tr>{{ $user->phone }}</tr>
-						<tr>{{ $user->street }}</tr>
-					</tbody>
-
-					<!-- fsdfgujhnbmngbnvbnvbnvbnvbnvbncbnvbnvbdfhgfdsgfd -->
-					<h4 class="checkout-subtitle">Bạn chưa có tài khoản?</h4>
-
-					<!-- radio-form  -->
-					<form class="register-form" role="form">
-					    <div class="radio radio-checkout-unicase">  
-					        <input id="guest" type="radio" name="text" value="guest" checked="">  
-					        <label class="radio-button guest-check" for="guest">Thanh toán với tư cách là khách</label>  
-					          <br>
-					        <input id="register" type="radio" name="text" value="register">  
-					        <label class="radio-button" for="register">Đăng ký</label>  
-					    </div>  
-					</form>
-					<!-- radio-form  -->
-
-					<h4 class="checkout-subtitle outer-top-vs">Register and save time</h4>
-					<p class="text title-tag-line ">Đăng ký với chúng tôi để thuận tiện trong tương lai:</p>
-					
-					<ul class="text instruction inner-bottom-30">
-						<li>- Dễ dàng truy cập vào lịch sử đặt hàng và trạng thái của bạn:</li>
-					</ul>
-
-					<button type="submit" class="btn-upper btn btn-primary checkout-page-button checkout-continue ">Tiếp Tục</button>
-				</div>
-				<!-- guest-login -->
-
-				<!-- already-registered-login -->
-				<div class="col-md-6 col-sm-6 already-registered-login">
-					<h4 class="checkout-subtitle">Bạn đã đăng ký</h4>
-					<p class="text title-tag-line">Vui lòng đăng nhập bên dưới:</p>
-					<form class="register-form" role="form">
-						<div class="form-group">
-					    <label class="info-title" for="exampleInputEmail1">Địa chỉ Email <span>*</span></label>
-					    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">
-					  </div>
-					  <div class="form-group">
-					    <label class="info-title" for="exampleInputPassword1">Mật khẩu <span>*</span></label>
-					    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="">
-					    <a href="#" class="forgot-password">Quên mật khẩu?</a>
-					  </div>
-					  <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Đăng nhập</button>
-					</form>
-				</div>	
-				<!-- already-registered-login -->		
-
-			</div>			
+			<table class="table">
+				@foreach($add as $item)
+                <tr class="table-checkout">
+                	<td class="checkout-item2 ">{{$item->name.'( 0' .$item->phone.','.$item->street. ')'}}</td>
+                	<td class="checkout-user">
+                		<button name="submit" >Chỉnh sửa</button>
+                	</td>
+                	<td class="checkout-user"><a href="">Mặt định</a></td>
+                </tr>
+                @endforeach
+			</table>		
 		</div>
 		<!-- panel-body  -->
 
 	</div><!-- row -->
 </div>
 <!-- checkout-step-01  -->
-					  	
+					    <!-- checkout-step-02  -->
+					  	<div class="panel panel-default checkout-step-02">
+						    <div class="panel-heading">
+						      <h4 class="unicase-checkout-title">
+						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseTwo">
+						          <span>2</span>Sản phẩm
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapseTwo" class="panel-collapse collapse" style="height: 0px;">
+						      <div class="panel-body">
+						      	
+							
+						      </div>
+						    </div>
+					  	</div>
+					  	<!-- checkout-step-02  -->
+
+						<!-- checkout-step-03  -->
+					  	<div class="panel panel-default checkout-step-03">
+						    <div class="panel-heading">
+						      <h4 class="unicase-checkout-title">
+						        <a data-toggle="collapse" class="collapsed" data-parent="#accordion" href="#collapseThree">
+						       		<span>3</span>Phương thức thanh toán
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapseThree" class="panel-collapse collapse" style="height: 0px;">
+						      <div class="panel-body">
+						      	<span>Thanh toán khi nhận hàng</span>
+						      	<span>Thanh toán bằng thẻ</span>
+						      </div>
+						    </div>
+					  	</div>
+					  	<!-- checkout-step-03  -->
+
+						
 					</div><!-- /.checkout-steps -->
 				</div>
 				<div class="col-md-4">
@@ -99,20 +90,24 @@
 		    </div>
 		     <div class="">
 				<ul class="nav nav-checkout-progress list-unstyled">
-					<li class="checkout-item1"><h5 class="unicase-checkout-title">SẢN PHẨM</h5></li>
-					<li class="checkout-item2"><h5 class="unicase-checkout-title">THÀNH TIỀN</h5></li>
+					<li class="checkout-item1"><h5 class="unicase-checkout-title"><b>SẢN PHẨM</b></h5></li>
+					<li class="checkout-item2"><h5 class="unicase-checkout-title"><b>THÀNH TIỀN</b></h5></li>
 				</ul>	
 			</div>
 			<hr>
 		    <div class="">
 				<ul class="nav nav-checkout-progress list-unstyled">
 					@foreach($cart as $item)
-					<li ><p class="checkout-item3">{{ $item->name }}</p><p class="checkout-item3">{{ "x ".$item->qty}}</p><p class="checkout-item3">{{ "x ".$item->qty*$item->price}}</p></li>
+					<li ><p class="checkout-item3">{{ $item->name }}</p><p class="checkout-item3">{{ "x ".$item->qty}}</p><p class="checkout-item3">{{ $item->qty*$item->price}}</p></li>
 					@endforeach
 				</ul>		
 			</div>
 		</div>
 	</div>
+	<form action="{{ url('success')}}" method="post">
+		{{ csrf_field() }}
+		<button type="submit" class="btn-upper btn btn-primary checkout-page-button" style="margin-left: 240px">Thanh toán</button>
+	</form>
 </div> 
 <!-- checkout-progress-sidebar -->				</div>
 			</div><!-- /.row -->
@@ -172,4 +167,14 @@
 </div><!-- /.logo-slider -->
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
+<script type="text/javascript">
+    $('#chinhsua').on('click', function() {
+		Swal.fire(
+		  'Thông báo',
+		  'Thanh toán thành công',
+		  'success'
+		)
+    });
+</script>
 @stop

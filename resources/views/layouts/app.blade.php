@@ -17,6 +17,7 @@
     
     <!-- Customizable CSS -->
     <link rel="stylesheet" href="{{asset('public/assets/css/main.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css">
     <link rel="stylesheet" href="{{asset('public/rating/rating.css')}}">
     <link rel="stylesheet" href="{{asset('public/assets/css/blue.css')}}">
     <link rel="stylesheet" href="{{asset('public/assets/css/owl.carousel.css')}}">
@@ -24,6 +25,7 @@
     <link rel="stylesheet" href="{{asset('public/assets/css/animate.min.css')}}">
     <link rel="stylesheet" href="{{asset('public/assets/css/rateit.css')}}">
     <link rel="stylesheet" href="{{asset('public/assets/css/bootstrap-select.min.css')}}">
+    <link href="{{asset('public/assets/css/lightbox.css')}}" rel="stylesheet">
     <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="{{asset('public/assets/css/font-awesome.css')}}">
     <!-- Fonts --> 
@@ -50,11 +52,12 @@
     <script src="{{asset('public/assets/js/jquery.easing-1.3.min.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-slider.min.js')}}"></script>
     <script src="{{asset('public/assets/js/jquery.rateit.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('public/assets/js/lightbox.min.js')}}"></script>
+    <script src="{{asset('public/assets/js/lightbox.min.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-select.min.js')}}"></script>
     <script src="{{asset('public/assets/js/wow.min.js')}}"></script>
     <script src="{{asset('public/assets/js/scripts.js')}}"></script>
     <script src="{{asset('public/admin/js/admin.js')}}"></script>
     <script src="{{asset('public/admin/js/app.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
 </body>
 </html>

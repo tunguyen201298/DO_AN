@@ -1,6 +1,7 @@
 <!-- ============================================== HEADER ============================================== -->
 <header class="header-style-1">
 
+
     <!-- ============================================== TOP MENU ============================================== -->
     <div class="top-bar animate-dropdown">
         <div class="container">
@@ -10,7 +11,7 @@
                         
                         <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
                         <li><a href="{{ route('cart-show')}}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a href="{{route('checkout')}}"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        <li><a href="#" id="result"><i class="icon fa fa-check"></i>Checkout</a></li>
                     </ul>
                 </div><!-- /.cnt-account -->
 
@@ -432,3 +433,21 @@
 </header>
 
 <!-- ============================================== HEADER : END ============================================== -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
+<script type="text/javascript">
+    $('#result').on('click', function() {
+        console.log("btn click");
+        var carts = '{{Cart::count()}}';
+        var user = '{{ !Auth::check()}}';
+        if (user){
+            Swal.fire('Xin mời đăng nhập')
+        }
+        else if (carts == 0) {
+            Swal.fire('Chưa có sản phẩm nào')
+        }else{
+            location.href = '{{url("checkout")}}';
+        }
+        
+    });
+</script>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,4 +16,9 @@ class User extends Model
     	'phone',
     	'birthdate'
     ];
+
+    public function addresse() 
+    {   
+        return $this->hasMany(\App\models\Addresse::class);
+    }
 }

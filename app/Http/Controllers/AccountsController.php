@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Addresse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -37,9 +38,9 @@ class AccountsController extends Controller
     }
     public function checkLogin(Request $request)
     {
+        
         $remember = $request->has('remember') ? true : false;
          if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
-            
             return redirect()->back();
         } else {
             return redirect()->back()->with('messenger', 'Đăng nhập thất bại');
@@ -85,12 +86,17 @@ class AccountsController extends Controller
             $user->username = $username;
             $user->password = $password;
             $user->email = $email;
-            $user->street = $street;
-            $user->role = $role;
-            $user->phone = $phone;
-            $user->birthdate = $birthdate;
+            $user->role = !empty($role) ? $role : '';
+            $user->birthdate = !empty($birthdate) ?$birthdate : '' ;
+            $customer_id = User::SELECT('*')->orderBy('id', 'DESC')->LIMIT(1)->first();
 
-            if($user->save()){
+            $addresses = new Addresse();
+            $addresses->user_id = $customer_id->id + 1;
+            $addresses->street = $street;
+            $addresses->phone = $phone;
+            $addresses->name = $name;
+
+            if($user->save() && $addresses->save()){
                 Auth::attempt(['email' => $request->email, 'password' => $request->password]);
                 
                 return redirect('/')->with('alert','Thêm thành công');

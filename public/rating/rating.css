@@ -48,13 +48,16 @@
 	    position:relative;
 	    top:2px;
 	    left:2px;
+
 	}
 	.checkout-item1{
 		display: inline-block !important;
     	margin-right: 120px;
+    	color: #777777;
 	}
 	.checkout-item2{
 		display: inline-block !important;
+		color: #777777;
 	}
 	.checkout-item3{
 		white-space: nowrap;
@@ -63,4 +66,10 @@
 		overflow: hidden; 
 		color: #777777;
 		display: inline-block !important;
+	}
+	.checkout-user{
+		text-align: right;
+	}
+	.table-checkout{
+		border: solid 1px #777777;
 	}

@@ -98,7 +98,7 @@
                             </div><!-- /.gallery-thumbs -->
 
                         </div><!-- /.single-product-gallery -->
-                    </div><!-- /.gallery-holder -->        			
+                    </div><!-- /.gallery-holder -->                 
                     <div class="col-sm-6 col-md-7 product-info-block">
                         <div class="product-info">
                             <h1 class="name">{{ $product_detail->name }}</h1>
@@ -113,7 +113,7 @@
                                             <a href="#" class="lnk">(13 Reviews)</a>
                                         </div>
                                     </div>
-                                </div><!-- /.row -->		
+                                </div><!-- /.row -->        
                             </div><!-- /.rating-reviews -->
 
                             <div class="stock-container info-container m-t-10">
@@ -121,14 +121,14 @@
                                     <div class="col-sm-2">
                                         <div class="stock-box">
                                             <span class="label">Trạng thái :</span>
-                                        </div>	
+                                        </div>  
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="stock-box">
                                             <span class="value">In Stock</span>
-                                        </div>	
+                                        </div>  
                                     </div>
-                                </div><!-- /.row -->	
+                                </div><!-- /.row -->    
                             </div><!-- /.stock-container -->
 
                             <div class="description-container m-t-20">
@@ -215,7 +215,7 @@
                             <div id="description" class="tab-pane in active">
                                 <div class="product-tab">
                                     <p class="text">{!! $product_detail->detail !!}</p>
-                                </div>	
+                                </div>  
                             </div><!-- /.tab-pane -->
 
                             <div id="review" class="tab-pane">
@@ -317,13 +317,13 @@
                     <div class="owl-wrapper-outer"><div class="owl-wrapper" style="width: 2484px; left: 0px; display: block;"><div class="owl-item" style="width: 207px;"><div class="item item-carousel">
                                     <div class="products">
 
-                                        <div class="product">		
+                                        <div class="product">       
                                             <div class="product-image">
                                                 <div class="image">
                                                     <a href="detail.html"><img src="public/assets\images\products\p1.jpeg" alt=""></a>
-                                                </div><!-- /.image -->			
+                                                </div><!-- /.image -->          
 
-                                                <div class="tag sale"><span>sale</span></div>            		   
+                                                <div class="tag sale"><span>sale</span></div>                      
                                             </div><!-- /.product-image -->
 
 
@@ -332,9 +332,9 @@
                                                 <div class="rating rateit-small rateit"><button id="rateit-reset-6" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-6" style="display: none;"></button><div id="rateit-range-6" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-6" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
                                                 <div class="description"></div>
 
-                                                <div class="product-price">	
+                                                <div class="product-price"> 
                                                     <span class="price">
-                                                        $650.99				</span>
+                                                        $650.99             </span>
                                                     <span class="price-before-discount">$ 800</span>
 
                                                 </div><!-- /.product-price -->
@@ -345,7 +345,7 @@
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
                                                             <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-                                                                <i class="fa fa-shopping-cart"></i>													
+                                                                <i class="fa fa-shopping-cart"></i>                                                 
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
 
@@ -371,13 +371,13 @@
                                 </div></div><div class="owl-item" style="width: 207px;"><div class="item item-carousel">
                                     <div class="products">
 
-                                        <div class="product">		
+                                        <div class="product">       
                                             <div class="product-image">
                                                 <div class="image">
                                                     <a href="detail.html"><img src="public/assets\images\products\p2.jpeg" alt=""></a>
-                                                </div><!-- /.image -->			
+                                                </div><!-- /.image -->          
 
-                                                <div class="tag sale"><span>sale</span></div>            		   
+                                                <div class="tag sale"><span>sale</span></div>                      
                                             </div><!-- /.product-image -->
 
 
@@ -386,9 +386,9 @@
                                                 <div class="rating rateit-small rateit"><button id="rateit-reset-7" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-7" style="display: none;"></button><div id="rateit-range-7" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-7" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
                                                 <div class="description"></div>
 
-                                                <div class="product-price">	
+                                                <div class="product-price"> 
                                                     <span class="price">
-                                                        $650.99				</span>
+                                                        $650.99             </span>
                                                     <span class="price-before-discount">$ 800</span>
 
                                                 </div><!-- /.product-price -->
@@ -399,7 +399,7 @@
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
                                                             <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-                                                                <i class="fa fa-shopping-cart"></i>													
+                                                                <i class="fa fa-shopping-cart"></i>                                                 
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
 
@@ -425,13 +425,13 @@
                                 </div></div><div class="owl-item" style="width: 207px;"><div class="item item-carousel">
                                     <div class="products">
 
-                                        <div class="product">		
+                                        <div class="product">       
                                             <div class="product-image">
                                                 <div class="image">
                                                     <a href="detail.html"><img src="public/assets\images\products\p3.jpeg" alt=""></a>
-                                                </div><!-- /.image -->			
+                                                </div><!-- /.image -->          
 
-                                                <div class="tag hot"><span>hot</span></div>		   
+                                                <div class="tag hot"><span>hot</span></div>        
                                             </div><!-- /.product-image -->
 
 
@@ -440,9 +440,9 @@
                                                 <div class="rating rateit-small rateit"><button id="rateit-reset-8" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-8" style="display: none;"></button><div id="rateit-range-8" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-8" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
                                                 <div class="description"></div>
 
-                                                <div class="product-price">	
+                                                <div class="product-price"> 
                                                     <span class="price">
-                                                        $650.99				</span>
+                                                        $650.99             </span>
                                                     <span class="price-before-discount">$ 800</span>
 
                                                 </div><!-- /.product-price -->
@@ -453,7 +453,7 @@
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
                                                             <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-                                                                <i class="fa fa-shopping-cart"></i>													
+                                                                <i class="fa fa-shopping-cart"></i>                                                 
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
 
@@ -479,13 +479,13 @@
                                 </div></div><div class="owl-item" style="width: 207px;"><div class="item item-carousel">
                                     <div class="products">
 
-                                        <div class="product">		
+                                        <div class="product">       
                                             <div class="product-image">
                                                 <div class="image">
                                                     <a href="detail.html"><img src="public/assets\images\products\p4.jpeg" alt=""></a>
-                                                </div><!-- /.image -->			
+                                                </div><!-- /.image -->          
 
-                                                <div class="tag new"><span>new</span></div>                        		   
+                                                <div class="tag new"><span>new</span></div>                                
                                             </div><!-- /.product-image -->
 
 
@@ -494,9 +494,9 @@
                                                 <div class="rating rateit-small rateit"><button id="rateit-reset-9" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-9" style="display: none;"></button><div id="rateit-range-9" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-9" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
                                                 <div class="description"></div>
 
-                                                <div class="product-price">	
+                                                <div class="product-price"> 
                                                     <span class="price">
-                                                        $650.99				</span>
+                                                        $650.99             </span>
                                                     <span class="price-before-discount">$ 800</span>
 
                                                 </div><!-- /.product-price -->
@@ -507,7 +507,7 @@
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
                                                             <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-                                                                <i class="fa fa-shopping-cart"></i>													
+                                                                <i class="fa fa-shopping-cart"></i>                                                 
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
 
@@ -533,13 +533,13 @@
                                 </div></div><div class="owl-item" style="width: 207px;"><div class="item item-carousel">
                                     <div class="products">
 
-                                        <div class="product">		
+                                        <div class="product">       
                                             <div class="product-image">
                                                 <div class="image">
                                                     <a href="detail.html"><img src="public/assets/images/products/p5.jpg" alt=""></a>
-                                                </div><!-- /.image -->			
+                                                </div><!-- /.image -->          
 
-                                                <div class="tag hot"><span>hot</span></div>		   
+                                                <div class="tag hot"><span>hot</span></div>        
                                             </div><!-- /.product-image -->
 
 
@@ -548,9 +548,9 @@
                                                 <div class="rating rateit-small rateit"><button id="rateit-reset-10" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-10" style="display: none;"></button><div id="rateit-range-10" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-10" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
                                                 <div class="description"></div>
 
-                                                <div class="product-price">	
+                                                <div class="product-price"> 
                                                     <span class="price">
-                                                        $650.99				</span>
+                                                        $650.99             </span>
                                                     <span class="price-before-discount">$ 800</span>
 
                                                 </div><!-- /.product-price -->
@@ -561,7 +561,7 @@
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
                                                             <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-                                                                <i class="fa fa-shopping-cart"></i>													
+                                                                <i class="fa fa-shopping-cart"></i>                                                 
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
 
@@ -587,13 +587,13 @@
                                 </div></div><div class="owl-item" style="width: 207px;"><div class="item item-carousel">
                                     <div class="products">
 
-                                        <div class="product">		
+                                        <div class="product">       
                                             <div class="product-image">
                                                 <div class="image">
                                                     <a href="detail.html"><img src="public/assets/images/products/p6.jpg" alt=""></a>
-                                                </div><!-- /.image -->			
+                                                </div><!-- /.image -->          
 
-                                                <div class="tag new"><span>new</span></div>                        		   
+                                                <div class="tag new"><span>new</span></div>                                
                                             </div><!-- /.product-image -->
 
 
@@ -602,9 +602,9 @@
                                                 <div class="rating rateit-small rateit"><button id="rateit-reset-11" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-11" style="display: none;"></button><div id="rateit-range-11" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-11" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
                                                 <div class="description"></div>
 
-                                                <div class="product-price">	
+                                                <div class="product-price"> 
                                                     <span class="price">
-                                                        $650.99				</span>
+                                                        $650.99             </span>
                                                     <span class="price-before-discount">$ 800</span>
 
                                                 </div><!-- /.product-price -->
@@ -615,7 +615,7 @@
                                                     <ul class="list-unstyled">
                                                         <li class="add-cart-button btn-group">
                                                             <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-                                                                <i class="fa fa-shopping-cart"></i>													
+                                                                <i class="fa fa-shopping-cart"></i>                                                 
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button">Add to cart</button>
 

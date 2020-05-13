@@ -7,7 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\collection;
-use App\models\Product;
+use App\Models\Product;
+use App\Models\Addresse;
+use App\Models\User;
 use Cart;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +29,7 @@ class CartsController extends Controller
    
     public function addCart(Request $request)
     {   
-        
+        dd($request->all());
         $id = $request->id ; 
         $quantity = $request->qty ? $request->qty : 1;
         $product_detail = Product::find($id);
@@ -46,11 +48,16 @@ class CartsController extends Controller
     }
     public function showCart()
     {
-        $title = "Giỏ Hàng";
-        $cart = Cart::content();
-        $subtotal = Cart::subtotal(0,0,',');
-        $error = 'Giỏ hàng rỗng';
-        return view('carts.cart', compact('title','cart', 'subtotal','error'));
+        if (!Auth::check()) {
+            $title = "Đăng Nhập";
+            return view('accounts.login', compact('title'));
+        }else{
+            $title = "Giỏ Hàng";
+            $cart = Cart::content();
+            $subtotal = Cart::subtotal(0,0,',');
+            $error = 'Giỏ hàng rỗng';
+            return view('carts.cart', compact('title','cart', 'subtotal','error'));
+        }
     }
     public function cartUpdate(Request $request)
     {
@@ -73,20 +80,24 @@ class CartsController extends Controller
     }
     public function checkout()
     {
-        
-        if (!Auth::check()) {
-            $title = "Đăng Nhập";
-            return view('accounts.login', compact('title'));
-        }else{
-            $title = 'Thanh toán';
-            $user = Auth::check() ? Auth::user() : '';
-            $cart = Cart::content();
-
-            return view('carts.checkout', compact('title', 'user', 'cart'));
-        }
-
-        
+        $title = 'Thanh toán';
+        $user = Auth::user();
+        $add = Auth::check() ? User::find('13')->addresse()->get() : '';
+        $cart = Cart::content();
+        return view('carts.checkout', compact('title', 'user', 'cart', 'add'));
     }
-
+    public function success()
+    {
+        
+        /*$user = new User();
+            $user->name = $name;
+            $user->username = $username;
+            $user->password = $password;
+            $user->email = $email;
+            $user->role = !empty($role) ? $role : '';
+            $user->birthdate = !empty($birthdate) ?$birthdate : '' ;
+            $customer_id = User::SELECT('*')->orderBy('id', 'DESC')->LIMIT(1)->first();*/
+        return view('errors.success');
+    }
 
 }

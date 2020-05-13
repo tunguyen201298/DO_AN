@@ -94,7 +94,9 @@
                     </table><!-- /table -->
                     </form>
                     @else
-                        {!! $error !!}
+                        <h3 style="color: #777777"><b>Giỏ hàng rỗng</b></h3><br>
+                        <a href="{{route('home')}}" class="btn-upper btn btn-primary">TIẾP TỤC MUA HÀNG</a>
+                        
                     @endif
                 </div>
             </div><!-- /.shopping-cart-table -->				

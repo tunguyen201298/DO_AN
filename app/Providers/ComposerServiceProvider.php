@@ -24,7 +24,8 @@ class ComposerServiceProvider extends ServiceProvider
             'products.product_detail',
             'carts.cart',
             'carts.checkout',
-            'accounts.login'
+            'accounts.login',
+            'errors.success'
         ], CartComposer::class);
     }
 
