@@ -1,6 +1,78 @@
 @extends('layouts.app')
 @section('title', $title)
 @section('content')
+<style type="text/css">
+	 body {
+  	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+	}
+	tr:hover{
+		background: #f5f5f5;
+	}
+/* The container */
+.add-radio {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  font-size: 13px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.add-radio input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #eee;
+  border-radius: 50%;
+  margin-top: 4px;
+}
+
+/* On mouse-over, add a grey background color */
+.add-radio:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.add-radio input:checked ~ .checkmark {
+  background-color: #66ad44;
+  margin-top: 4px;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.add-radio input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.add-radio .checkmark:after {
+ 	top: 5px;
+	left: 5px;
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background: white;
+}
+</style>
 <div class="body-content">
 	<div class="container">
 		<div class="checkout-box ">
@@ -24,17 +96,36 @@
 
 		<!-- panel-body  -->
 	    <div class="panel-body">
-			<table class="table">
-				@foreach($add as $item)
-                <tr class="table-checkout">
-                	<td class="checkout-item2 ">{{$item->name.'( 0' .$item->phone.','.$item->street. ')'}}</td>
-                	<td class="checkout-user">
-                		<button name="submit" >Chỉnh sửa</button>
-                	</td>
-                	<td class="checkout-user"><a href="">Mặt định</a></td>
-                </tr>
-                @endforeach
-			</table>		
+                	<ul class="nav nav-checkout-progress list-unstyled">
+                		<div class="row">
+                		
+                			<div class="col-md-8">
+
+                				@foreach($add as $item)
+		                		<li>
+		                			<label class="add-radio">
+		                				<p class="checkout-item2 "><b>{{$item->name}}</b>{{' ( 0' .$item->phone.','.$item->street. ')'}}</p>
+									   <input type="radio" checked="checked" name="radio" value="{{$item->id}}">
+									   <span class="checkmark"></span>
+									</label>
+			                	</li>
+			                	@endforeach
+		                	</div>
+		               
+		                	<div class="col-md-4">
+		                		<p class="checkout-user"><a href="" >Mặt định</a></p>
+		                		<p class="checkout-user">
+				                		<input  type="submit" name="submit" value="Chỉnh sửa" class="addstreet-none btn-upper btn btn-primary checkout-page-button" onclick="none()"></input>
+				                		<div class="addstreet-block" style="display: none">
+					                		<input  type="submit" name="submit" class="btn-upper btn btn-primary checkout-page-button" id="addstreet"
+					                		value="Thêm mới"  onclick="block()"></input>
+					                		<a href="#" id="setting" class="btn-upper btn btn-primary checkout-page-button" >Sửa</a>
+				                		</div>
+				                	</p>
+		                	</div>
+		                </div>
+                	</ul>
+                	
 		</div>
 		<!-- panel-body  -->
 
@@ -98,15 +189,17 @@
 		    <div class="">
 				<ul class="nav nav-checkout-progress list-unstyled">
 					@foreach($cart as $item)
-					<li ><p class="checkout-item3">{{ $item->name }}</p><p class="checkout-item3">{{ "x ".$item->qty}}</p><p class="checkout-item3">{{ $item->qty*$item->price}}</p></li>
+					<li ><p class="checkout-item3">{{ $item->name }}</p><p class="checkout-item3">{{ "x ".$item->qty}}</p><p class="checkout-item3">{{ number_format($item->qty*$item->price)." ₫"}}</p></li>
 					@endforeach
+					<hr>
+					<li ><p class="checkout-item3">Tổng tiền :</p><p class="checkout-item3"></p><p class="checkout-item3">{{ Cart::subtotal()." ₫"}}</p></li>
 				</ul>		
 			</div>
 		</div>
 	</div>
-	<form action="{{ url('success')}}" method="post">
+	<form action="{{ url('success-post')}}" method="post">
 		{{ csrf_field() }}
-		<button type="submit" class="btn-upper btn btn-primary checkout-page-button" style="margin-left: 240px">Thanh toán</button>
+		<a href="#" class="btn-upper btn btn-primary checkout-page-button" style="margin-left: 240px" id="chinhsua">Thanh toán</a>
 	</form>
 </div> 
 <!-- checkout-progress-sidebar -->				</div>
@@ -169,12 +262,66 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
 <script type="text/javascript">
-    $('#chinhsua').on('click', function() {
-		Swal.fire(
-		  'Thông báo',
-		  'Thanh toán thành công',
-		  'success'
-		)
+	function none() {
+	  var x = document.getElementsByClassName("addstreet-none");
+	  x[0].style.display = "none";
+	  var y = document.getElementsByClassName("addstreet-block");
+	  y[0].style.display = "block";
+	}
+	function block() {
+	  var x = document.getElementsByClassName("addstreet-block");
+	  x[0].style.display = "block";
+	}
+
+   $('#setting').on('click', function() {
+		 Swal.fire({
+		  icon: 'success',
+		  title: 'Thanh toán thành công',
+		  showConfirmButton: false,
+		  timer: 1500
+		})
+		setTimeout(function(){
+		    var radioValue = $("input[name='radio']:checked").val();
+
+            if(radioValue){
+            	var url = "{{url('success')}}"+'/'+radioValue;
+                location.href = url;
+            }
+		}, 1500);
     });
+    $('#addstreet').on('click', function() {
+	(async () => {
+		const { value: formValues } = await Swal.fire({
+		  title: 'Thêm địa chỉ mới',
+		  html:
+		    '<input id="name" class="swal2-input" placeholder="Họ & tên">' +
+		    '<input id="phone" class="swal2-input" placeholder="Số điện thoại">' +
+		    '<input id="street" class="swal2-input" placeholder=" Địa chỉ">',
+		  focusConfirm: false,
+		  preConfirm: () => {
+		    return [
+		      Swal.fire({
+				  icon: 'success',
+				  title: 'Thêm thành công',
+				  showConfirmButton: false,
+				  timer: 1500
+				})
+		    ]
+		  }
+		})
+	})()
+	});
+
+	$('#chinhsua').on('click', function() {
+		var radioValue = $("input[name='radio']:checked").val();
+
+            if(radioValue){
+            	/*var url = "{{url('success')}}"+'/'+radioValue;
+                location.href = url;*/
+                var url = "{{url('success-post')}}"+'/'+radioValue;
+                location.href = url;
+                
+            }
+	});
 </script>
 @stop

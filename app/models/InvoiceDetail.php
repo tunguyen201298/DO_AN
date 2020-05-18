@@ -16,11 +16,11 @@ class InvoiceDetail extends Model
 
 	public function bill() 
 	{	
-		return $this->belongsTo(\App\models\Bill::class);
+		return $this->belongsTo(\App\Models\Bill::class);
 	}
 
   public function product() 
   { 
-    return $this->hasMany(\App\models\Product::class);
+    return $this->hasMany(\App\Models\Product::class);
   }
 }

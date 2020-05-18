@@ -19,6 +19,10 @@ class User extends Model
 
     public function addresse() 
     {   
-        return $this->hasMany(\App\models\Addresse::class);
+        return $this->hasMany(\App\Models\Addresse::class);
+    }
+     public function bill() 
+    {   
+        return $this->hasMany(\App\Models\Bill::class);
     }
 }

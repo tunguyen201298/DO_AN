@@ -4,6 +4,7 @@
 	h5{
 		text-align: left !important;
 	}
+
 </style>
 <div class="terms-conditions-page">
 <div class="x-page inner-bottom-sm">
@@ -13,17 +14,17 @@
 			<div class="row" style="background: cornsilk;">
 				<div class="col-lg-6">
 					<h2 class="heading-title">Thông tin đơn hàng</h2>
-					<h5 class="name">Mã đơn hàng :</h5>
-					<h5 class="name">Ngày đặt :</h5>
-					<h5 class="name">Tổng tiền :</h5>
+					<h5 class="name">Mã đơn hàng : {{$bills->id}}</h5>
+					<h5 class="name">Ngày đặt : {{$bills->created_at}}</h5>
+					<h5 class="name">Tổng tiền : {{$bills->total}}</h5>
 					<h5 class="name">Phương thức thanh toán :</h5>
 				</div>
 				<div class="col-lg-6">
 					<h2 class="heading-title">Thông tin người nhận</h2>
-					<h5 class="name">Tên người nhận :</h5>
-					<h5 class="name">Địa chỉ :</h5>
-					<h5 class="name">Số điện thoại :</h5>
-					<h5 class="name">Tình trạng đơn hàng :</h5>
+					<h5 class="name">Tên người nhận : {{$add->name}}</h5>
+					<h5 class="name">Địa chỉ : {{$add->street}}</h5>
+					<h5 class="name">Số điện thoại : {{$add->phone}}</h5>
+					<h5 class="name">Tình trạng đơn hàng : </h5>
 				</div>
 			</div>
 		</div>
@@ -91,4 +92,5 @@
 	</div>
 </div>
 </div>
+
 @endsection

@@ -78,12 +78,14 @@ Route::get('insertproduct', 'AdminCategoryController@insertProduct')->name('inse
 //Cart
 /*----------------------------------------------------------------------------*/
 Route::post('add-cart', 'CartsController@addCart')->name('add-cart');
+Route::post('add-cart-ajax', 'CartsController@addCartAjax')->name('add-cart-ajax');
 Route::get('cart-show', 'CartsController@showCart')->name('cart-show');
 Route::get('delete-all', 'CartsController@deleteAll')->name('delete-all');
 Route::get('remove-cart/{rowId}', 'CartsController@removeCart')->name('remove-cart');
 Route::get('checkout', 'CartsController@checkout')->name('checkout');
 Route::post('cart-update', 'CartsController@cartUpdate')->name('cart-update');
-Route::post('success', 'CartsController@success')->name('success');
+Route::get('success-post/{id}', 'CartsController@successPost')->name('successPost');
+Route::get('success-get', 'CartsController@successGet')->name('successGet');
 /*----------------------------------------------------------------------------*/
 //User
 /*----------------------------------------------------------------------------*/

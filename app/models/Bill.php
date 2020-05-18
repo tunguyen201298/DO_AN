@@ -16,12 +16,16 @@ class Bill extends Model
 
    	public function invoiceDetails()
     {
-    	return $this->hasMany(\App\models\InvoiceDetail::class);
+    	return $this->hasMany(\App\Models\InvoiceDetail::class);
     }
 
     public function customer()
     {
-      return $this->belongsTo(\App\model\Customer::class);
+      return $this->belongsTo(\App\Model\Customer::class);
     }
+    public function user()
+   {
+      return $this->belongsTo(\App\User::class);
+   }
 
 }

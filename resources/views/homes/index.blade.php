@@ -31,28 +31,7 @@
                         </div><!-- /.container-fluid -->
                     </div><!-- /.item -->
                     @endforeach
-                    <!-- <div class="item" style="background-image: url(public/assets/images/sliders/02.jpeg);">
-                        <div class="container-fluid">
-                            <div class="caption bg-color vertical-center text-left">
-                                <div class="slider-header fadeInDown-1">Spring 2016</div>
-                                <div class="big-text fadeInDown-1">
-                                    Women <span class="highlight">Fashion</span>
-                                </div>
-
-                                <div class="excerpt fadeInDown-2 hidden-xs">
-
-                                    <span>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit</span>
-
-                                </div>
-                                <div class="button-holder fadeInDown-3">
-                                    <a href="index.php?page=single-product" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
-
-
-
+                    
                 </div><!-- /.owl-carousel -->
             </div>
 
@@ -113,8 +92,7 @@
                         <li><a data-transition-type="backSlide" href="#apple" data-toggle="tab">Shoes</a></li>
                     </ul><!-- /.nav-tabs -->
                 </div>
-                <form action="{{ url('add-cart') }}" method="post" role="form" >
-                    {{ csrf_field() }}
+                
                 <div class="tab-content outer-top-xs">
                     <div class="tab-pane in active" id="all">			
                         <div class="product-slider">
@@ -151,16 +129,15 @@
                                                         @endif
 
                                                     </div><!-- /.product-price -->
-                                                    <input type="hidden" name="id" value="{{ $value->id }}">
                                                 </div><!-- /.product-info -->
                                                 <div class="cart clearfix animate-effect">
                                                     <div class="action">
                                                         <ul class="list-unstyled">
                                                             <li class="add-cart-button btn-group">
-                                                                <button data-toggle="tooltip" class="btn btn-primary icon" type="submit" title="Add Cart"> 
-                                                                    <i class="fa fa-shopping-cart"></i>	
-                                                                </button>
-
+                                                                    <input type="hidden" name="id" value="{{ $value->id }}" id="productId{{ $value->id }}">
+                                                                    <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}"> 
+                                                                        <i class="fa fa-shopping-cart"></i>	
+                                                                    </a>
                                                             </li>
 
                                                             <li class="lnk wishlist">
@@ -186,7 +163,7 @@
                             </div><!-- /.home-owl-carousel -->
                         </div><!-- /.product-slider -->
                     </div><!-- /.tab-pane -->
-                     </form>
+                     
                     <div class="tab-pane" id="smartphone">
                         <div class="product-slider">
                             <div class="owl-carousel home-owl-carousel custom-carousel owl-theme">
@@ -2347,8 +2324,30 @@
         <!-- ============================================== CONTENT : END ============================================== -->
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        @foreach($products as $value)
+            $("#addCart{{$value->id}}").on('click', function(){
+                var id = $("#productId{{$value->id}}").val();
+                $.ajax({
+                    url:"{{url('add-cart-ajax')}}",
+                    data:{id: id},
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success:function(response){
+                        console.log(response);
+                        alert(response.status)
 
-
+                    } 
+                });
+            });
+        @endforeach
+    });
+</script>
+</script>
 @endsection
 
 

@@ -32,6 +32,8 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    
 </head>
 <body class="cnt-home">
     @include('layouts._header')
@@ -59,5 +61,7 @@
     <script src="{{asset('public/admin/js/admin.js')}}"></script>
     <script src="{{asset('public/admin/js/app.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    
 </body>
 </html>

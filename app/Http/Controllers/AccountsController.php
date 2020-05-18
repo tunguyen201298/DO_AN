@@ -41,7 +41,7 @@ class AccountsController extends Controller
         
         $remember = $request->has('remember') ? true : false;
          if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
-            return redirect()->back();
+            return redirect(url('/'));
         } else {
             return redirect()->back()->with('messenger', 'Đăng nhập thất bại');
         }

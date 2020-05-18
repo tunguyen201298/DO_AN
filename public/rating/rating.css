@@ -58,6 +58,11 @@
 	.checkout-item2{
 		display: inline-block !important;
 		color: #777777;
+		font-size: larger;
+	}
+	.checkout-item2 b{
+		
+		color: black;
 	}
 	.checkout-item3{
 		white-space: nowrap;

@@ -67,8 +67,7 @@
                     <div class="logo">
                         <a href="{{route('home')}}">
 
-                            <img src="public/assets\images\logo.png" alt="">
-
+                            <img src="{{asset('storage/app/logo/logo.png')}}" alt="Logo">
                         </a>
                     </div><!-- /.logo -->
                     <!-- ============================================================= LOGO : END ============================================================= -->				</div><!-- /.logo-holder -->
