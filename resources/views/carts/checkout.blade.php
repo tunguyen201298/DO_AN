@@ -199,7 +199,7 @@
 	</div>
 	<form action="{{ url('success-post')}}" method="post">
 		{{ csrf_field() }}
-		<a href="#" class="btn-upper btn btn-primary checkout-page-button" style="margin-left: 240px" id="chinhsua">Thanh toán</a>
+		<a href="#" class="btn-upper btn btn-primary checkout-page-button" style="margin-left: 240px" id="checkout">Thanh toán</a>
 	</form>
 </div> 
 <!-- checkout-progress-sidebar -->				</div>
@@ -312,7 +312,7 @@
 	})()
 	});
 
-	$('#chinhsua').on('click', function() {
+	$('#checkout').on('click', function() {
 		var radioValue = $("input[name='radio']:checked").val();
 
             if(radioValue){

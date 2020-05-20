@@ -77,5 +77,21 @@ function convertDate(date){
     
 }
 
+function updateCartInfo(url){
+    $.ajax({
+        url: url,
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success:function(response){
+            $('#itemValue').text(response.total + 'đ');
+            $('#itemCount').text(response.cartLists.length);
+
+            $('#cartLists').html();
+        } 
+    });
+}
+
 
 

@@ -113,17 +113,17 @@
                                 <div class="basket">
                                     <i class="glyphicon glyphicon-shopping-cart"></i>
                                 </div>
-                                <div class="basket-item-count"><span class="count">{{ $count }}</span></div>
+                                <div class="basket-item-count"><span id="itemCount" class="count">{{ $count }}</span></div>
                                 <div class="total-price-basket">
                                     <span class="total-price">
-                                        <span class="value">{{ number_format($total).' ₫' }}</span>
+                                        <span id="itemValue" class="value">{{ number_format($total).' ₫' }}</span>
                                     </span>
                                 </div>
 
 
                             </div>
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul id="cartLists" class="dropdown-menu">
                             <li>
                                 <div class="cart-item product-summary">
                                     @foreach($carts as $cart)

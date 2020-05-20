@@ -53,7 +53,7 @@ class CartsController extends Controller
         $id = $request->id ; 
         $quantity = 1;
         $product_detail = Product::find($id);
-        /*$name = $product_detail->name;
+        $name = $product_detail->name;
         $price = $product_detail->discount ? $product_detail->discount : $product_detail->price;
         $img = $product_detail->img_link;
         Cart::add([
@@ -62,7 +62,7 @@ class CartsController extends Controller
             'qty' => $quantity, 
             'price' => $price,
             'options' => ['img' => $img]
-        ]);*/
+        ]);
         return response()->json(['status' => 'success', 'data' => $product_detail]);
         
     }
@@ -141,21 +141,27 @@ class CartsController extends Controller
 
         if($bill->save()){
             Cart::destroy();
-            return redirect(url('success-get'));      
+            return redirect(url('success-get/'.$id));      
         }            
     }
 
-    public function successGet()
+    public function successGet($id)
     {
         
         $user =Auth::user();
-        $ids = $user->id;
         $cart = Cart::content();
         $id_bill = Bill::select()->max('id');
         $bills = Bill::find($id_bill);
-        $add = Addresse::find($ids);
-        dd($add);
+        $add = Addresse::find($id);
         return view('errors.success',compact('user','cart','add','bills'));
     }
 
+    public function cartInfo()
+    {
+        
+            $cart = Cart::content();
+            $subtotal = Cart::subtotal(0,0,',');
+            
+        return response()->json(['total' => $subtotal, 'cartLists' => $cart]);
+    }
 }

@@ -18,11 +18,8 @@
                                 <div class="big-text fadeInDown-1">
                                     {{ $slides->title }}
                                 </div>
-
                                 <div class="excerpt fadeInDown-2 hidden-xs">
-
                                     <span>{{ $slides->content }}</span>
-
                                 </div>
                                 <div class="button-holder fadeInDown-3">
                                     <a href="" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a>
@@ -34,7 +31,6 @@
                     
                 </div><!-- /.owl-carousel -->
             </div>
-
             <!-- ========================================= SECTION – HERO : END ========================================= -->	
 
             <!-- ============================================== INFO BOXES ============================================== -->
@@ -135,7 +131,7 @@
                                                         <ul class="list-unstyled">
                                                             <li class="add-cart-button btn-group">
                                                                     <input type="hidden" name="id" value="{{ $value->id }}" id="productId{{ $value->id }}">
-                                                                    <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}"> 
+                                                                    <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
                                                                         <i class="fa fa-shopping-cart"></i>	
                                                                     </a>
                                                             </li>
@@ -2326,25 +2322,33 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-        @foreach($products as $value)
-            $("#addCart{{$value->id}}").on('click', function(){
-                var id = $("#productId{{$value->id}}").val();
-                $.ajax({
-                    url:"{{url('add-cart-ajax')}}",
-                    data:{id: id},
-                    type: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success:function(response){
-                        console.log(response);
-                        alert(response.status)
 
-                    } 
-                });
-            });
-        @endforeach
+
+    function addTocart(id){
+        var user = '{{ Auth::check()}}';
+                if (!user){
+                    Swal.fire('Xin mời đăng nhập')
+                }else{
+                    $.ajax({
+                        url:"{{url('add-cart-ajax')}}",
+                        data:{id: id},
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success:function(response){
+                            console.log(response);
+                            updateCartInfo("{{url('get-cart-info')}}")
+                        } 
+                    });
+                }
+    }
+
+    //chạy dược rồi đúng ko dạ rồi sao cho hén lên trên kia
+    //t/rên nào
+
+    $(document).ready(function(){
+       
     });
 </script>
 </script>

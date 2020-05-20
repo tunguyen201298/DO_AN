@@ -31,6 +31,10 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	Route::post('product/update/{id}', 'ProductsController@update');
 	Route::post('product/destroy', 'ProductsController@destroy');
 	/*------------------------------------------------------------------------*/
+	/* Bill
+	/*------------------------------------------------------------------------*/
+	Route::get('bill', 'BillsController@billShow');
+	/*------------------------------------------------------------------------*/
 	/* Supplier
 	/*------------------------------------------------------------------------*/
 	Route::get('supplier', 'SupplierController@index');
@@ -85,7 +89,8 @@ Route::get('remove-cart/{rowId}', 'CartsController@removeCart')->name('remove-ca
 Route::get('checkout', 'CartsController@checkout')->name('checkout');
 Route::post('cart-update', 'CartsController@cartUpdate')->name('cart-update');
 Route::get('success-post/{id}', 'CartsController@successPost')->name('successPost');
-Route::get('success-get', 'CartsController@successGet')->name('successGet');
+Route::get('success-get/{id}', 'CartsController@successGet')->name('successGet');
+Route::get('get-cart-info', 'CartsController@cartInfo')->name('cart-info');
 /*----------------------------------------------------------------------------*/
 //User
 /*----------------------------------------------------------------------------*/
