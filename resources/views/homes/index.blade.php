@@ -80,7 +80,7 @@
             <!-- ============================================== SCROLL TABS ============================================== -->
             <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
                 <div class="more-info-tab clearfix ">
-                    <h3 class="new-product-title pull-left">New Products</h3>
+                    <h3 class="new-product-title pull-left">Sản phẩm mới</h3>
                     <ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
                         <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">All</a></li>
                         <li><a data-transition-type="backSlide" href="#smartphone" data-toggle="tab">Clothing</a></li>
@@ -129,8 +129,9 @@
                                                 <div class="cart clearfix animate-effect">
                                                     <div class="action">
                                                         <ul class="list-unstyled">
+                                                            <input type="hidden" name="id" value="{{ $value->id }}" id="productId{{ $value->id }}">
                                                             <li class="add-cart-button btn-group">
-                                                                    <input type="hidden" name="id" value="{{ $value->id }}" id="productId{{ $value->id }}">
+                                                                    
                                                                     <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
                                                                         <i class="fa fa-shopping-cart"></i>	
                                                                     </a>
@@ -2337,7 +2338,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success:function(response){
-                            console.log(response);
+                            console.log(response)
                             updateCartInfo("{{url('get-cart-info')}}")
                         } 
                     });

@@ -125,28 +125,29 @@
                         </a>
                         <ul id="cartLists" class="dropdown-menu">
                             <li>
-                                <div class="cart-item product-summary">
-                                    @foreach($carts as $cart)
-                                        <div class="row" style="border-bottom: solid 1px #7b6a6a;padding-top: 2px">
+                                @foreach($carts as $cart)
+                                <div class="cart-item product-summary" >
+                                    
+                                        <div class="row" style="border: solid 1px #66ad44;border-radius: 5px;margin-bottom: 2px">
                                             <div class="col-xs-4">
                                                 <div class="image">
-                                                    <a href="detail.html"><img src="{{ asset('storage/app/products/'.$cart->options->img) }}" alt=""></a>
+                                                    <a href="{{route('product-details',['id'=>$cart->id])}}"><img src="{{ asset('storage/app/products/'.$cart->options->img) }}" alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="col-xs-7">
 
-                                                <h3 class="name" ><a href="index.php?page-detail"><p style="white-space: nowrap;width: 100px;text-overflow: ellipsis;    overflow: hidden;"><b>{!! $cart->name !!}</b></p></a></h3>
+                                                <h3 class="name"  ><a href="#"><p style="white-space: nowrap;width: 100px;text-overflow: ellipsis;    overflow: hidden;" id="nameProduct"><b>{!! $cart->name !!}</b></p></a></h3>
                                                 <div class="price">{{ number_format($cart->price*$cart->qty).' ₫'}}</div>
                                             </div>
                                             <div class="col-xs-1 action">
                                                 <a href="#"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </div>
-                                    @endforeach
+                                   
                                 </div><!-- /.cart-item -->
+                                 @endforeach
                                 <div class="clearfix"></div>
                                 <hr>
-
                                 <div class="clearfix cart-total">
                                     <div class="pull-right">
 

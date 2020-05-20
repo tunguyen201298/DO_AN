@@ -46,6 +46,9 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	/*----------------------------------------------------------------------------*/
 	//Image
 	/*----------------------------------------------------------------------------*/
+	Route::get('img/banner', 'ImagesController@index')->name('banner');
+	Route::get('img/banner/create', 'ImagesController@create')->name('create');
+	Route::post('img/banner/store', 'ImagesController@store')->name('store');
 	//Route::get('img/slide', 'HomesController@slide')->name('slide');
 	/*----------------------------------------------------------------------------*/
 	//Slider
@@ -90,7 +93,7 @@ Route::get('checkout', 'CartsController@checkout')->name('checkout');
 Route::post('cart-update', 'CartsController@cartUpdate')->name('cart-update');
 Route::get('success-post/{id}', 'CartsController@successPost')->name('successPost');
 Route::get('success-get/{id}', 'CartsController@successGet')->name('successGet');
-Route::get('get-cart-info', 'CartsController@cartInfo')->name('cart-info');
+Route::get('get-cart-info', 'CartsController@cartInfo')->name('get-cart-info');
 /*----------------------------------------------------------------------------*/
 //User
 /*----------------------------------------------------------------------------*/
@@ -99,6 +102,9 @@ Route::get('user/login.html', 'AccountsController@login')->name('login');
 Route::post('check-login', 'AccountsController@checkLogin')->name('check-login');
 Route::post('check-register', 'AccountsController@checkRegister')->name('check-register');
 Route::get('logout', 'AccountsController@logout')->name('logout');
+/*----------------------------------------------------------------------------*/
+//User
+/*----------------------------------------------------------------------------*/
 
 
 //cái này chính là dùng cái có sẵn đó

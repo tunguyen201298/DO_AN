@@ -87,11 +87,17 @@ function updateCartInfo(url){
         success:function(response){
             $('#itemValue').text(response.total + 'đ');
             $('#itemCount').text(response.cartLists.length);
-
-            $('#cartLists').html();
+            alert(response.cartLists.length);
+            
+            for(var i = 0; i <= response.cartLists.length; i++)
+            {
+                alert(response.cartLists.name);
+                $('#nameProduct').text(response.cartLists.name);
+            }
         } 
     });
 }
 
 
 
+ 

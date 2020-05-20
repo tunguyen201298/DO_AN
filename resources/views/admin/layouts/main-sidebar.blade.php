@@ -46,7 +46,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{url('admin/img/slide')}}"><i class="fa fa-circle-o"></i>Slide</a></li>
-                    <li><a href="{{url('admin/projects')}}"><i class="fa fa-circle-o"></i>Banner</a></li>
+                    <li><a href="{{url('admin/img/banner')}}"><i class="fa fa-circle-o"></i>Banner</a></li>
                     <li><a href="{{url('admin/areas')}}"><i class="fa fa-circle-o"></i>Logo</a></li>
                 </ul>
             </li>
