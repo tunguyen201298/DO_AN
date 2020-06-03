@@ -16,7 +16,7 @@
     </div>
     <div class="box-body">
         <!-- form start -->
-        {!! Form::open(array('url' => url("admin/slide/store"), 'id' => 'form-area')) !!}
+        {!! Form::open(array('url' => url("admin/slider/store"), 'id' => 'form-area','enctype' => 'multipart/form-data')) !!}
             @include('admin.slide._form')
         {!! Form::close() !!}
     </div><!-- /.box-body -->

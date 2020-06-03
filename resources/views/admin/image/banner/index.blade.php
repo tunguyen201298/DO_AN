@@ -62,7 +62,7 @@
                         
                         <td class="action">
                             <a href="{{url('admin/img/edit/' . $img->id)}}" class="btn btn-primary" title="{{trans('common.edit')}}"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:;" onclick="deleteModal('{{$img->id}}', '/admin/img/destroy')" title="{{trans('common.delete')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                            <a href="javascript:;" onclick="deleteModal('{{$img->id}}', '/admin/img/banner/destroy')" title="{{trans('common.delete')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -95,7 +95,7 @@
             is_visible = (state == true) ? 1 : 0;
             
             $.ajax({
-                url: root + '/admin/images/active', 
+                url: root + '/admin/img/active', 
                 type: 'POST',
                 data: {id: $(this).val(), is_visible: is_visible}, 
                 success: function (data, success) {

@@ -41,24 +41,24 @@
 							</tr>
 						</thead>
 						<tbody>
+
+							@foreach($invoice as $item)
 							<tr>
 								
 								<td>
-									<p>
-										
-									</p>
+									{{$item->product_name}}
 								</td>
 								<td>
-									
+									{{number_format($item->price)." ₫"}}
 								</td>
 								<td>
-									
+									{{$item->quantity}}
 								</td>
 								<td>
-									
+									{{number_format($item->total)." ₫"}}
 								</td>
 							</tr>
-							
+							@endforeach
 							<tr>
                                 <td>
                                     <h5></h5>
@@ -67,7 +67,7 @@
                                     <h5></h5>
                                 </td>
                                 <td>
-                                    <h4>Tổng tiền :</h4>
+                                    <h4>Tổng tiền : {{number_format($bills->total)." ₫"}}</h4>
                                 </td>
                                 <td>
                                    

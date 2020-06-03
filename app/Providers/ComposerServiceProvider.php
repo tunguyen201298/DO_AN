@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Http\ViewComposers\MenuComposer;
 use App\Http\ViewComposers\CartComposer;
+use App\Http\ViewComposers\SliderComposer;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,8 @@ class ComposerServiceProvider extends ServiceProvider
     {
         view()->composer([
             'homes.index',
-            'products.product_detail'
+            'products.product_detail',
+            'searchs.search'
         ], MenuComposer::class);
         view()->composer([
             'homes.index',
@@ -25,8 +27,16 @@ class ComposerServiceProvider extends ServiceProvider
             'carts.cart',
             'carts.checkout',
             'accounts.login',
-            'errors.success'
+            'errors.success',
+            'blog.blog',
+            'blog.blog_detail',
+            'searchs.search',
+            'contact.contact'
         ], CartComposer::class);
+        view()->composer([
+            'homes.index',
+            'searchs.search'
+        ], SliderComposer::class);
     }
 
     /**

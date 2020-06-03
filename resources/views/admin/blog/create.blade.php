@@ -2,8 +2,8 @@
 @section('title', $title)
 @section('breadcrumb')
 <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> {{trans('common.dashboard')}}</a></li>
-    <li>Cập nhật</li>
+    <li><a href="{{url('admin/blogs')}}"><i class="fa fa-dashboard"></i> {{trans('blogs')}}</a></li>
+    <li>Thêm mới</li>
 </ol>
 @stop
 @section('content')
@@ -16,9 +16,8 @@
     </div>
     <div class="box-body">
         <!-- form start -->
-        {!! Form::open(array('url' => url("admin/slider/update/" . $slide->id), 'id' => 'form-slide','enctype' => 'multipart/form-data')) !!}
-            {!! Form::hidden('id', $slide->id) !!}
-            @include('admin.slide._form')
+        {!! Form::open(array('url' => url("admin/blog/store"), 'id' => 'form-area')) !!}
+            @include('admin.blog._form')
         {!! Form::close() !!}
     </div><!-- /.box-body -->
 </div>

@@ -7,75 +7,7 @@
         @include('layouts._leftmenu')
         <div class="col-xs-12 col-sm-12 col-md-9 homebanner-holder">
             <!-- ========================================== SECTION – HERO ========================================= -->
-
-            <div id="hero">
-                <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
-                    @foreach($slide as $slides)
-                    <div class="item" style="background-image: url({{ asset('storage/app/sliders/'.$slides->image) }});">
-                        <div class="container-fluid">
-                            <div class="caption bg-color vertical-center text-left">
-                                <div class="slider-header fadeInDown-1">Top Brands</div>
-                                <div class="big-text fadeInDown-1">
-                                    {{ $slides->title }}
-                                </div>
-                                <div class="excerpt fadeInDown-2 hidden-xs">
-                                    <span>{{ $slides->content }}</span>
-                                </div>
-                                <div class="button-holder fadeInDown-3">
-                                    <a href="" class="btn-lg btn btn-uppercase btn-primary shop-now-button">Shop Now</a>
-                                </div>
-                            </div><!-- /.caption -->
-                        </div><!-- /.container-fluid -->
-                    </div><!-- /.item -->
-                    @endforeach
-                    
-                </div><!-- /.owl-carousel -->
-            </div>
-            <!-- ========================================= SECTION – HERO : END ========================================= -->	
-
-            <!-- ============================================== INFO BOXES ============================================== -->
-            <div class="info-boxes wow fadeInUp">
-                <div class="info-boxes-inner">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-4 col-lg-4">
-                            <div class="info-box">
-                                <div class="row">
-
-                                    <div class="col-xs-12">
-                                        <h4 class="info-box-heading green">money back</h4>
-                                    </div>
-                                </div>	
-                                <h6 class="text">30 Days Money Back Guarantee</h6>
-                            </div>
-                        </div><!-- .col -->
-
-                        <div class="hidden-md col-sm-4 col-lg-4">
-                            <div class="info-box">
-                                <div class="row">
-
-                                    <div class="col-xs-12">
-                                        <h4 class="info-box-heading green">free shipping</h4>
-                                    </div>
-                                </div>
-                                <h6 class="text">Shipping on orders over $99</h6>	
-                            </div>
-                        </div><!-- .col -->
-
-                        <div class="col-md-6 col-sm-4 col-lg-4">
-                            <div class="info-box">
-                                <div class="row">
-
-                                    <div class="col-xs-12">
-                                        <h4 class="info-box-heading green">Special Sale</h4>
-                                    </div>
-                                </div>
-                                <h6 class="text">Extra $5 off on all items </h6>	
-                            </div>
-                        </div><!-- .col -->
-                    </div><!-- /.row -->
-                </div><!-- /.info-boxes-inner -->
-
-            </div><!-- /.info-boxes -->
+@include('layouts._slider')
             <!-- ============================================== INFO BOXES : END ============================================== -->
             <!-- ============================================== SCROLL TABS ============================================== -->
             <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
@@ -1196,29 +1128,24 @@
             <!-- ============================================== WIDE PRODUCTS ============================================== -->
             <div class="wide-banners wow fadeInUp outer-bottom-xs">
                 <div class="row">
-                    <div class="col-md-7 col-sm-7">
+                    @foreach($banner as $bn)
+                    <div class="col-md-6 col-sm-6">
                         <div class="wide-banner cnt-strip">
-                            <div class="image">
-                                <img class="img-responsive" src="public/assets\images\banners\home-banner1.jpeg" alt="">
+                            <div class="image" >
+                                <img style="width: 100% ;height: 180px;object-fit:cover;" class="img-responsive" src="{{asset('storage/app/banners/'.$bn->name)}}" alt="Ảnh banner">
                             </div>
 
                         </div><!-- /.wide-banner -->
                     </div><!-- /.col -->
-                    <div class="col-md-5 col-sm-5">
-                        <div class="wide-banner cnt-strip">
-                            <div class="image">
-                                <img class="img-responsive" src="public/assets\images\banners\home-banner2.jpeg" alt="">
-                            </div>
-
-                        </div><!-- /.wide-banner -->
-                    </div><!-- /.col -->
+                    @endforeach
+                    
                 </div><!-- /.row -->
             </div><!-- /.wide-banners -->
 
             <!-- ============================================== WIDE PRODUCTS : END ============================================== -->
             <!-- ============================================== FEATURED PRODUCTS ============================================== -->
             <section class="section featured-product wow fadeInUp">
-                <h3 class="section-title">Featured products</h3>
+                <h3 class="section-title">Sảm phẩm nổi bật</h3>
                 <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
 
                     <div class="item item-carousel">
@@ -1856,7 +1783,7 @@
 
             <!-- ============================================== BLOG SLIDER ============================================== -->
             <section class="section latest-blog outer-bottom-vs wow fadeInUp">
-                <h3 class="section-title">latest form blog</h3>
+                <h3 class="section-title">Bài viết mới</h3>
                 <div class="blog-slider-container outer-top-xs">
                     <div class="owl-carousel blog-slider custom-carousel">
 

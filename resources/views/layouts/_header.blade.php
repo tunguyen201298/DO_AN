@@ -9,9 +9,9 @@
                 <div class="cnt-account">
                     <ul class="list-unstyled">
                         
-                        <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                        <li><a href="{{ route('cart-show')}}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a href="#" id="result"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        <li><a href="#"><i class="icon fa fa-heart"></i>Yêu thích</a></li>
+                        <li><a href="{{ route('cart-show')}}"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
+                        <li><a href="#" id="result"><i class="icon fa fa-check"></i>Thanh toán</a></li>
                     </ul>
                 </div><!-- /.cnt-account -->
 
@@ -45,10 +45,10 @@
                             <ul class="dropdown-menu">
                                 
                                 @if(Auth::check())
-                                    <li><a href="{{ route('logout') }}"><i class=""></i>Logout</a></li>
+                                    <li><a href="{{ route('logout') }}"><i class=""></i>Đăng xuất</a></li>
                                 @else
-                                    <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Login</a></li>
-                                    <li><a href="{{ route('login') }}"><i class=""></i>Register</a></li>
+                                    <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Đăng nhập</a></li>
+                                    <!-- <li><a href="{{ route('login') }}"><i class=""></i>Register</a></li> -->
                                 @endif
                             </ul>
                         </li>
@@ -76,7 +76,7 @@
                     <!-- /.contact-row -->
                     <!-- ============================================================= SEARCH AREA ============================================================= -->
                     <div class="search-area">
-                        <form>
+                        <form action="{{ url('product/search') }}" method="post">
                             <div class="control-group">
 
                                 <ul class="categories-filter animate-dropdown">
@@ -88,17 +88,18 @@
                                             <li class="menu-header">Computer</li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Clothing</a></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Electronics</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Shoes</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Watches</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Bài viết</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Liên hệ</a></li>
 
                                         </ul>
                                     </li>
                                 </ul>
-
-                                <input class="search-field" placeholder="Search here...">
-
-                                <a class="search-button" href="#"></a>    
-
+                                
+                                    <input type="text" class="search-field" placeholder="Nhập từ khóa" name="search" id="text_search">
+                                    <button class="search-button" type="submit"></button>
+                                    {{ csrf_field() }}
+                                    <!-- <a class="search-button" href="#" id="search"></a> -->    
+                                
                             </div>
                         </form>
                     </div><!-- /.search-area -->
@@ -151,7 +152,7 @@
                                 <div class="clearfix cart-total">
                                     <div class="pull-right">
 
-                                        <span class="text">Sub Total :</span><span class='price'>{{ number_format($total).' ₫' }}</span>
+                                        <span class="text">Tỏng cộng :</span><span class='price'>{{ number_format($total).' ₫' }}</span>
 
                                     </div>
                                     <div class="clearfix"></div>
@@ -188,7 +189,7 @@
                         <div class="nav-outer">
                             <ul class="nav navbar-nav">
                                 <li class="active dropdown yamm-fw">
-                                    <a href="{{route('home')}}" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Home</a>
+                                    <a href="{{route('home')}}" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Trang chủ</a>
 
                                 </li>
                                 <li class="dropdown yamm mega-menu">
@@ -354,64 +355,23 @@
                                 </li>
                                 <li class="dropdown hidden-sm">
 
-                                    <a href="category.html">Health & Beauty
-                                        <span class="menu-label new-menu hidden-xs">new</span>
+                                    <a href="category.html">Giới thiệu
+                                        <!-- <span class="menu-label new-menu hidden-xs">new</span> -->
                                     </a>
                                 </li>
 
                                 <li class="dropdown hidden-sm">
-                                    <a href="category.html">Watches</a>
+                                    <a href="category.html">Dịch vụ</a>
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="contact.html">Jewellery</a>
+                                    <a href="{{ route('blogs') }}">Bài viết</a>
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="contact.html">Shoes</a>
+                                    <a href="{{ route('contact') }}">Liên hệ</a>
                                 </li>
-                                <li class="dropdown">
-                                    <a href="contact.html">Kids & Girls</a>
-                                </li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">Pages</a>
-                                    <ul class="dropdown-menu pages">
-                                        <li>
-                                            <div class="yamm-content">
-                                                <div class="row">
-
-                                                    <div class="col-xs-12 col-menu">
-                                                        <ul class="links">
-                                                            <li><a href="home.html">Home</a></li>
-                                                            <li><a href="category.html">Category</a></li>
-                                                            <li><a href="detail.html">Detail</a></li>
-                                                            <li><a href="shopping-cart.html">Shopping Cart Summary</a></li>
-                                                            <li><a href="checkout.html">Checkout</a></li>
-                                                            <li><a href="blog.html">Blog</a></li>
-                                                            <li><a href="blog-details.html">Blog Detail</a></li>
-                                                            <li><a href="contact.html">Contact</a></li>
-                                                            <li><a href="sign-in.html">Sign In</a></li>
-                                                            <li><a href="my-wishlist.html">Wishlist</a></li>
-                                                            <li><a href="terms-conditions.html">Terms and Condition</a></li>
-                                                            <li><a href="track-orders.html">Track Orders</a></li>
-                                                            <li><a href="product-comparison.html">Product-Comparison</a></li>
-                                                            <li><a href="faq.html">FAQ</a></li>
-                                                            <li><a href="404.html">404</a></li>
-
-                                                        </ul>
-                                                    </div>
-
-
-
-                                                </div>
-                                            </div>
-                                        </li>
-
-
-
-                                    </ul>
-                                </li>
+                                
                                 <li class="dropdown  navbar-right special-menu">
                                     <a href="#">Todays offer</a>
                                 </li>
@@ -450,4 +410,12 @@
         }
         
     });
+    /*$('#search').on('click', function() {
+        console.log("btn click");
+        var text_search = $('input[name="search"]').val();
+        if (text_search != "") {
+            var url = "{{url('product/search')}}"+'/'+text_search;
+            location.href = url;
+        }        
+    });*/
 </script>

@@ -14,6 +14,7 @@ use App\Models\Bill;
 use App\Models\InvoiceDetail;
 use Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CartsController extends Controller
 {
@@ -113,36 +114,41 @@ class CartsController extends Controller
     public function successPost($id)
     {
        
-        
-        $subtotal = Cart::subtotal(0,'',''); 
-        $user =Auth::user();
-        $cart = Cart::content();
-        $add = Addresse::find($id);
-        $id_bill = Bill::select()->max('id');
-        $bills = Bill::find($id_bill);
+            $subtotal = Cart::subtotal(0,'',''); 
+            $user =Auth::user();
+            $cart = Cart::content();
+            $add = Addresse::find($id);
+            
+            
 
-        $bill = new Bill();
-        $bill->user_id = $user->id;
-        $bill->name = $add->name;
-        $bill->phone = $add->phone;
-        $bill->address = $add->street;
-        $bill->total = $subtotal;
-        $bill->status = 1;
-        
-        foreach ($cart as $value) {
-            $invoice = new InvoiceDetail();
-            $invoice->bill_id = $id_bill;
-            $invoice->product_id = $value->id;
-            $invoice->quantity = $value->qty;
-            $invoice->price = $value->price;
-            $invoice->total = $value->price*$value->qty;
-            $invoice->save();
-        }
+            $bill = new Bill();
+            $bill->user_id = $user->id;
+            $bill->name = $add->name;
+            $bill->phone = $add->phone;
+            $bill->address = $add->street;
+            $bill->total = $subtotal;
+            $bill->status = 1;
+            $bill->save();
+            $id_bill = Bill::select()->max('id');
+            $bills = Bill::find($id_bill);
+            foreach ($cart as $value) {
+                $invoice = new InvoiceDetail();
+                $invoice->bill_id = $id_bill;
+                $invoice->product_id = $value->id;
+                $invoice->product_name = $value->name;
+                $invoice->quantity = $value->qty;
+                $invoice->price = $value->price;
+                $invoice->total = $value->price*$value->qty;
+                $invoice->save();
+            }
 
-        if($bill->save()){
-            Cart::destroy();
-            return redirect(url('success-get/'.$id));      
-        }            
+             
+                Cart::destroy();
+                return redirect(url('success-get/'.$id));
+            
+           
+        
+        
     }
 
     public function successGet($id)
@@ -153,7 +159,8 @@ class CartsController extends Controller
         $id_bill = Bill::select()->max('id');
         $bills = Bill::find($id_bill);
         $add = Addresse::find($id);
-        return view('errors.success',compact('user','cart','add','bills'));
+        $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
+        return view('errors.success',compact('user','cart','add','bills','invoice'));
     }
 
     public function cartInfo()

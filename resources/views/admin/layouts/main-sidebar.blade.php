@@ -20,6 +20,11 @@
                     <i class="fa fa-th"></i> <span>Đơn hàng</span>
                 </a>
             </li>
+             <li class=" treeview">
+                <a href="{{url('admin/blog')}}">
+                    <i class="fa fa-th"></i> <span>Bài viết</span>
+                </a>
+            </li>
             <li class=" treeview">
                 <a href="{{url('admin/supplier')}}">
                     <i class="fa fa-th"></i> <span>Nhà cung cấp</span>

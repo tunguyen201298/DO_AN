@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
-
+use Illuminate\Support\Facades\Input;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
 class ImagesController extends Controller
@@ -57,5 +58,19 @@ class ImagesController extends Controller
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     	
+    }
+    public function destroy() {
+        $ids = Input::get('id');
+        $arr_ids = explode(",", $ids);
+        foreach ($arr_ids as $arr_idss) {
+            $deleted = Image::find($arr_idss)->delete();
+        }  
+        if (request()->wantsJson()) {
+            return response()->json([
+                        'message' => trans('Xóa banner thành công'),
+                        'deleted' => $deleted,
+            ]);
+        }
+        return redirect()->back()->with(['message' => trans('Xóa banner thành công'), 'alert-class' => 'alert-success']);
     }
 }

@@ -16,9 +16,9 @@
     </div>
     <div class="box-body">
         <!-- form start -->
-        {!! Form::open(array('url' => url("admin/slider/update/" . $slide->id), 'id' => 'form-slide','enctype' => 'multipart/form-data')) !!}
-            {!! Form::hidden('id', $slide->id) !!}
-            @include('admin.slide._form')
+        {!! Form::open(array('url' => url("admin/supplier/update/" . $suppliers->id), 'id' => 'form-supplier')) !!}
+            {!! Form::hidden('id', $suppliers->id) !!}
+            @include('admin.supplier._form')
         {!! Form::close() !!}
     </div><!-- /.box-body -->
 </div>

@@ -21,6 +21,13 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	Route::get('register', array('as' => 'admin.register', 'uses' => 'AuthController@getRegister'));
 	Route::post('check-register', 'AuthController@checkRegister')->name('check-register');
 	Route::get('logout', 'AuthController@logout');
+	/*----------------------------------------------------------------------------*/
+	//Blogs
+	/*----------------------------------------------------------------------------*/
+	Route::get('blog', 'BlogsController@index');
+	Route::get('blog/create', 'BlogsController@create');
+	Route::get('blog/store', 'BlogsController@store');
+
 	/*------------------------------------------------------------------------*/
 	/* Product
 	/*------------------------------------------------------------------------*/
@@ -34,6 +41,9 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	/* Bill
 	/*------------------------------------------------------------------------*/
 	Route::get('bill', 'BillsController@billShow');
+	Route::post('bill/destroy', 'BillsController@destroy');
+	Route::get('bill/invoice/{id}', 'BillsController@invoice');
+	Route::get('bill/print', 'BillsController@print');
 	/*------------------------------------------------------------------------*/
 	/* Supplier
 	/*------------------------------------------------------------------------*/
@@ -49,6 +59,7 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	Route::get('img/banner', 'ImagesController@index')->name('banner');
 	Route::get('img/banner/create', 'ImagesController@create')->name('create');
 	Route::post('img/banner/store', 'ImagesController@store')->name('store');
+	Route::post('img/banner/destroy', 'ImagesController@destroy')->name('destroy');
 	//Route::get('img/slide', 'HomesController@slide')->name('slide');
 	/*----------------------------------------------------------------------------*/
 	//Slider
@@ -57,6 +68,8 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	Route::get('slider/create', 'SlideController@create');
 	Route::get('slider/edit/{id}', 'SlideController@edit');
 	Route::post('slider/update/{id}', 'SlideController@update');
+	Route::post('slider/store', 'SlideController@store');
+	
 });
 
 /*----------------------------------------------------------------------------*/
@@ -73,9 +86,12 @@ Route::group(['prefix' => '/admin','namespace' => 'Admin', 'middleware' => ['adm
 Route::get('list-product.html', 'ProductsController@listView')->name('list-product');
 
 Route::get('product-details/{id}', 'ProductsController@productDetail')->name('product-details');
+Route::post('product/search', 'SearchsController@index')->name('product-search');
+
+
 Route::get('cart.html', 'CartsController@cart')->name('cart');
 Route::get('grid-product.html', 'ProductsController@gridView')->name('grid-product');
-Route::get('contact-us.html', 'ContactsController@contact')->name('grid-product');
+//Route::get('contact-us.html', 'ContactsController@contact')->name('grid-product');
 Route::get('three-col.html', 'ProductsController@threeColumn')->name('three-col');
 Route::get('four-col.html', 'ProductsController@fourColumn')->name('four-col');
 Route::post('product/reviews', 'ProductsController@reviews')->name('reviews');
@@ -103,9 +119,11 @@ Route::post('check-login', 'AccountsController@checkLogin')->name('check-login')
 Route::post('check-register', 'AccountsController@checkRegister')->name('check-register');
 Route::get('logout', 'AccountsController@logout')->name('logout');
 /*----------------------------------------------------------------------------*/
-//User
+//Blogs
 /*----------------------------------------------------------------------------*/
-
+Route::get('blogs', 'BlogsController@index')->name('blogs');
+Route::get('blogs/detail/{id}', 'BlogsController@detail')->name('blogs-detail');
+Route::get('contact', 'ContactsController@contact')->name('contact');
 
 //cái này chính là dùng cái có sẵn đó
 //Auth::routes();

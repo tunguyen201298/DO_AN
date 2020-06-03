@@ -1,6 +1,6 @@
 <?php
 
-namespace App\models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,11 +16,16 @@ class Review extends Model
 
    public function product()
    {
-   		return $this->belongsTo(\App\model\Product::class);
+   		return $this->belongsTo(\App\Model\Product::class);
    }
 
    public function customer()
    {
-         return $this->hasMany(\App\model\Customer::class);
+         return $this->hasMany(\App\Model\Customer::class);
+   }
+
+   public function user()
+   {
+         return $this->hasMany(\App\Model\User::class);
    }
 }

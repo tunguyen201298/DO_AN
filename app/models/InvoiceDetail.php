@@ -10,7 +10,8 @@ class InvoiceDetail extends Model
    		'bill_id',
    		'product_id',
    		'quantity',
-   		'total'
+   		'total',
+      'product_name'
    ];
 
 
