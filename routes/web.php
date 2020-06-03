@@ -26,7 +26,10 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	/*----------------------------------------------------------------------------*/
 	Route::get('blog', 'BlogsController@index');
 	Route::get('blog/create', 'BlogsController@create');
-	Route::get('blog/store', 'BlogsController@store');
+	Route::post('blog/store', 'BlogsController@store');
+	Route::post('blog/destroy', 'BlogsController@destroy');
+	Route::get('blog/edit/{id}', 'BlogsController@edit');
+	Route::post('blog/update/{id}', 'BlogsController@update');
 
 	/*------------------------------------------------------------------------*/
 	/* Product
@@ -43,7 +46,7 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	Route::get('bill', 'BillsController@billShow');
 	Route::post('bill/destroy', 'BillsController@destroy');
 	Route::get('bill/invoice/{id}', 'BillsController@invoice');
-	Route::get('bill/print', 'BillsController@print');
+	Route::get('bill/print/{id}', 'BillsController@print');
 	/*------------------------------------------------------------------------*/
 	/* Supplier
 	/*------------------------------------------------------------------------*/
@@ -69,6 +72,12 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	Route::get('slider/edit/{id}', 'SlideController@edit');
 	Route::post('slider/update/{id}', 'SlideController@update');
 	Route::post('slider/store', 'SlideController@store');
+	/*----------------------------------------------------------------------------*/
+	//warehouse
+	/*----------------------------------------------------------------------------*/
+	Route::group(array('prefix' => '/warehouse'), function () {
+		Route::get('/', 'WarehousesController@index');
+	});
 	
 });
 
@@ -110,6 +119,8 @@ Route::post('cart-update', 'CartsController@cartUpdate')->name('cart-update');
 Route::get('success-post/{id}', 'CartsController@successPost')->name('successPost');
 Route::get('success-get/{id}', 'CartsController@successGet')->name('successGet');
 Route::get('get-cart-info', 'CartsController@cartInfo')->name('get-cart-info');
+Route::post('add-address','CartsController@address');
+//Route::get('my-test-mail','HomesController@myTestMail');
 /*----------------------------------------------------------------------------*/
 //User
 /*----------------------------------------------------------------------------*/

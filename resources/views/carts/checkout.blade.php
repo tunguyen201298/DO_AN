@@ -33,8 +33,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 15px;
-  width: 15px;
+  height: 12px;
+  width: 12px;
   background-color: #eee;
   border-radius: 50%;
   margin-top: 4px;
@@ -48,7 +48,7 @@
 /* When the radio button is checked, add a blue background */
 .add-radio input:checked ~ .checkmark {
   background-color: #66ad44;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -65,10 +65,10 @@
 
 /* Style the indicator (dot/circle) */
 .add-radio .checkmark:after {
- 	top: 5px;
-	left: 5px;
-	width: 5px;
-	height: 5px;
+ 	top: 4px;
+	left: 4px;
+	width: 4px;
+	height: 4px;
 	border-radius: 50%;
 	background: white;
 }
@@ -273,7 +273,7 @@
 	  x[0].style.display = "block";
 	}
 
-   $('#setting').on('click', function() {
+   /*$('#setting').on('click', function() {
 		 Swal.fire({
 		  icon: 'success',
 		  title: 'Thanh toán thành công',
@@ -288,30 +288,63 @@
                 location.href = url;
             }
 		}, 1500);
-    });
+    });*/
     $('#addstreet').on('click', function() {
-	(async () => {
-		const { value: formValues } = await Swal.fire({
-		  title: 'Thêm địa chỉ mới',
-		  html:
-		    '<input id="name" class="swal2-input" placeholder="Họ & tên">' +
-		    '<input id="phone" class="swal2-input" placeholder="Số điện thoại">' +
-		    '<input id="street" class="swal2-input" placeholder=" Địa chỉ">',
-		  focusConfirm: false,
-		  preConfirm: () => {
-		    return [
-		      Swal.fire({
-				  icon: 'success',
-				  title: 'Thêm thành công',
-				  showConfirmButton: false,
-				  timer: 1500
-				})
-		    ]
-		  }
-		})
-	})()
-	});
+    	var user = '{{ $user = Auth::user()}}';
+        var id = '{{$id_cus = $user->id }}';
+		(async () => {
 
+			const { value: formValues } = await Swal.fire({
+			  title: 'Thêm địa chỉ mới',
+			  html:
+			    '<input id="name" name="name" class="swal2-input" placeholder="Họ & tên">' +
+			    '<input id="phone" class="swal2-input" placeholder="Số điện thoại">' +
+			    '<input id="street" class="swal2-input" placeholder=" Địa chỉ">',
+			  focusConfirm: false,
+			  preConfirm: () => {
+			     document.getElementById('name').value,
+			      document.getElementById('phone').value,
+			      document.getElementById('street').value,
+			      id
+			  }
+			})
+
+			if (formValues) {
+				var name = document.getElementById('name').value;
+				var phone = document.getElementById('phone').value;
+			    var street = document.getElementById('street').value;
+				$.ajax({
+		            url:"{{url('add-address')}}",
+		            data:{id: id, name:name, phone:phone,street:street},
+		            type: 'POST',
+		            headers: {
+		                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		            },
+		            success:function(response){
+		            	var urls = "{{url('checkout')}}"
+		                console.log(response);
+		                
+		                Swal.fire({
+						  icon: 'success',
+						  title: 'Thêm thành công',
+						  showConfirmButton: false,
+						  timer: 1500
+						})
+		                setTimeout(function(){
+		                	window.location.href = urls
+		                }, 1500)
+		            } 
+		        });
+			  //Swal.fire(JSON.stringify(formValues))
+			}
+
+			
+
+		})()
+	
+		
+	});
+    	
 	$('#checkout').on('click', function() {
 		var radioValue = $("input[name='radio']:checked").val();
 

@@ -21,7 +21,7 @@
         </div>
         <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Nội dung bài viết')}}</label>
-            {!! Form::text('content', $blog->content, array('class' => 'form-control', 'maxlength' => 100, 'id' => 'input_blog_content', 'placeholder' => trans('Nội dung bài viết'))) !!} 
+            {!! Form::textarea('content', $blog->content, array('class' => 'form-control', 'id' => 'input_blog_content', 'placeholder' => trans('Nội dung bài viết'))) !!} 
             @if ($errors->has('content'))
                 <span class="help-block">
                     {{ $errors->first('content') }}
@@ -32,7 +32,7 @@
        
         <div class="form-group">
             <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{trans('Lưu')}}</button>
-            <a href="{{url('admin/supplier')}}" class="btn btn-default"><i class="fa fa-reply"></i> {{trans('Trở lại')}}</a>
+            <a href="{{url('admin/blogs')}}" class="btn btn-default"><i class="fa fa-reply"></i> {{trans('Trở lại')}}</a>
         </div>
     </div>
 </div>

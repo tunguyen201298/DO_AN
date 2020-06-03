@@ -2,8 +2,8 @@
 @section('title', $title)
 @section('breadcrumb')
 <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> {{trans('common.dashboard')}}</a></li>
-    <li>Cập nhật</li>
+    <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Sản phẩm')}}</a></li>
+    <li>Thêm mới</li>
 </ol>
 @stop
 @section('content')
@@ -16,9 +16,8 @@
     </div>
     <div class="box-body">
         <!-- form start -->
-        {!! Form::open(array('url' => url("admin/blog/update/" . $blog->id), 'id' => 'form-blog')) !!}
-            {!! Form::hidden('id', $blog->id) !!}
-            @include('admin.blog._form')
+        {!! Form::open(['url' => url("admin/product/store"), 'id' => 'form-area', 'enctype' => 'multipart/form-data']) !!}
+            @include('admin.areas._form')
         {!! Form::close() !!}
     </div><!-- /.box-body -->
 </div>

@@ -164,7 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
-
+        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -232,6 +232,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Input' => Illuminate\Support\Facades\Input::class,
         'Constants' => App\Libs\Constants::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

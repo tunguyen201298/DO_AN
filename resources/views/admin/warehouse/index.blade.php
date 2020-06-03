@@ -2,7 +2,7 @@
 @section('title', $title)
 @section('breadcrumb')
 <script type="text/javascript">
-    mn_selected = 'mn_blog';</script>
+    mn_selected = 'mn_warehouse';</script>
 <ol class="breadcrumb">
     <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
     <li>Danh sách khu vực</li>
@@ -19,8 +19,9 @@
         <h3 class="box-title">{{$title}}</h3>
         <div class="box-action pull-right">
             <ul class="header-action">
-                <li><a href="{{url('admin/blog/create')}}" class="btn btn-primary"><i class="fa fa-plus-square"></i> {{trans('Thêm mới')}}</a></li>
-                <li><a href="{{url('admin/blog')}}" class="btn btn-default" ><i class="fa fa-refresh"></i> {{trans('Tải lại')}}</a></li>
+                <li><a href="{{url('admin/product/create')}}" class="btn btn-primary">{{trans('Thêm mới')}}<i class="fa fa-plus-square"></i> </a></li>
+                <li><a href="{{url('admin/product')}}" class="btn btn-default" ><i class="fa fa-refresh"></i>
+                {{trans('Tải lại')}} </a></li>
             </ul>
         </div>
     </div>
@@ -28,10 +29,10 @@
         <div class="box-body table-responsive no-padding">
             <div class="box-search-table pull-right">
                 <div class="box-delete_multi pull-left">
-                    <a href="javascript:;" id="btn-delete-all" data-routes="/admin/blog/destroy" class="btn btn-danger"><i class="fa fa-trash-o"></i> Xóa tất cả</a>
+                    <a href="javascript:;" id="btn-delete-all" data-routes="/admin/warehouses/destroy" class="btn btn-danger"><i class="fa fa-trash-o"></i> Xóa tất cả</a>
                 </div>
-                {!! Form::open(array('url' => url("admin/blog"), 'id' => 'form-search', 'method' => 'GET')) !!}
-                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> {{trans('Tìm kiếm')}}</button>
+                {!! Form::open(array('url' => url("admin/warehouses"), 'id' => 'form-search', 'method' => 'GET')) !!}
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> </button>
                 {!! Form::text('search', Input::get('search'), array('class' => 'form-control form-inline', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => trans('Nhập từ khóa'))) !!} 
                 {!!Form::hidden("numpaging", Input::get('numpaging'))!!}
                 {!!Form::hidden("paging", Input::get('paging'))!!}
@@ -41,29 +42,28 @@
                 <thead>
                     <tr>
                         <th class="rowCheckAll w_30"><input type="checkbox" id="checkAll" /></th>
-                        <th class="w_30">{{trans('STT')}}</th>
-                        <th>{!!sort_title('name',trans('Tiêu đề'))!!}</th>
+                        <th class="w_30">STT</th>
+                        <th>{!!sort_title('name',trans('Tên'))!!}</th>
                         <th>{!!sort_title('is_visible',trans('Trạng thái'))!!}</th>
                         <th class="w_100">{{trans('Thao tác')}}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if(!$blogs->isEmpty())
+                    @if(!$warehouses->isEmpty())
                     @php
-                    $no = (($blogs->currentPage() - 1) * $blogs->perPage() + 1) 
+                    $no = (($warehouses->currentPage() - 1) * $warehouses->perPage() + 1) 
                     @endphp
-                    @foreach($blogs as $key => $blog)
+                    @foreach($warehouses as $key => $warehouse)
                     <tr>
-                        <td class="text-center "><input type="checkbox" class="checkItem" value="{{$blog->id}}" /></td>
+                        <td class="text-center "><input type="checkbox" class="checkItem" value="{{$warehouse->id}}" /></td>
                         <td class="text-center">{{$no++}}</td>
-                        <td>{{$blog->title}}</td>
+                        <td>{{$warehouse->name}}</td>
                         <td class="text-center w_100">
-                            <input type="checkbox" value="{{$blog->id}}" data-size="mini" data-on-text="Hiện" data-off-text="Ẩn" data-on-color="success" data-off-color="danger" name="is_visible" {{$blog->is_visible?'checked':''}} />
+                            <input type="checkbox" value="{{$warehouse->id}}" data-size="mini" data-on-text="Hiện" data-off-text="Ẩn" data-on-color="success" data-off-color="danger" name="is_visible" {{$warehouse->is_visible?'checked':''}} />
                         </td>
                         <td class="action">
-                            <a href="{{url('admin/blog/edit/' . $blog->id)}}" class="btn btn-primary" title="{{trans('Chỉnh sửa')}}"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:;" onclick="deleteModal('{{$blog->id}}', '/admin/blog/destroy')" title="{{trans('Xóa')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
-                            
+                            <a href="{{url('admin/product/edit/' . $warehouse->id)}}" class="btn btn-primary" title="{{trans('common.edit')}}"><i class="fa fa-edit"></i></a>
+                            <a href="javascript:;" onclick="deleteModal('{{$warehouse->id}}', '/admin/warehouses/destroy')" title="{{trans('common.delete')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -76,11 +76,11 @@
             </table>
             <div class="footer-table">
                 <div class="col-sm-6">
-                    <span class="total-record">{!!trans("Tổng cộng: <strong>:total</strong> kết quả", ['total' => $blogs->total()])!!}</span>
+                    <span class="total-record">{!!trans("Tổng cộng: <strong>:total</strong> kết quả", ['total' => $warehouses->total()])!!}</span>
                 </div>
                 <div class="col-sm-6">
                     <div class="pull-right">
-                        {{$blogs->appends(Input::all())->render()}}
+                        {{$warehouses->appends(Input::all())->render()}}
                     </div>
                     @include("partials.numpaging")
                 </div>
@@ -96,7 +96,7 @@
             is_visible = (state == true) ? 1 : 0;
             
             $.ajax({
-                url: root + '/admin/blog/active', 
+                url: root + '/admin/warehouses/active', 
                 type: 'POST',
                 data: {id: $(this).val(), is_visible: is_visible}, 
                 success: function (data, success) {

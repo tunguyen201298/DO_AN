@@ -14,6 +14,8 @@ use App\Models\Slide;
 use App\Models\Image;
 use Validator;
 use Cart;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Bill;
 
 class HomesController extends Controller
 {
@@ -27,6 +29,20 @@ class HomesController extends Controller
         return view('homes.index', compact('title', 'products','slide','banner'));
         
     }
+
+    /*public function myTestMail()
+    {
+    	$data = Bill::
+    	$email = 'thanhtrungtran8888@gmail.com';
+    	Mail::send('email.index', $data, function ($message) use ($email) {
+            $message->from('tudtdt1998@gmail.com', 'Giày Store');
+
+            $message->to($email , $email);
+            $message->subject('Xác nhận hóa đơn mua hàng Giày Store');
+        
+        });
+    	
+    }*/
    
     
 }

@@ -32,10 +32,13 @@ class BillsController extends Controller
         return view('admin.bill.invoice', compact('title','invoices', 'bills', 'customer','invoice'));
     }
 
-    public function print()
+    public function print($id)
     {
        $title = "Chi tiết hóa đơn";
-       $pdf = PDF::loadView('admin.bill.print',compact('title'));
+       $customer = Bill::find($id)->first();
+       $invoice = InvoiceDetail::where('bill_id', $id)->get();
+       $no = 1;
+       $pdf = PDF::loadView('admin.bill.print',compact('title','customer','invoice', 'no'));
         return $pdf->stream();
     }
 

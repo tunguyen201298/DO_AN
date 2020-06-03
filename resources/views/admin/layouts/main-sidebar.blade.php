@@ -40,7 +40,20 @@
                     <i class="fa fa-th"></i> <span>Trang</span>
                 </a>
             </li>
-            
+            <li class="treeview">
+                <a href="javascript:;">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Kho</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{url('admin/warehouse')}}"><i class="fa fa-circle-o"></i>Thông tin</a></li>
+                    <li><a href="{{url('admin/img/banner')}}"><i class="fa fa-circle-o"></i>Phiếu nhập</a></li>
+                    <li><a href="{{url('admin/areas')}}"><i class="fa fa-circle-o"></i>Phiếu xuất</a></li>
+                </ul>
+            </li>
             <li class="treeview">
                 <a href="javascript:;">
                     <i class="fa fa-pie-chart"></i>

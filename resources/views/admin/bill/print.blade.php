@@ -13,8 +13,8 @@
   
   <body >
     <div>
-      <b><span>CỬA HÀNG NÔNG SẢN SẠCH CẦN THƠ</span></b><br>
-      Ninh Kiều - Cần Thơ<br>
+      <b><span>SHOP ĐÁ PHONG THỦY MIXI</span></b><br>
+      QUẢNG NAM<br>
       Số điện thoại: 01293963362<br>
       Website: http://localhost/nongsancantho/
     </div><hr>
@@ -22,19 +22,19 @@
     
     <table>
       <tr>
-        <td width="120px"><strong>Khách hàng:</strong></td> <td>sdfds</td>
+        <td width="120px"><strong>Khách hàng:</strong></td> <td>{{ $customer->name }}</td>
         <td><strong></td>
       </tr>
       <tr>
-        <td width="120px"><strong>Địa chỉ:</strong></td> <td>dsfdf</td>
+        <td width="120px"><strong>Địa chỉ:</strong></td> <td>{{ $customer->address }}</td>
         <td></td>
       </tr>
       <tr>
-        <td width="120px"><strong>Điện thoại:</strong></td> <td> qưeqe</td>
+        <td width="120px"><strong>Điện thoại:</strong></td> <td>{{ $customer->phone }}</td>
         <td></td>
       </tr>
       <tr>
-        <td width="120px"><strong>Email:</strong></td> <td> czxc</td>
+        <td width="120px"><strong>Email:</strong></td> <td></td>
         <td></td>
       </tr>
     </table><br><br>
@@ -49,20 +49,20 @@
         </tr>
       </thead>
       <tbody>
-        
+          @foreach($invoice as $item)
             <tr >
-              <td style="border:thin blue solid;border-style:dashed;">sadfds</td>
+              <td style="border:thin blue solid;border-style:dashed;">{{ $no++}}</td>
               <td style="border:thin blue solid;border-style:dashed;">
-                  
+                  {{$item->product_name}}
               </td>
-              <td style="border:thin blue solid;border-style:dashed;">xzczx</td>
+              <td style="border:thin blue solid;border-style:dashed;">{{$item->quantity}}</td>
               <td style="border:thin blue solid;border-style:dashed;">
-              zxczxc
+              {{number_format($item->price)." ₫"}}
               </td>
               
-              <td style="border:thin blue solid;border-style:dashed;" >nmnm </td>
+              <td style="border:thin blue solid;border-style:dashed;" >{{number_format($item->total)." ₫"}}</td>
           </tr>
-           
+        @endforeach   
             <tr>
               <td  width="150px" >
                     <b>Ghi chú :</b>

@@ -15,6 +15,7 @@ use App\Models\InvoiceDetail;
 use Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class CartsController extends Controller
 {
@@ -107,7 +108,8 @@ class CartsController extends Controller
     {
         $title = 'Thanh toán';
         $user = Auth::user();
-        $add = Auth::check() ? User::find('13')->addresse()->get() : '';
+        $id_cus = $user->id;
+        $add = Auth::check() ? User::find($id_cus)->addresse()->get() : '';
         $cart = Cart::content();
         return view('carts.checkout', compact('title', 'user', 'cart', 'add'));
     }
@@ -127,28 +129,30 @@ class CartsController extends Controller
             $bill->phone = $add->phone;
             $bill->address = $add->street;
             $bill->total = $subtotal;
+            $bill->email = $user->email;
             $bill->status = 1;
-            $bill->save();
-            $id_bill = Bill::select()->max('id');
-            $bills = Bill::find($id_bill);
-            foreach ($cart as $value) {
-                $invoice = new InvoiceDetail();
-                $invoice->bill_id = $id_bill;
-                $invoice->product_id = $value->id;
-                $invoice->product_name = $value->name;
-                $invoice->quantity = $value->qty;
-                $invoice->price = $value->price;
-                $invoice->total = $value->price*$value->qty;
-                $invoice->save();
-            }
-
-             
+            if($bill->save())
+            {
+                $id_bill = Bill::select()->max('id');
+                $bills = Bill::find($id_bill);
+                foreach ($cart as $value) {
+                    $invoice = new InvoiceDetail();
+                    $invoice->bill_id = $id_bill;
+                    $invoice->product_id = $value->id;
+                    $invoice->product_name = $value->name;
+                    $invoice->quantity = $value->qty;
+                    $invoice->price = $value->price;
+                    $invoice->total = $value->price*$value->qty;
+                    $invoice->save();
+                }
                 Cart::destroy();
                 return redirect(url('success-get/'.$id));
+            }else
+            {
+                $id_bill = Bill::select()->max('id');
+                Bill::delete('id_bill');
+            }
             
-           
-        
-        
     }
 
     public function successGet($id)
@@ -160,6 +164,16 @@ class CartsController extends Controller
         $bills = Bill::find($id_bill);
         $add = Addresse::find($id);
         $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
+
+        $data['invoice'] =  $invoice;
+        $data['customer'] = $bills;
+        $email = $bills->email;
+        Mail::send('email.index', $data, function ($message) use ($email) {
+            $message->from('tudtdt1998@gmail.com', 'Shop đá phong thủy Mixi');
+            $message->to($email , $email);
+            $message->subject('Xác nhận hóa đơn mua hàng Shop đá phong thủy Mixi');
+        
+        });
         return view('errors.success',compact('user','cart','add','bills','invoice'));
     }
 
@@ -170,5 +184,18 @@ class CartsController extends Controller
             $subtotal = Cart::subtotal(0,0,',');
             
         return response()->json(['total' => $subtotal, 'cartLists' => $cart]);
+    }
+
+    public function address(Request $request)
+    {
+
+        $addresses = new Addresse();
+        $addresses->user_id = $request->id;
+        $addresses->street = $request->street;
+        $addresses->phone = $request->phone;
+        $addresses->name = $request->name;
+        if ($addresses->save()) {
+            return response()->json(['code' => 'Thêm mới thành công']);
+        }
     }
 }

@@ -86,23 +86,29 @@ class AccountsController extends Controller
             $user->username = $username;
             $user->password = $password;
             $user->email = $email;
+            $user->phone = $phone;
+            $user->address = $street;
             $user->role = !empty($role) ? $role : '';
             $user->birthdate = !empty($birthdate) ?$birthdate : '' ;
-            $customer_id = User::SELECT('*')->orderBy('id', 'DESC')->LIMIT(1)->first();
 
-            $addresses = new Addresse();
-            $addresses->user_id = $customer_id->id + 1;
-            $addresses->street = $street;
-            $addresses->phone = $phone;
-            $addresses->name = $name;
+            if($user->save())
+            {
+                $customer_id = User::select()->max('id');
+                $addresses = new Addresse();
+                $addresses->user_id = $customer_id;
+                $addresses->street = $street;
+                $addresses->phone = $phone;
+                $addresses->name = $name;
 
-            if($user->save() && $addresses->save()){
-                Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-                
-                return redirect('/')->with('alert','Thêm thành công');
-            }else{
-                return redirect('/login')->with('alert','Không thành công');
+                if( $addresses->save()){
+                    Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+                    
+                    return redirect('/')->with('alert','Thêm thành công');
+                }else{
+                    return redirect('/login')->with('alert','Không thành công');
+                } 
             }
+            
         
         
     }
