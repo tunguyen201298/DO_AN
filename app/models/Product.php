@@ -12,7 +12,8 @@ class Product extends Model
     	'quantity',
     	'detail',
         'price',
-        'img_link'
+        'img_link',
+        'qty_number_sell'
     ];
 
     public function imglink() 
@@ -27,7 +28,7 @@ class Product extends Model
 
     public function invoicedetail() 
     {   
-        return $this->belongsTo(\App\models\InvoiceDetail::class);
+        return $this->hasMany(\App\Models\InvoiceDetail::class);
     }
 
     public function category() 

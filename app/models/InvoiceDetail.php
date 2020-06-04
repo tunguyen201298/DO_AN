@@ -22,6 +22,6 @@ class InvoiceDetail extends Model
 
   public function product() 
   { 
-    return $this->hasMany(\App\Models\Product::class);
+    return $this->belongsTo(\App\Models\Product::class);
   }
 }

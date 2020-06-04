@@ -2,7 +2,7 @@
 				<div id="khach-hang">
 					<h3>Thông tin khách hàng</h3>
 					<p>
-						<span class="info">Khách hàng: </span>
+						<span class="info">Tên người nhận: </span>
 						{{$customer['name']}}
 					</p>
 					<p>
@@ -31,15 +31,15 @@
 						@foreach($invoice as $item)
 						<tr>
 							<td>{{$item->product_name}}</td>
-							<td class="price">{{number_format($item->price)}}VNĐ</td>
+							<td class="price">{{number_format($item->price)}}." ₫"</td>
 							<td>{{$item->quantity}}</td>
 
-							<td class="price">{{number_format($item->total)}}VNĐ</td>
+							<td class="price">{{number_format($item->total)}}." ₫"</td>
 						</tr>
 						@endforeach
 						<tr>
 							<td colspan="3">Tổng tiền:</td>
-							<td class="total-price">{{$item->total}}VNĐ</td>
+							<td class="total-price">{{$item->total}}." ₫"</td>
 						</tr>
 					</table>
 				</div>

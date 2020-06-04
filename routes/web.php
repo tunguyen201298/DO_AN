@@ -142,3 +142,4 @@ Route::get('contact', 'ContactsController@contact')->name('contact');
 
 
 Route::get('/home', 'HomeController@index');
+Route::get('abc', 'CartsController@index');

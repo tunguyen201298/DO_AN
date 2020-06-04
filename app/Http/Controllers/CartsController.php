@@ -30,7 +30,15 @@ class CartsController extends Controller
     |
     */
 
-   
+    /*public function index()
+    {
+        $id_bill = Bill::select()->max('id');
+        $a = InvoiceDetail::select('product_id')->where('bill_id', $id_bill)->get();
+        $p = Product::find($a)->invoicedetail()->where('bill_id', $id_bill)->get(); 
+        dd($a);
+    }*/
+
+
     public function addCart(Request $request)
     {   
         $id = $request->id ; 
@@ -144,9 +152,23 @@ class CartsController extends Controller
                     $invoice->price = $value->price;
                     $invoice->total = $value->price*$value->qty;
                     $invoice->save();
+                    $qty_number_sell = 0;
+                   
+                    $qty_pr = Product::select('quantity')->where('id',$value->id)->first();
+                    $qty_update = $qty_pr->quantity - $value->qty;
+                    $qty_number_sell += $value->qty;
+                    Product::where('id', $value->id)->update(['quantity'=> $qty_update, 'qty_number_sell' => $qty_number_sell]);
+                    
+                    //Product::where('id', $value->id)->update('qty_number_sell', $qty_number_sell);
                 }
+                /*foreach ($cart as $value) {
+                    # code...
+                }*/
+
+
                 Cart::destroy();
                 return redirect(url('success-get/'.$id));
+
             }else
             {
                 $id_bill = Bill::select()->max('id');
