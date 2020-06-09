@@ -13,6 +13,6 @@ class ImgLink extends Model
 
     public function product() 
 	{	
-		return $this->belongsTo(\App\models\Product::class);
+		return $this->belongsTo(\App\Models\Product::class);
 	}
 }

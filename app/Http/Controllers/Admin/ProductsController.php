@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\models\Product;
+use App\Models\ImgLink;
+use App\Models\InvoiceDetail;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use App\models\Supplier;
@@ -47,7 +49,7 @@ class ProductsController extends Controller
                 'price' => 'required|numeric',
                 'discount' => 'numeric',
                 'image' => 'required',
-                'detail' => 'required|min:5|max:25',
+                'detail' => 'required|min:5',
                 'quantity' => 'numeric',
             ],
 
@@ -162,6 +164,12 @@ class ProductsController extends Controller
     public function destroy() {
         $ids = Input::get('id');
         $arr_ids = explode(",", $ids);
+        foreach ($arr_ids as $arr_idss) {
+            $deleted = InvoiceDetail::where('product_id',$arr_idss)->delete();
+        } 
+        foreach ($arr_ids as $arr_idss) {
+            $deleted = ImgLink::where('product_id',$arr_idss)->delete();
+        } 
         foreach ($arr_ids as $arr_idss) {
             $deleted = Product::find($arr_idss)->delete();
         }  

@@ -16,6 +16,16 @@
         </div>
         
         <div class="form-group">
+            <label class="required" for="input_area_name">{{trans('Số lượng')}}</label>
+            {!! Form::text('quantity', $area->quantity, ['class' => 'form-control', 'maxlength' => 100,  'placeholder' => trans('Số lượng')]) !!} 
+            @if ($errors->has('quantity'))
+                <span class="help-block">
+                    {{ $errors->first('quantity') }}
+                </span>
+            @endif
+        </div>
+
+        <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Loại sản phẩm')}}</label>
             <select name="category" class="form-control" placeholder="trans('Loại sản phẩm')">
                 @foreach($category as $categorys)
@@ -25,7 +35,7 @@
         </div>
         <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Nhà cung cấp')}}</label>
-            <select name="category" class="form-control" placeholder="trans('Nhà cung cấp')">
+            <select name="supplier" class="form-control" placeholder="trans('Nhà cung cấp')">
                 @foreach($supplier as $suppliers)
                     <option value="{{$suppliers->id}}">{{$suppliers->name}}</option>
                 @endforeach

@@ -29,7 +29,7 @@
         <div class="box-body table-responsive no-padding">
             <div class="box-search-table pull-right">
                 <div class="box-delete_multi pull-left">
-                    <a href="javascript:;" id="btn-delete-all" data-routes="/admin/areas/destroy" class="btn btn-danger"><i class="fa fa-trash-o"></i> Xóa tất cả</a>
+                    <a href="javascript:;" id="btn-delete-all" data-routes="/admin/product/destroy" class="btn btn-danger"><i class="fa fa-trash-o"></i> Xóa tất cả</a>
                 </div>
                 {!! Form::open(array('url' => url("admin/areas"), 'id' => 'form-search', 'method' => 'GET')) !!}
                 <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> </button>
@@ -63,7 +63,7 @@
                         </td>
                         <td class="action">
                             <a href="{{url('admin/product/edit/' . $area->id)}}" class="btn btn-primary" title="{{trans('common.edit')}}"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:;" onclick="deleteModal('{{$area->id}}', '/admin/areas/destroy')" title="{{trans('common.delete')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                            <a href="javascript:;" onclick="deleteModal('{{$area->id}}', '/admin/product/destroy')" title="{{trans('common.delete')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                     @endforeach
