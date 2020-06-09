@@ -8,6 +8,7 @@ use Validator;
 use App\Models\Product;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
 
 class WarehousesController extends Controller
 {

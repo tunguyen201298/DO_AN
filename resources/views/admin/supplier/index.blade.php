@@ -95,7 +95,7 @@
             is_visible = (state == true) ? 1 : 0;
             
             $.ajax({
-                url: root + '/admin/suppliers/active', 
+                url: root + '/admin/supplier/active', 
                 type: 'POST',
                 data: {id: $(this).val(), is_visible: is_visible}, 
                 success: function (data, success) {
@@ -106,6 +106,3 @@
     });
 </script>
 @stop
-
-
-

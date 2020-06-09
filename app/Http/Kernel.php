@@ -46,6 +46,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        //cái này là middleware nếu chưa login sẽ đẩy ra
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -53,5 +54,9 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin.auth' => \App\Http\Middleware\AdminAuthenticate::class, 
+        //Dăng ký middleware route
+        'role' => \App\Http\Middleware\CheckRole::class,
+        'role.staff' => \App\Http\Middleware\CheckRoleStaff::class, 
+        'role.staff.sell' => \App\Http\Middleware\CheckRoleStaffSell::class,
     ];
 }

@@ -43,6 +43,7 @@
                         <th class="rowCheckAll w_30"><input type="checkbox" id="checkAll" /></th>
                         <th class="w_30">{{trans('STT')}}</th>
                         <th>{!!sort_title('name',trans('Tên'))!!}</th>
+                        <th>{!!sort_title('date',trans('Ngày đặt'))!!}</th>
                         <th>{!!sort_title('name',trans('Tổng tiền'))!!}</th>
                         <th>{!!sort_title('is_visible',trans('Trạng thái'))!!}</th>
                         <th class="w_120">{{trans('Thao tác')}}</th>
@@ -55,12 +56,13 @@
                     @endphp
                     @foreach($bills as $key => $bill)
                     <tr>
-                        <td class="text-center "><input type="checkbox" class="checkItem" value="{{$bill->id}}" /></td>
+                        <td class="text-center "><input type="checkbox" class="checkItem" value="{{$bill->id}}" name="id" /></td>
                         <td class="text-center">{{$no++}}</td>
                         <td>{{$bill->name}}</td>
+                        <td>{{$bill->created_at}}</td>
                         <td>{{number_format($bill->total)." ₫"}}</td>
                         <td class="text-center w_100">
-                            <div style=" margin-left: 50%">
+                            <div>
                                 <input type="checkbox" value="{{$bill->id}}" data-size="mini" data-on-text="Hiện" data-off-text="Ẩn" data-on-color="success" data-off-color="danger" name="is_visible" {{$bill->is_visible?'checked':''}} />
                             </div>
                             

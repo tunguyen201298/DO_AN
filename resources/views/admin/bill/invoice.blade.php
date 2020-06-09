@@ -98,11 +98,11 @@
                                     <th>{!!sort_title('qty',trans('Số lượng'))!!}</th>
                                     <th class="w_120">{{trans('Thành tiền')}}</th>
                                 </tr>
-                            </thead>
+                            </thead> 
                             <tbody>
                                 @if(!$invoice->isEmpty())
                                 @php
-                                $no = (($invoices->currentPage() - 1) * $invoices->perPage() + 1) 
+                                $no = 1
                                 @endphp
                                 @foreach($invoice as $key => $invoice)
                                 <tr>

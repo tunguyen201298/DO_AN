@@ -56,4 +56,10 @@ class BillsController extends Controller
         }
         return redirect()->back()->with(['message' => trans('Xóa hóa đơn thành công'), 'alert-class' => 'alert-success']);
     }
+
+    public function active() {
+        $a = Bill::whereId(Input::get("id"))->update(['is_visible' => Input::get("is_visible")]);
+        dd($a);
+        return response()->json('ok');
+    }
 }

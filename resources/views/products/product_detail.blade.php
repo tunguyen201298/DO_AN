@@ -17,8 +17,8 @@
                                         @foreach($product_img as $img)
                                         <div class="owl-item" style="width: 319px;">
                                             
-                                            <div class="single-product-gallery-item" id="slide1">
-                                                <a data-lightbox="image-1" data-title="Gallery" href="{{ asset('storage/app/products/'.$img->link) }}">
+                                            <div class="single-product-gallery-item" id="slide{{$no}}">
+                                                <a data-lightbox="image-{{$no++}}" data-title="Gallery" href="{{ asset('storage/app/products/'.$img->link) }}">
                                                     <img class="img-responsive" alt="" src="{{ asset('storage/app/products/'.$img->link) }}">
                                                 </a>
                                             </div>
@@ -235,13 +235,7 @@
                                         {{ csrf_field() }}
                                         <div class="product-add-review">
                                             <h4 class="title">Write your own review</h4>
-                                            <div class="rating-p">    
-                                            <input type="radio" id="star5" name="rate" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-                                            <input type="radio" id="star4" name="rate" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                                            <input type="radio" id="star3" name="rate" value="3" /><label for="star3" title="Meh">3 stars</label>
-                                            <input type="radio" id="star2" name="rate" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-                                            <input type="radio" id="star1" name="rate" value="1" /><label for="star1" title="Sucks big time">1 star</label>
-                                            </div></br></br></br>
+                                            <div class="rating rateit-small rateit"><button id="rateit-reset-5" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-5" style="display: none;"></button><div id="rateit-range-5" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-5" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div></br></br></br>
                                             <div class="review-form">
                                                 <div class="form-container">
                                                         <div class="row">
@@ -656,4 +650,5 @@
         </div>
     </div>
 </div>
+
 @stop

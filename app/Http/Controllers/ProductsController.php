@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\collection;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\models\Category;
 use App\models\Product;
 use App\models\ImgLink;
+use Illuminate\Support\Facades\Input;
 
 use Validator;
 class ProductsController extends Controller
@@ -37,7 +39,8 @@ class ProductsController extends Controller
         $title = "Chi Tiết Sản Phẩm";
         $product_detail = Product::find($id);
         $product_img = ImgLink::select('link')->where('product_id',$id)->get();
-        return view('products.product_detail', compact('title','product_detail','product_img'));
+        $no = 1;
+        return view('products.product_detail', compact('title','product_detail','product_img','no'));
     }
     public function gridView(){
         $title = 'Grid View';
@@ -70,10 +73,5 @@ class ProductsController extends Controller
             ]
         );
     }
-    public function product()
-    {
-      
-        //
-
-    }
+    
 }

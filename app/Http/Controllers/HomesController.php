@@ -21,8 +21,8 @@ class HomesController extends Controller
 {
    
     public function index(){
-        $title = "Trang Sức Bạc PNJSilver";
-        $products = Product::select('id','name', 'discount', 'price','img_link')
+        $title = "Shop đá Mixi";
+        $products = Product::select('id','name', 'discount', 'price','img_link')->where('is_visible', 1)
             ->get();
         $banner = Image::select('name')->where('type', 'banner')->get();
         $slide = Slide::select('title','content', 'image')->get();

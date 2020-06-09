@@ -105,8 +105,8 @@
         $.widget.bridge('uibutton', $.ui.button);
         </script>
         <!-- Bootstrap 3.3.6 -->
-        <script src="{{ asset('public/editor/ckeditor/ckeditor.js')}}"></script>
-        <script>CKEDITOR.replace('ckeditor');</script>
+        <!-- <script src="{{ asset('public/editor/ckeditor/ckeditor.js')}}"></script>
+        <script>CKEDITOR.replace('ckeditor');</script> -->
         <script src="{{ asset('public/admin/bootstrap/js/bootstrap.min.js')}}"></script>
         <!-- Morris.js charts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>

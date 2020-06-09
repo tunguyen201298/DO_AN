@@ -18,11 +18,13 @@
             <li class=" treeview">
                 <a href="{{url('admin/bill')}}">
                     <i class="fa fa-th"></i> <span>Đơn hàng</span>
+                    <span class="label label-success" style="float: right;">4</span>
                 </a>
             </li>
              <li class=" treeview">
                 <a href="{{url('admin/blog')}}">
                     <i class="fa fa-th"></i> <span>Bài viết</span>
+                    <span class="label label-success" style="float: right;">4</span>
                 </a>
             </li>
             <li class=" treeview">
@@ -77,8 +79,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{url('admin/users')}}"><i class="fa fa-circle-o"></i> Danh sách nhân viên</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Phân quyền</a></li>
+                    <li><a href="{{url('admin/user')}}"><i class="fa fa-circle-o"></i> Danh sách nhân viên</a></li>
+                    <li><a href="{{url('admin/user/customer')}}"><i class="fa fa-circle-o"></i> Danh sách khách hàng</a></li>
                 </ul>
             </li>
             <li class="treeview">

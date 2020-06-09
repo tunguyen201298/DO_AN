@@ -10,7 +10,7 @@ Route::get('product', 'ProductsController@product');
 /* Group Admin không cần đăng nhập vẫn vô được
 /*----------------------------------------------------------------------------*/
 Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
- 
+
 	/*------------------------------------------------------------------------*/
 	/* User
 	/*------------------------------------------------------------------------*/
@@ -21,76 +21,106 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	Route::get('register', array('as' => 'admin.register', 'uses' => 'AuthController@getRegister'));
 	Route::post('check-register', 'AuthController@checkRegister')->name('check-register');
 	Route::get('logout', 'AuthController@logout');
-	/*----------------------------------------------------------------------------*/
-	//Blogs
-	/*----------------------------------------------------------------------------*/
-	Route::get('blog', 'BlogsController@index');
-	Route::get('blog/create', 'BlogsController@create');
-	Route::post('blog/store', 'BlogsController@store');
-	Route::post('blog/destroy', 'BlogsController@destroy');
-	Route::get('blog/edit/{id}', 'BlogsController@edit');
-	Route::post('blog/update/{id}', 'BlogsController@update');
 
-	/*------------------------------------------------------------------------*/
-	/* Product
-	/*------------------------------------------------------------------------*/
-	Route::get('product', 'ProductsController@productShow');
-	Route::get('product/create', 'ProductsController@create');
-	Route::get('product/edit/{id}', 'ProductsController@edit');
-	Route::post('product/store', 'ProductsController@store');
-	Route::post('product/update/{id}', 'ProductsController@update');
-	Route::post('product/destroy', 'ProductsController@destroy');
-	/*------------------------------------------------------------------------*/
-	/* Bill
-	/*------------------------------------------------------------------------*/
-	Route::get('bill', 'BillsController@billShow');
-	Route::post('bill/destroy', 'BillsController@destroy');
-	Route::get('bill/invoice/{id}', 'BillsController@invoice');
-	Route::get('bill/print/{id}', 'BillsController@print');
-	/*------------------------------------------------------------------------*/
-	/* Supplier
-	/*------------------------------------------------------------------------*/
-	Route::get('supplier', 'SupplierController@index');
-	Route::get('supplier/create', 'SupplierController@create');
-	Route::post('supplier/store', 'SupplierController@store');
-	Route::get('supplier/edit/{id}', 'SupplierController@edit');
-	Route::post('supplier/update/{id}', 'SupplierController@update');
-	Route::post('supplier/destroy', 'SupplierController@destroy');
 	/*----------------------------------------------------------------------------*/
-	//Image
+	/* Group Admin bắt buộc đăng nhập
+	/* 'middleware' => ['admin.auth', 'role'] cái này là mảng có thể bỏ nhiều middleware
 	/*----------------------------------------------------------------------------*/
-	Route::get('img/banner', 'ImagesController@index')->name('banner');
-	Route::get('img/banner/create', 'ImagesController@create')->name('create');
-	Route::post('img/banner/store', 'ImagesController@store')->name('store');
-	Route::post('img/banner/destroy', 'ImagesController@destroy')->name('destroy');
-	//Route::get('img/slide', 'HomesController@slide')->name('slide');
-	/*----------------------------------------------------------------------------*/
-	//Slider
-	/*----------------------------------------------------------------------------*/
-	Route::get('slider', 'SlideController@sliderShow')->name('slider');
-	Route::get('slider/create', 'SlideController@create');
-	Route::get('slider/edit/{id}', 'SlideController@edit');
-	Route::post('slider/update/{id}', 'SlideController@update');
-	Route::post('slider/store', 'SlideController@store');
-	/*----------------------------------------------------------------------------*/
-	//warehouse
-	/*----------------------------------------------------------------------------*/
-	Route::group(array('prefix' => '/warehouse'), function () {
-		Route::get('/', 'WarehousesController@index');
+	Route::group(array('middleware' => ['admin.auth', 'role']), function () {
+	    Route::get('/', 'HomesController@index');
+    	Route::get('home', 'HomesController@index');
+
+    	Route::group(array('middleware' => ['admin.auth', 'role.staff.sell']), function () {
+    		Route::group(array('prefix' => '/user'), function () {
+    			/*----------------------------------------------------------------------------*/
+				//User
+				/*----------------------------------------------------------------------------*/
+				Route::get('/', 'UsersController@index');
+				Route::get('/customer', 'UsersController@customer');
+				Route::get('/info-user/{id}', 'UsersController@infoUser');
+				Route::get('edit/{id}', 'UsersController@edit');
+				Route::post('update/{id}', 'UsersController@update');
+			});
+    	});
+    	
+    	Route::group(array('middleware' => ['admin.auth', 'role.staff.sell']), function () {
+
+    		/*----------------------------------------------------------------------------*/
+			//Blogs
+			/*----------------------------------------------------------------------------*/
+			Route::group(array('prefix' => '/blog'), function () {
+				Route::get('/', 'BlogsController@index');
+				Route::get('create', 'BlogsController@create');
+				Route::post('store', 'BlogsController@store');
+				Route::post('destroy', 'BlogsController@destroy');
+				Route::get('edit/{id}', 'BlogsController@edit');
+				Route::post('update/{id}', 'BlogsController@update');
+			});
+			/*------------------------------------------------------------------------*/
+			/* Product
+			/*------------------------------------------------------------------------*/
+			Route::get('product', 'ProductsController@productShow');
+			Route::get('product/create', 'ProductsController@create');
+			Route::get('product/edit/{id}', 'ProductsController@edit');
+			Route::post('product/store', 'ProductsController@store');
+			Route::post('product/update/{id}', 'ProductsController@update');
+			Route::post('product/destroy', 'ProductsController@destroy');
+			Route::post('product/active', 'ProductsController@active');
+			/*------------------------------------------------------------------------*/
+			/* Bill
+			/*------------------------------------------------------------------------*/
+			Route::get('bill', 'BillsController@billShow');
+			Route::post('bill/destroy', 'BillsController@destroy');
+			Route::get('bill/invoice/{id}', 'BillsController@invoice');
+			Route::get('bill/print/{id}', 'BillsController@print');
+			Route::post('bills/active', 'BillsController@active');
+			/*----------------------------------------------------------------------------*/
+			//Image
+			/*----------------------------------------------------------------------------*/
+			Route::get('img/banner', 'ImagesController@index')->name('banner');
+			Route::get('img/banner/create', 'ImagesController@create')->name('create');
+			Route::post('img/banner/store', 'ImagesController@store')->name('store');
+			Route::post('img/banner/destroy', 'ImagesController@destroy')->name('destroy');
+			//Route::get('img/slide', 'HomesController@slide')->name('slide');
+			/*----------------------------------------------------------------------------*/
+			//Slider
+			/*----------------------------------------------------------------------------*/
+			Route::get('slider', 'SlideController@sliderShow')->name('slider');
+			Route::get('slider/create', 'SlideController@create');
+			Route::get('slider/edit/{id}', 'SlideController@edit');
+			Route::post('slider/update/{id}', 'SlideController@update');
+			Route::post('slider/store', 'SlideController@store');
+			Route::post('slider/active', 'SlideController@active');
+    	});
+		
+		Route::group(array('middleware' => ['admin.auth', 'role.staff']), function () {
+			/*------------------------------------------------------------------------*/
+			/* Supplier
+			/*------------------------------------------------------------------------*/
+			Route::get('supplier', 'SupplierController@index');
+			Route::get('supplier/create', 'SupplierController@create');
+			Route::post('supplier/store', 'SupplierController@store');
+			Route::get('supplier/edit/{id}', 'SupplierController@edit');
+			Route::post('supplier/update/{id}', 'SupplierController@update');
+			Route::post('supplier/destroy', 'SupplierController@destroy');
+			Route::post('supplier/active', 'SupplierController@active');
+			
+			/*----------------------------------------------------------------------------*/
+			//warehouse
+			/*----------------------------------------------------------------------------*/
+			Route::group(array('prefix' => '/warehouse'), function () {
+				Route::get('/', 'WarehousesController@index');
+			});
+		});
 	});
-	
 });
+/*-----------------------------------------------------------*/
+/*-----------------------------------------------------------*/
 
-/*----------------------------------------------------------------------------*/
-/* Group Admin bắt buộc đăng nhập
-/* 'middleware' => ['admin.auth'] cái này là mảng có thể bỏ nhiều middleware
-/*----------------------------------------------------------------------------*/
-Route::group(['prefix' => '/admin','namespace' => 'Admin', 'middleware' => ['admin.auth']], function () {
-	Route::get('/', 'HomesController@index');
-    Route::get('home', 'HomesController@index');
-    
+
+Route::group(array('middleware' => ['auth']), function () {
+
 });
-
 
 Route::get('list-product.html', 'ProductsController@listView')->name('list-product');
 
@@ -139,7 +169,8 @@ Route::get('contact', 'ContactsController@contact')->name('contact');
 //cái này chính là dùng cái có sẵn đó
 //Auth::routes();
 
-
+//Chưa làm mấy cái đó àdạ mấy cái dưới chwua làm
+//Còn phần nào khó nữa ko coi chỉnh lại cái hiện ẩn với
 
 Route::get('/home', 'HomeController@index');
 Route::get('abc', 'CartsController@index');

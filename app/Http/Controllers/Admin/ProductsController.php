@@ -8,6 +8,7 @@ use App\models\Product;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use App\models\Supplier;
+use Illuminate\Support\Facades\Input;
 use App\models\Category; //sử lại Models biết hoa hết kể cả thư mục
 
 class ProductsController extends Controller
@@ -171,5 +172,9 @@ class ProductsController extends Controller
             ]);
         }
         return redirect()->back()->with(['message' => trans('Xóa sản phẩm thành công'), 'alert-class' => 'alert-success']);
+    }
+    public function active() {
+        Product::whereId(Input::get("id"))->update(['is_visible' => Input::get("is_visible")]);
+        return response()->json('ok');
     }
 }

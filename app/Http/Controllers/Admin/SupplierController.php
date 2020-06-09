@@ -146,4 +146,11 @@ class SupplierController extends Controller
         }
         return redirect()->back()->with(['message' => trans('Xóa nhà cung cấp thành công'), 'alert-class' => 'alert-success']);
     }
+
+    public function active() {
+        Supplier::whereId(Input::get("id"))->update(['is_visible' => Input::get("is_visible")]);
+        return response()->json('ok');
+    }
+
+    
 }

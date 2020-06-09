@@ -12,7 +12,8 @@ class Supplier extends Model
    		'street_1',
    		'street_2',
    		'phone',
-   		'email'
+   		'email',
+      'is_visible'
    ];
 
 

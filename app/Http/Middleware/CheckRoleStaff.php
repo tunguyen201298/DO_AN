@@ -6,9 +6,10 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Request;
 
-class AdminAuthenticate {
+class CheckRoleStaff
+{
 
-    /**
+     /**
      * The Guard implementation.
      *
      * @var Guard
@@ -25,6 +26,7 @@ class AdminAuthenticate {
         $this->auth = $auth;
     }
 
+
     /**
      * Handle an incoming request.
      *
@@ -32,16 +34,12 @@ class AdminAuthenticate {
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next) {
-        if ($this->auth->guest()) {
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
-            } else {
-                //sủ dụng thèn nào để khi nào admin nó chuyển về trang login admin
-                return redirect(url('admin/login'));
-            }
+    public function handle($request, Closure $next)
+    {
+        if(!in_array($this->auth->user()->role, [1,3])){
+            //403 không có quyền truy cập
+            return abort(403, 'Unauthorized action.');
         }
         return $next($request);
     }
-
 }

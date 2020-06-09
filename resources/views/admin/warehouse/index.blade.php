@@ -44,6 +44,7 @@
                         <th class="rowCheckAll w_30"><input type="checkbox" id="checkAll" /></th>
                         <th class="w_30">STT</th>
                         <th>{!!sort_title('name',trans('Tên'))!!}</th>
+                        <th>{!!sort_title('name',trans('Số lượng trong kho'))!!}</th>
                         <th>{!!sort_title('is_visible',trans('Trạng thái'))!!}</th>
                         <th class="w_100">{{trans('Thao tác')}}</th>
                     </tr>
@@ -58,6 +59,7 @@
                         <td class="text-center "><input type="checkbox" class="checkItem" value="{{$warehouse->id}}" /></td>
                         <td class="text-center">{{$no++}}</td>
                         <td>{{$warehouse->name}}</td>
+                        <td>{{$warehouse->quantity}}</td>
                         <td class="text-center w_100">
                             <input type="checkbox" value="{{$warehouse->id}}" data-size="mini" data-on-text="Hiện" data-off-text="Ẩn" data-on-color="success" data-off-color="danger" name="is_visible" {{$warehouse->is_visible?'checked':''}} />
                         </td>

@@ -26,7 +26,7 @@
       */
      public function compose(View $view)
      {
-        $sliders = Slide::all();
+        $sliders = Slide::where('is_visible',1)->get();
         $view->with('sliders', $sliders);
      }
  }

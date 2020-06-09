@@ -96,7 +96,7 @@
             is_visible = (state == true) ? 1 : 0;
             
             $.ajax({
-                url: root + '/admin/areas/active', 
+                url: root + '/admin/product/active', 
                 type: 'POST',
                 data: {id: $(this).val(), is_visible: is_visible}, 
                 success: function (data, success) {

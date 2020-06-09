@@ -10,6 +10,7 @@ use Illuminate\Support\collection;
 use Illuminate\Support\Facades\DB;
 use App\models\Slide;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 
 class SlideController extends Controller
 {
@@ -128,6 +129,12 @@ class SlideController extends Controller
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
+
+    public function active() {
+        Slide::whereId(Input::get("id"))->update(['is_visible' => Input::get("is_visible")]);
+        return response()->json('ok');
+    }
+
     public function destroy() {
         $ids = Input::get('id');
         $arr_ids = explode(",", $ids);

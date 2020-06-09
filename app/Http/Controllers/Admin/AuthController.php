@@ -21,6 +21,10 @@ class AuthController extends Controller
     	
     	
         $remember = $request->has('remember') ? true : false;
+       /* $user = User::where('email',$request->email )->first();
+        $role = $user->role;
+        dd($role);*/
+
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             return redirect(url('/admin'));
         } else {

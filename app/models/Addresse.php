@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Addresse extends Model
 {
     protected $fillable = [
-         'customer_id',
+         'user_id',
          'street',
          'phone',
          'name'
@@ -16,7 +16,7 @@ class Addresse extends Model
 
    public function user()
    {
-      return $this->belongsTo(\App\User::class);
+      return $this->belongsTo(\App\Models\User::class);
    }
    
 }
