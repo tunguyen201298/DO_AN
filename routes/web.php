@@ -18,7 +18,7 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	Route::post('login', array('as' => 'admin.login', 'uses' => 'AuthController@postLogin'));
 	Route::post('logout', array('as' => 'admin.logout', 'uses' => 'AuthController@postLogout'));
 	Route::post('check-login', 'AuthController@checkLogin')->name('check-login');
-	Route::get('register', array('as' => 'admin.register', 'uses' => 'AuthController@getRegister'));
+	Route::get('register', ['as' => 'admin.register', 'uses' => 'AuthController@getRegister']);
 	Route::post('check-register', 'AuthController@checkRegister')->name('check-register');
 	Route::get('logout', 'AuthController@logout');
 
@@ -30,20 +30,23 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 	    Route::get('/', 'HomesController@index');
     	Route::get('home', 'HomesController@index');
 
-    	Route::group(array('middleware' => ['admin.auth', 'role.staff.sell']), function () {
+    	Route::group(array('middleware' => ['role.admin']), function () {
     		Route::group(array('prefix' => '/user'), function () {
     			/*----------------------------------------------------------------------------*/
 				//User
 				/*----------------------------------------------------------------------------*/
 				Route::get('/', 'UsersController@index');
+				Route::get('create', 'UsersController@create');
 				Route::get('/customer', 'UsersController@customer');
 				Route::get('/info-user/{id}', 'UsersController@infoUser');
-				Route::get('edit/{id}', 'UsersController@edit');
-				Route::post('update/{id}', 'UsersController@update');
+				Route::get('/edit/{id}', 'UsersController@edit');
+				Route::post('/update/{id}', 'UsersController@update');
+				Route::post('/destroy', 'UsersController@destroy');
+
 			});
     	});
     	
-    	Route::group(array('middleware' => ['admin.auth', 'role.staff.sell']), function () {
+    	Route::group(array('middleware' => ['role.staff.sell']), function () {
 
     		/*----------------------------------------------------------------------------*/
 			//Blogs
@@ -55,25 +58,45 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 				Route::post('destroy', 'BlogsController@destroy');
 				Route::get('edit/{id}', 'BlogsController@edit');
 				Route::post('update/{id}', 'BlogsController@update');
+				Route::post('/active', 'BlogsController@active');
 			});
 			/*------------------------------------------------------------------------*/
 			/* Product
 			/*------------------------------------------------------------------------*/
-			Route::get('product', 'ProductsController@productShow');
-			Route::get('product/create', 'ProductsController@create');
-			Route::get('product/edit/{id}', 'ProductsController@edit');
-			Route::post('product/store', 'ProductsController@store');
-			Route::post('product/update/{id}', 'ProductsController@update');
-			Route::post('product/destroy', 'ProductsController@destroy');
-			Route::post('product/active', 'ProductsController@active');
+			Route::group(array('prefix' => '/product'), function () {
+				Route::get('/', 'ProductsController@productShow');
+				Route::get('/create', 'ProductsController@create');
+				Route::get('/edit/{id}', 'ProductsController@edit');
+				Route::post('/store', 'ProductsController@store');
+				Route::post('/update/{id}', 'ProductsController@update');
+				Route::post('/destroy', 'ProductsController@destroy');
+				Route::post('/active', 'ProductsController@active');
+				Route::get('/search', 'ProductsController@search');
+
+			});
 			/*------------------------------------------------------------------------*/
 			/* Bill
 			/*------------------------------------------------------------------------*/
-			Route::get('bill', 'BillsController@billShow');
-			Route::post('bill/destroy', 'BillsController@destroy');
-			Route::get('bill/invoice/{id}', 'BillsController@invoice');
-			Route::get('bill/print/{id}', 'BillsController@print');
-			Route::post('bills/active', 'BillsController@active');
+			Route::group(array('prefix' => '/bill'), function () {
+				Route::get('/', 'BillsController@billShow');
+				Route::post('/destroy', 'BillsController@destroy');
+				Route::get('/invoice/{id}', 'BillsController@invoice');
+				Route::get('/print/{id}', 'BillsController@print');
+				Route::post('/active', 'BillsController@active');
+				Route::post('/check-read', 'BillsController@checkRead');
+			});
+			/*------------------------------------------------------------------------*/
+			/* Promotion
+			/*------------------------------------------------------------------------*/
+			Route::group(array('prefix' => '/promotion'), function () {
+				Route::get('/', 'PromotionsController@index');
+				Route::post('/store', 'PromotionsController@store');
+				Route::post('/destroy', 'PromotionsController@destroy');
+				Route::get('/create', 'PromotionsController@create');
+				Route::get('/edit/{id}', 'PromotionsController@edit');
+				//Route::post('/de', 'BillsController@active');
+				//Route::post('/check-read', 'BillsController@checkRead');
+			});
 			/*----------------------------------------------------------------------------*/
 			//Image
 			/*----------------------------------------------------------------------------*/
@@ -89,6 +112,7 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 			Route::get('slider/create', 'SlideController@create');
 			Route::get('slider/edit/{id}', 'SlideController@edit');
 			Route::post('slider/update/{id}', 'SlideController@update');
+			Route::post('slider/destroy', 'SlideController@destroy');
 			Route::post('slider/store', 'SlideController@store');
 			Route::post('slider/active', 'SlideController@active');
     	});
@@ -125,7 +149,11 @@ Route::group(array('middleware' => ['auth']), function () {
 Route::get('list-product.html', 'ProductsController@listView')->name('list-product');
 
 Route::get('product-details/{id}', 'ProductsController@productDetail')->name('product-details');
+Route::get('product-category/{id}', 'ProductsController@productCategory')->name('product-category');
 Route::post('product/search', 'SearchsController@index')->name('product-search');
+Route::get('product-heart', 'ProductsController@productWishlist')->name('product-heart');
+Route::get('track-order', 'ProductsController@trackOrder')->name('track-order');
+Route::post('submit-track-order', 'ProductsController@submitTrackOrder');
 
 
 Route::get('cart.html', 'CartsController@cart')->name('cart');
@@ -133,7 +161,7 @@ Route::get('grid-product.html', 'ProductsController@gridView')->name('grid-produ
 //Route::get('contact-us.html', 'ContactsController@contact')->name('grid-product');
 Route::get('three-col.html', 'ProductsController@threeColumn')->name('three-col');
 Route::get('four-col.html', 'ProductsController@fourColumn')->name('four-col');
-Route::post('product/reviews', 'ProductsController@reviews')->name('reviews');
+Route::post('product/reviews', 'ProductsController@review')->name('reviews');
 Route::get('insert', 'AdminCategoryController@insert')->name('insert');
 Route::get('insertproduct', 'AdminCategoryController@insertProduct')->name('insertProduct');
 /*----------------------------------------------------------------------------*/
@@ -156,9 +184,16 @@ Route::post('add-address','CartsController@address');
 /*----------------------------------------------------------------------------*/
 
 Route::get('user/login.html', 'AccountsController@login')->name('login');
+Route::get('forgot-password', 'AccountsController@forgotPassword')->name('forgot-password');
+Route::post('submit-forgot-password', 'AccountsController@forgotPasswordSubmit')->name('forgot-password-submit');
+Route::get('submit-email', 'AccountsController@forgotPassword')->name('forgot-password');
 Route::post('check-login', 'AccountsController@checkLogin')->name('check-login');
 Route::post('check-register', 'AccountsController@checkRegister')->name('check-register');
 Route::get('logout', 'AccountsController@logout')->name('logout');
+//Route::get('user/activation/{token}', 'Auth\RegisterController@activateUser')->name('user.activate');
+Route::get('register/verify/{confirmation_code}', 'AccountsController@activateUser')->name('user.activate');
+//Route::get('register/verify/{confirmation_code}', 'AccountsController@activateUser')->name('user.activate');
+
 /*----------------------------------------------------------------------------*/
 //Blogs
 /*----------------------------------------------------------------------------*/

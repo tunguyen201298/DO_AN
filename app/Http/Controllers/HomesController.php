@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Image;
+use App\Models\Blog;
 use Validator;
 use Cart;
 use Illuminate\Support\Facades\Mail;
@@ -22,11 +23,14 @@ class HomesController extends Controller
    
     public function index(){
         $title = "Shop đá Mixi";
-        $products = Product::select('id','name', 'discount', 'price','img_link')->where('is_visible', 1)
+        $products = Product::Orderby('id', 'asc')->limit('10')->where('is_visible', 1)
             ->get();
-        $banner = Image::select('name')->where('type', 'banner')->get();
-        $slide = Slide::select('title','content', 'image')->get();
-        return view('homes.index', compact('title', 'products','slide','banner'));
+        $pro_sell = Product::Orderby('qty_number_sell', 'asc')->limit('10')->where('is_visible', 1)->get();
+        $pro_new = Product::Orderby('id', 'asc')->limit('10')->get();
+        $blog = Blog::Orderby('id', 'asc')->limit('5')->get();
+        $banner = Image::where('type', 'banner')->first();
+        $slide = Slide::where('is_visible',1)->get();
+        return view('homes.index', compact('title', 'products','slide','banner', 'pro_sell','blog','pro_new'));
         
     }
 

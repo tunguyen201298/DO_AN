@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
+use App\Models\BillStatus;
+use App\Models\StatusBill;
 use App\Models\InvoiceDetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\Input;
 use PDF;
+use DB;
 
 class BillsController extends Controller
 {
@@ -17,8 +20,10 @@ class BillsController extends Controller
     {
     	$title = "Đơn hàng";
     	$bills = Bill::where('active', 1)->paginate();
-        $count = Bill::where('active', 1)->count();
-        return view('admin.bill.index', compact('title','bills','count'));
+        $counts = Bill::where('active', 1)->count();
+        $is_read = Bill::where('active', 1)->count();
+        DB::table('bills')->update(['is_read' => 1]);
+        return view('admin.bill.index', compact('title','bills','counts','is_read'));
     }
 
     public function invoice($id)
@@ -26,10 +31,12 @@ class BillsController extends Controller
         $title = "Chi tiết hóa đơn";
         $customer = Bill::find($id)->user()->first();
         $invoices = Bill::find($id)->invoiceDetails()->paginate();
-        $id_bill = Bill::select()->max('id');
-        $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
-        $bills = Bill::find($id)->first();
-        return view('admin.bill.invoice', compact('title','invoices', 'bills', 'customer','invoice'));
+        $invoice = InvoiceDetail::where('bill_id',$id)->get();
+        $bills = Bill::find($id);
+        $status = StatusBill::pluck('name', 'id');
+        $statuses = StatusBill::find($bills->status_id);
+        $status_bill = $statuses->name;
+        return view('admin.bill.invoice', compact('title','invoices', 'bills', 'customer','invoice','status', 'status_bill'));
     }
 
     public function print($id)
@@ -43,15 +50,16 @@ class BillsController extends Controller
     }
 
     public function destroy() {
+        
         $ids = Input::get('id');
         $arr_ids = explode(",", $ids);
         foreach ($arr_ids as $arr_idss) {
-            $deleted = Bill::find($arr_idss)->update(['active' => 0]);
+            $update = Bill::where('id',$arr_idss)->update(['active' => 0]);
         }  
         if (request()->wantsJson()) {
             return response()->json([
                         'message' => trans('Xóa hóa đơn thành công'),
-                        'deleted' => $deleted,
+                        'update' => $update
             ]);
         }
         return redirect()->back()->with(['message' => trans('Xóa hóa đơn thành công'), 'alert-class' => 'alert-success']);
@@ -62,4 +70,5 @@ class BillsController extends Controller
         dd($a);
         return response()->json('ok');
     }
+
 }

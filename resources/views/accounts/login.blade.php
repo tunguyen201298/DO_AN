@@ -6,7 +6,7 @@
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
 				<li><a href="home.html">Home</a></li>
-				<li class="active">Login</li>
+				<li class="active">Đăng nhập</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->
 	</div><!-- /.container -->
@@ -17,42 +17,56 @@
 			<div class="row">
 				<!-- Sign-in -->			
 <div class="col-md-6 col-sm-6 sign-in">
-	<h4 class="">Sign in</h4>
-	<p class="">Hello, Welcome to your account.</p>
+	<h4 class="">Đăng nhập</h4>
 	<div class="social-sign-in outer-top-xs">
 		<a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with Facebook</a>
 		<a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
 	</div>
 	<form action="{{ url('check-login') }}" method="post" class="register-form outer-top-xs" role="form">
 		{{ csrf_field() }}
+		@if(Session::has('message'))
+		    <div class="alert alert-info">
+		        {{ Session::get('message') }}
+		    </div>
+		@endif
+		@if(Session::has('status'))
+		    <div class="alert alert-info">
+		        {{ Session::get('status') }}
+		    </div>
+		@endif
+		@if(Session::has('newpass'))
+		    <div class="alert alert-info">
+		        {{ Session::get('newpass') }}
+		    </div>
+		@endif
 		<div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
+		    <label class="info-title" for="exampleInputEmail1">Nhập Email <span>*</span></label>
 		    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" name="email">
 		</div>
 	  	<div class="form-group">
-		    <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
-		    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" name="password">
+		    <label class="info-title" for="exampleInputPassword1">Mật khẩu <span>*</span></label>
+		    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" name="Mật khẩu">
 		</div>
 		<div class="radio outer-xs">
 		  	<label>
 		    	<input type="checkbox" name="optionsRadios" id="optionsRadios2" value="option2" name="remember">
-		    	Remember me!
+		    	Ghi nhớ đăng nhập!
 		  	</label>
-		  	<a href="#" class="forgot-password pull-right">Forgot your Password?</a>
+		  	<a href="{{url('forgot-password')}}" class="forgot-password pull-right">Quên mật khẩu?</a>
 		</div>
-	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
+	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Đăng nhập</button>
+
 	</form>					
 </div>
 <!-- Sign-in -->
 
 <!-- create a new account -->
 <div class="col-md-6 col-sm-6 create-new-account">
-	<h4 class="checkout-subtitle">Create a new account</h4>
-	<p class="text title-tag-line">Create your new account.</p>
+	<h4 class="checkout-subtitle">Tạo tài khoản mới</h4>
 	<form action="{{ url('check-register') }}" method="post" class="register-form outer-top-xs" role="form">
 		{{ csrf_field() }}
 		<div class="form-group">
-	    	<label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
+	    	<label class="info-title" for="exampleInputEmail2">Email <span>*</span></label>
 	    	<input type="email" class="form-control unicase-form-control text-input"  name="email">
 	    	@if ($errors->has('email'))
                 <span class="help-block">
@@ -61,7 +75,7 @@
             @endif
 	  	</div>
         <div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Name <span>*</span></label>
+		    <label class="info-title" for="exampleInputEmail1">Họ tên <span>*</span></label>
 		    <input type="text" class="form-control unicase-form-control text-input"  name="name">
 		    @if ($errors->has('name'))
                 <span class="help-block">
@@ -69,17 +83,9 @@
                 </span>
             @endif
 		</div>
+		
 		<div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Username <span>*</span></label>
-		    <input type="text" class="form-control unicase-form-control text-input"  name="username">
-		    @if ($errors->has('username'))
-                <span class="help-block">
-                    {{ $errors->first('username') }}
-                </span>
-            @endif
-		</div>
-		<div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Street <span>*</span></label>
+		    <label class="info-title" for="exampleInputEmail1">Địa chỉ <span>*</span></label>
 		    <input type="text" class="form-control unicase-form-control text-input" name="street">
 		    @if ($errors->has('street'))
                 <span class="help-block">
@@ -88,7 +94,7 @@
             @endif
 		</div>
         <div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Phone Number <span>*</span></label>
+		    <label class="info-title" for="exampleInputEmail1">Số điện thoại <span>*</span></label>
 		    <input type="text" class="form-control unicase-form-control text-input" name="phone">
 		    @if ($errors->has('phone'))
                 <span class="help-block">
@@ -97,7 +103,7 @@
             @endif
 		</div>
         <div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Password <span>*</span></label>
+		    <label class="info-title" for="exampleInputEmail1">Mật khẩu <span>*</span></label>
 		    <input type="password" class="form-control unicase-form-control text-input" name="password">
 		    @if ($errors->has('password'))
                 <span class="help-block">
@@ -106,7 +112,7 @@
             @endif
 		</div>
          <div class="form-group">
-		    <label class="info-title" for="exampleInputEmail1">Confirm Password <span>*</span></label>
+		    <label class="info-title" for="exampleInputEmail1">Nhập lại mật khẩu <span>*</span></label>
 		    <input type="password" class="form-control unicase-form-control text-input" name="cfpassword">
 		    @if ($errors->has('cfpassword'))
                 <span class="help-block">
@@ -114,7 +120,7 @@
                 </span>
             @endif
 		</div>
-	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Đăng ký</button>
 	</form>
 	
 	

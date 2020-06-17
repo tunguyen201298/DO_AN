@@ -145,4 +145,9 @@ class BlogsController extends Controller
         }
         return redirect()->back()->with(['message' => trans('Xóa bài viết thành công'), 'alert-class' => 'alert-success']);
     }
+
+    public function active() {
+        Blog::whereId(Input::get("id"))->update(['is_visible' => Input::get("is_visible")]);
+        return response()->json('ok');
+    }
 }

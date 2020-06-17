@@ -25,4 +25,8 @@ class User extends Model
     {   
         return $this->hasMany(\App\Models\Bill::class);
     }
+    public function review()
+   {
+        return $this->hasMany(\App\Models\Review::class);
+   }
 }

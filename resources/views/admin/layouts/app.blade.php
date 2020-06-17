@@ -7,7 +7,7 @@
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
+        <link rel="icon" href="{{asset('storage/app/logo/logodongphucandy.png')}}" type="image/png">
         <link rel="stylesheet" href="{{ asset('public/customInput/custom.scss') }}">
         <!-- Bootstrap 3.3.6 -->
         <link rel="stylesheet" href="{{ asset('public/admin/bootstrap/css/bootstrap.min.css') }}">
@@ -32,7 +32,7 @@
         <link rel="stylesheet" href="{{ asset('public/plugins/daterangepicker/daterangepicker.css')}}">
         <!-- bootstrap wysihtml5 - text editor -->
         <link rel="stylesheet" href="{{ asset('public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
-
+        <link href="{{ asset('public/register/vendor/mdi-font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('public/admin/css/style.css')}}">
 
@@ -137,5 +137,8 @@
         <script src="{{ asset('public/AdminLTE/js/demo.js')}}"></script>
         <!-- Common JS -->
         <script src="{{ asset('public/admin/js/admin.js')}}"></script>
+        <script src="{{ asset('public/register/vendor/datepicker/moment.min.js') }}"></script>
+    <script src="{{ asset('public/register/vendor/datepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('public/register/js/global.js') }}"></script> 
     </body>
 </html>

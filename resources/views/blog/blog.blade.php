@@ -10,11 +10,9 @@
 					<div class="blog-post  wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
 						<a href="blog-details.html"><img class="img-responsive" src="{{asset('storage/app/blog-post/'.$item->image)}}" alt=""></a>
 						<h1><a href="blog-details.html">{{$item->title}}</a></h1>
-						<span class="author">John Doe</span>
-						<span class="review">6 Comments</span>
-						<span class="date-time">14/06/2016 10.00AM</span>
-						<p>{{$item->content}}</p>
-						<a href="{{ url('blogs/detail/'.$item->id) }}" class="btn btn-upper btn-primary read-more">read more</a>
+						<span class="date-time">{{$item->created_at}}</span>
+						<!-- <p>{!!$item->content!!}</p> -->
+						<a href="{{ url('blogs/detail/'.$item->id) }}" class="btn btn-upper btn-primary read-more">Xem chi tiết</a>
 					</div>
 					@endforeach
 

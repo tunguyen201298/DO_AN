@@ -4,7 +4,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>ABC</b>G</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Company</b> ABC</span>
+        <span class="logo-lg"><b>Phong Thủy</b> Shop</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

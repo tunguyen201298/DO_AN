@@ -32,11 +32,11 @@
             <div class="card card-1">
                 <div class="card-heading"></div>
                 <div class="card-body">
-                    <h2 class="title">Registration Info</h2>
+                    <h2 class="title">Đăng ký tài khoản</h2>
                     <form action="{{ url('admin/check-register') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="input-group">
-                            <input class="input--style-1" type="email" placeholder="EMAIL" name="email">
+                            <input class="input--style-1" type="email" placeholder="Email" name="email">
                         </div>
                         @if ($errors->has('email'))
                             <span class="help-block">
@@ -49,7 +49,7 @@
                             </span>
                         @endif
                         <div class="input-group">
-                            <input class="input--style-1" type="text" placeholder="USERNAME" name="username">
+                            <input class="input--style-1" type="text" placeholder="Tên đăng nhập" name="username">
                         </div>
                         @if ($errors->has('username'))
                             <span class="help-block">
@@ -57,7 +57,7 @@
                             </span>
                         @endif
                         <div class="input-group">
-                            <input class="input--style-1" type="password" placeholder="PASSWORD" name="password">
+                            <input class="input--style-1" type="password" placeholder="Mật khẩu" name="password">
                         </div>
                         @if ($errors->has('password'))
                             <span class="help-block">
@@ -65,7 +65,7 @@
                             </span>
                         @endif
                         <div class="input-group">
-                            <input class="input--style-1" type="password" placeholder="CONFIRM PASSWORD" name="cfpassword">
+                            <input class="input--style-1" type="password" placeholder="Nhập lại mật khẩu" name="cfpassword">
                         </div>
                         @if ($errors->has('cfpassword'))
                             <span class="help-block">
@@ -73,7 +73,7 @@
                             </span>
                         @endif
                         <div class="input-group">
-                            <input class="input--style-1" type="text" placeholder="NAME" name="name">
+                            <input class="input--style-1" type="text" placeholder="Tên" name="name">
                         </div>
                         @if ($errors->has('name'))
                             <span class="help-block">
@@ -81,7 +81,7 @@
                             </span>
                         @endif
                         <div class="input-group">
-                            <input class="input--style-1" type="text" placeholder="STREET" name="street">
+                            <input class="input--style-1" type="text" placeholder="Địa chỉ" name="street">
                         </div>
                         @if ($errors->has('street'))
                                 <span class="help-block">
@@ -91,7 +91,7 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1 js-datepicker" type="text" placeholder="BIRTHDATE" name="birthdate">
+                                    <input class="input--style-1 js-datepicker" type="text" placeholder="Ngày sinh" name="birthdate">
                                     <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                         <div class="input-group">
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="role">
-                                    <option disabled="disabled" selected="selected">ROLE</option>
+                                    <option disabled="disabled" selected="selected">-- Chọn quyền truy cập --</option>
                                     <option value="1">Admin</option>
                                     <option value="2">Nhân viên kho</option>
                                     <option value="3">Nhân viên kiểm duyệt</option>
@@ -123,12 +123,14 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1" type="text" placeholder="PHONE" name="phone">
+                                    <input class="input--style-1" type="text" placeholder="Số điện thoại" name="phone">
                                 </div>
                             </div>
                         </div>
                         <div class="p-t-20">
-                            <button class="btn btn--radius btn--green" type="submit">Submit</button>
+                            
+                            <a href="{{url('admin/login')}}" class="btn btn--radius btn--green" type="submit">Quay lại</a>
+                            <button class="btn btn--radius btn--green" type="submit">Đăng ký</button>
                         </div>
                     </form>
                 </div>

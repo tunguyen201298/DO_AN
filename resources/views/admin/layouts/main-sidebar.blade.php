@@ -18,13 +18,12 @@
             <li class=" treeview">
                 <a href="{{url('admin/bill')}}">
                     <i class="fa fa-th"></i> <span>Đơn hàng</span>
-                    <span class="label label-success" style="float: right;">4</span>
+                    <span class="label label-success" style="float: right;">{{ $is_read }}</span>
                 </a>
             </li>
              <li class=" treeview">
                 <a href="{{url('admin/blog')}}">
                     <i class="fa fa-th"></i> <span>Bài viết</span>
-                    <span class="label label-success" style="float: right;">4</span>
                 </a>
             </li>
             <li class=" treeview">
@@ -38,8 +37,8 @@
                 </a>
             </li>
             <li class=" treeview">
-                <a href="{{url('admin/')}}">
-                    <i class="fa fa-th"></i> <span>Trang</span>
+                <a href="{{url('admin/promotion')}}">
+                    <i class="fa fa-th"></i> <span>Khuyến mãi</span>
                 </a>
             </li>
             <li class="treeview">

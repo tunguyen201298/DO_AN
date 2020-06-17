@@ -26,7 +26,12 @@ class AuthController extends Controller
         dd($role);*/
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
-            return redirect(url('/admin'));
+            $active = User::where('email',$request->email)->first();
+            if ($active->decentralization == 1) {
+               return redirect(url('/admin'));
+            }else{
+                return redirect()->back()->with('messenger', 'Quyền truy cập bị từ chối');
+            }
         } else {
             return redirect()->back()->with('messenger', 'Đăng nhập thất bại');
         }
@@ -46,7 +51,6 @@ class AuthController extends Controller
                 $request,
                 [
                     'name' => 'required|min:5|max:255',
-                    'username' => 'required|min:5|max:25',
                     'password' => 'required|min:5|max:25',
                     'cfpassword' => 'required|min:5|max:25|same:password',
                     'email' => 'required|email',
@@ -80,6 +84,7 @@ class AuthController extends Controller
             $user->role = $role;
             $user->phone = $phone;
             $user->birthdate = $birthdate;
+            $user->decentralization = 1;
 
             if($user->save()){
                 return redirect('admin/login')->with('alert','Thêm thành công');

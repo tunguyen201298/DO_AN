@@ -18,8 +18,6 @@ class SlideController extends Controller
     {	
     	$title = 'Slider Show';
     	$slide = Slide::paginate();
-    	//dùng view products
-    	//ở version 5.3 thì da ngữ là trans('sdfdsfd') chứ ko phải __('dfsfd')    	
     	return view('admin.slide.index', compact('title', 'slide'));
     }
     public function create()

@@ -27,6 +27,7 @@
      public function compose(View $view)
      {
         $sliders = Slide::where('is_visible',1)->get();
-        $view->with('sliders', $sliders);
+        $slide = Slide::paginate();
+        $view->with('sliders',$sliders);
      }
  }

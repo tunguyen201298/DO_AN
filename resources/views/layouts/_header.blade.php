@@ -8,8 +8,8 @@
             <div class="header-top-inner">
                 <div class="cnt-account">
                     <ul class="list-unstyled">
-                        
-                        <li><a href="#"><i class="icon fa fa-heart"></i>Yêu thích</a></li>
+                        <li><a href="{{ url('track-order')}}" ><i class="icon fa fa-check"></i>Kiểm tra đơn hàng</a></li>
+                        <li><a href="{{ url('product-heart')}}"><i class="icon fa fa-heart"></i>Yêu thích</a></li>
                         <li><a href="{{ route('cart-show')}}"><i class="icon fa fa-shopping-cart"></i>Giỏ hàng</a></li>
                         <li><a href="#" id="result"><i class="icon fa fa-check"></i>Thanh toán</a></li>
                     </ul>
@@ -17,23 +17,7 @@
 
                 <div class="cnt-block">
                     <ul class="list-unstyled list-inline">
-                        <li class="dropdown dropdown-small">
-                            <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">USD </span><b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">USD</a></li>
-                                <li><a href="#">INR</a></li>
-                                <li><a href="#">GBP</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown dropdown-small">
-                            <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">English</a></li>
-                                <li><a href="#">French</a></li>
-                                <li><a href="#">German</a></li>
-                            </ul>
-                        </li>
+                        
                         <li class="dropdown dropdown-small">
                             <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><i class="icon fa fa-user"></i><span class="value">
                                 @if(!Auth::check())
@@ -79,21 +63,6 @@
                         <form action="{{ url('product/search') }}" method="post">
                             <div class="control-group">
 
-                                <ul class="categories-filter animate-dropdown">
-                                    <li class="dropdown">
-
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="category.html">Categories <b class="caret"></b></a>
-
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li class="menu-header">Computer</li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Clothing</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Electronics</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Bài viết</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Liên hệ</a></li>
-
-                                        </ul>
-                                    </li>
-                                </ul>
                                 
                                     <input type="text" class="search-field" placeholder="Nhập từ khóa" name="search" id="text_search">
                                     <button class="search-button" type="submit"></button>
@@ -214,9 +183,9 @@
                                     <a href="{{ route('contact') }}">Liên hệ</a>
                                 </li>
                                 
-                                <li class="dropdown  navbar-right special-menu">
+                                <!-- <li class="dropdown  navbar-right special-menu">
                                     <a href="#">Todays offer</a>
-                                </li>
+                                </li> -->
 
 
                             </ul><!-- /.navbar-nav -->

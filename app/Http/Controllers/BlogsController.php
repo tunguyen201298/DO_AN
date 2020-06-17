@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Blog;
-
+ 
 class BlogsController extends Controller
 {
     public function index()
     {
     	$title = "Bài viết";
-    	$blogs = Blog::all();
+    	$blogs = Blog::where('is_visible',1)->get();
     	return view('blog.blog', compact('title','blogs'));
     }
 

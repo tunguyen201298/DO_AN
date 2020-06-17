@@ -16,16 +16,16 @@ class Review extends Model
 
    public function product()
    {
-   		return $this->belongsTo(\App\Model\Product::class);
+   		return $this->belongsTo(\App\Models\Product::class);
    }
 
-   public function customer()
+   /*public function customer()
    {
-         return $this->hasMany(\App\Model\Customer::class);
-   }
+         return $this->hasMany(\App\Models\Customer::class);
+   }*/
 
    public function user()
    {
-         return $this->hasMany(\App\Model\User::class);
+         return $this->belongsTo(\App\Models\User::class);
    }
 }

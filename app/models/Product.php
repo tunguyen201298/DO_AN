@@ -33,16 +33,16 @@ class Product extends Model
 
     public function category() 
     {   
-        return $this->belongsTo(\App\models\Category::class);
+        return $this->belongsTo(\App\Models\Category::class);
     }
 
     public function review() 
     {   
-        return $this->hasMany(\App\models\Review::class);
+        return $this->hasMany(\App\Models\Review::class);
     }
 
-    public function promotion() 
-    {   
-        return $this->belongsTo(\App\models\Promotion::class);
+    public function promotion()
+    {
+        return $this->belongsToMany(\App\Models\Promotion::class);
     }
 }

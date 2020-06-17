@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use App\models\Supplier;
 use Illuminate\Support\Facades\Input;
 use App\models\Category; //sử lại Models biết hoa hết kể cả thư mục
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -19,8 +20,6 @@ class ProductsController extends Controller
     {	
     	$title = 'Sản phẩm';
     	$areas = Product::paginate();
-    	//dùng view products
-    	//ở version 5.3 thì da ngữ là trans('sdfdsfd') chứ ko phải __('dfsfd')    	
     	return view('admin.areas.index', compact('title', 'areas'));
     }
     public function create()
@@ -28,17 +27,23 @@ class ProductsController extends Controller
     	$title = 'Thêm mới sản phẩm';
         $area = new Supplier();
         $area->is_visible = 1;
-    	$category = Category::all();
-        $supplier = Supplier::all();
-    	return view('admin.areas.create', compact('title', 'category', 'supplier','area'));
+        $n = '-- Chọn loại sản phẩm --';
+        $s = '-- Chọn nhà cung cấp --';
+        $categories = Category::where('parent_id','<>',0)->pluck('name', 'id');
+        $supplier = Supplier::pluck('name', 'id');
+    	return view('admin.areas.create', compact('title', 'categories', 'supplier','area','n','s'));
     }
     public function edit($id)
     {
     	$title = 'Sửa sản phẩm';
     	$area = Product::find($id);
-    	$category = Category::all();
-        $supplier = Supplier::all();
-    	return view('admin.areas.edit', compact('title','area','category','supplier'));
+        $category = Category::find($area->category_id);
+        $n = $category->name;
+        $supplier = Supplier::find($area->supplier_id);
+        $s = $supplier->name;
+    	$categories = Category::where('parent_id','<>',0)->pluck('name', 'id');
+        $supplier = Supplier::pluck('name', 'id');
+    	return view('admin.areas.edit', compact('title','area','categories','supplier','n','s'));
     }
     public function store(Request $request)
     {   
@@ -102,13 +107,14 @@ class ProductsController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $this->validate(
             $request,
             [
                 'name' => 'required|min:5|max:255',
                 'price' => 'required|numeric',
                 'discount' => 'numeric',
-                'detail' => 'required|min:5|max:25',
+                'detail' => 'required|min:5',
                 'quantity' => 'numeric',
             ],
 
@@ -123,6 +129,8 @@ class ProductsController extends Controller
 
         try {
             $product = Product::find($id);
+            $category = !$request->category ?  $product->category_id :  $request->category;
+            $supplier = !$request->supplier ?  $product->supplier_id :  $request->supplier;
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $name_img = $file->getClientOriginalName('file');
@@ -130,13 +138,13 @@ class ProductsController extends Controller
             }else{
                 $name_img = $product->img_link;
             }
-            
+
             $product->name = $request->name;
             $product->price = $request->price;
             $product->detail = $request->detail;
             $product->img_link = $name_img;
-            $product->category_id = $request->category;
-            $product->supplier_id = $request->supplier;
+            $product->category_id = $category;
+            $product->supplier_id = $supplier;
             $product->discount = $request->discount;
             $product->quantity = $request->quantity;
             $response = [
@@ -184,5 +192,10 @@ class ProductsController extends Controller
     public function active() {
         Product::whereId(Input::get("id"))->update(['is_visible' => Input::get("is_visible")]);
         return response()->json('ok');
+    }
+
+    public function search(Request $request) {
+        $products = Product::select(DB::raw('name AS text'), 'id')->where('name', 'LIKE', '%' . $request->get('q') . '%')->skip(0)->take(10)->get();
+        return response()->json($products);
     }
 }

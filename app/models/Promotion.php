@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Promotion extends Model
 {
 	protected $fillable = [
-   		'product_id',
+   		//'product_id', // thèn ni ko có đúng  kodaj nằm bên bảng trung gian
    		'promotion_name',
    		'star_date',
    		'end_date',
@@ -15,9 +15,8 @@ class Promotion extends Model
       'detail'
    ];
 
-   	public function product()
+    public function product()
     {
-    	return $this->belongsTo(\App\models\Product::class);
+        return $this->belongsToMany(\App\Models\Product::class);
     }
-
 }

@@ -24,7 +24,10 @@
 					<h5 class="name">Tên người nhận : {{$add->name}}</h5>
 					<h5 class="name">Địa chỉ : {{$add->street}}</h5>
 					<h5 class="name">Số điện thoại : {{$add->phone}}</h5>
-					<h5 class="name">Tình trạng đơn hàng : </h5>
+					<h5 class="name">Tình trạng đơn hàng : 
+						
+							{{$stt->name}}
+					</h5>
 				</div>
 			</div>
 		</div>

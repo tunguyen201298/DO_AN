@@ -8,6 +8,7 @@ class Bill extends Model
 {
 	protected $fillable = [
    		'user_id',
+      'status_id',
    		'name',
    		'phone',
    		'address',
@@ -19,9 +20,9 @@ class Bill extends Model
     	return $this->hasMany(\App\Models\InvoiceDetail::class);
     }
 
-    public function customer()
+    public function statusBill()
     {
-      return $this->belongsTo(\App\Model\Customer::class);
+      return $this->belongsTo(\App\Models\StatusBill::class);
     }
     public function user()
    {

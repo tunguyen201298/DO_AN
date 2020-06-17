@@ -44,9 +44,11 @@
                         <th class="w_30">{{trans('STT')}}</th>
                         <th>{!!sort_title('name',trans('Tên'))!!}</th>
                         <th>{!!sort_title('date',trans('Ngày đặt'))!!}</th>
+                        
                         <th>{!!sort_title('name',trans('Tổng tiền'))!!}</th>
+                        <th>{!!sort_title('status',trans('Tình trạng'))!!}</th>
                         <th>{!!sort_title('is_visible',trans('Trạng thái'))!!}</th>
-                        <th class="w_120">{{trans('Thao tác')}}</th>
+                        <th class="w_100">{{trans('Thao tác')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +63,17 @@
                         <td>{{$bill->name}}</td>
                         <td>{{$bill->created_at}}</td>
                         <td>{{number_format($bill->total)." ₫"}}</td>
+                        <td>
+                            @if($bill->status_id == 1)
+                                {!!'<span style="color: black">Chưa xác nhận</span>'!!}
+                            @elseif($bill->status_id == 2)
+                                {!!'<span style="color: blue">Đang giao hàng</span>'!!}
+                            @elseif($bill->status_id == 3)
+                                {!!'<span style="color: red">Đã hủy</span>'!!}
+                            @elseif($bill->status_id == 4)
+                                {!!'<span style="color: green">Đã thanh toán</span>'!!}
+                            @endif
+                        </td>
                         <td class="text-center w_100">
                             <div>
                                 <input type="checkbox" value="{{$bill->id}}" data-size="mini" data-on-text="Hiện" data-off-text="Ẩn" data-on-color="success" data-off-color="danger" name="is_visible" {{$bill->is_visible?'checked':''}} />
@@ -68,7 +81,7 @@
                             
                         </td>
                         <td class="action">
-                            <a href="{{url('admin/bill/edit/' . $bill->id)}}" class="btn btn-primary" title="{{trans('Chỉnh sửa')}}"><i class="fa fa-edit"></i></a>
+                            <!-- <a href="{{url('admin/bill/edit/' . $bill->id)}}" class="btn btn-primary" title="{{trans('Chỉnh sửa')}}"><i class="fa fa-edit"></i></a> -->
                             <a href="{{url('admin/bill/invoice/' . $bill->id)}}" class="btn btn-primary" title="{{trans('Chi tiết')}}"><i class="fa fa-list"></i></a>
                             <a href="javascript:;" onclick="deleteModal('{{$bill->id}}', '/admin/bill/destroy')" title="{{trans('Xóa')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                             <a href="{{url('admin/bill/print/'.$bill->id)}}" class="btn btn-primary" title="{{trans('In')}}"><i class="fa fa-print"></i></a>
@@ -87,7 +100,7 @@
             </table>
             <div class="footer-table">
                 <div class="col-sm-6">
-                    <span class="total-record">Tổng cộng: <strong>: {{$count}}</strong> kết quả</span>
+                    <span class="total-record">Tổng cộng: <strong> {{ $counts }}</strong> kết quả</span>
                 </div>
                 <div class="col-sm-6">
                     <div class="pull-right">
@@ -107,7 +120,7 @@
             is_visible = (state == true) ? 1 : 0;
             
             $.ajax({
-                url: root + '/admin/bills/active', 
+                url: root + '/admin/bill/active', 
                 type: 'POST',
                 data: {id: $(this).val(), is_visible: is_visible}, 
                 success: function (data, success) {

@@ -3,10 +3,8 @@
     <head>
         <title>Từ chối quyền truy cập</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="{{asset('public/assets/css/bootstrap.min.css')}}">
-    
-    <!-- Customizable CSS -->
     <link rel="stylesheet" href="{{asset('public/assets/css/main.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css">
     <link rel="stylesheet" href="{{asset('public/rating/rating.css')}}">
@@ -17,7 +15,7 @@
     <link rel="stylesheet" href="{{asset('public/assets/css/rateit.css')}}">
     <link rel="stylesheet" href="{{asset('public/assets/css/bootstrap-select.min.css')}}">
     <link href="{{asset('public/assets/css/lightbox.css')}}" rel="stylesheet">
-
+ -->
         <style>
             html, body {
                 height: 100%;
@@ -30,7 +28,7 @@
                 color: #B0BEC5;
                 display: table;
                 font-weight: 100;
-                font-family: 'Lato', sans-serif;
+                /*font-family: 'Lato', sans-serif;*/
             }
 
             .container {
@@ -53,7 +51,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Bạn không có quyền truy cập khu vực này.</div>
+                <div class="title">
+                    <labelclass="title">Bạn không có quyền truy cập khu vực này.</label> </div>
                 <a href="{{url('admin/')}}" class="btn btn-upper btn-primary pull-right outer-right-xs">Trở về trang chủ</a>
             </div>
         </div>

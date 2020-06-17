@@ -1,24 +1,36 @@
-@extends('master')
+@extends('layouts.app')
 @section('content')
-@parent
 <div class="span9">
     <ul class="breadcrumb">
 		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li class="active">FORGOT YOUR PASSWORD</li>
+		<li class="active">QUÊN MẬT KHẨU</li>
     </ul>
 	<div class="well well-small">
-	<h3> FORGOT YOUR PASSWORD</h3>	
+	<h3> QUÊN MẬT KHẨU</h3>	
 	<hr class="soft"/>
 	
-	Please enter the e-mail address used to register. We will e-mail you your new password.<br/><br/><br/>
+	Vui lòng nhập địa chỉ e-mail được sử dụng để đăng ký. Chúng tôi sẽ gửi e-mail cho bạn mật khẩu mới của bạn.<br/><br/><br/>
+	<div class="row">
+		<div class="col-md-6 col-sm-6 sign-in">
+			<div class="form-group">
+				<form action="{{url('submit-forgot-password')}}" method="post">
+					{{ csrf_field() }}
+					@if(Session::has('check'))
+					    <div class="alert alert-info">
+					        {{ Session::get('check') }}
+					    </div>
+					@endif
+					<label class="info-title" for="exampleInputEmail1">Nhập Email <span>*</span></label>
+				    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" name="email" >
+				    <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Đăng nhập</button>
+				</form>
+			    
+			</div>
+		</div>
+		</div>
+	</div>
 	
 	
-	<form class="form-inline">
-		<label class="control-label" for="inputEmail">E-mail address</label>
-		<input type="text" class="span4" placeholder="Email">			  
-		<button type="submit" class="shopBtn block">Send My Password</button>
-	</form>
-</div>
 </div>
 </div>
 @stop

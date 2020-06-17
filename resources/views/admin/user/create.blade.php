@@ -2,7 +2,7 @@
 @section('title', $title)
 @section('breadcrumb')
 <ol class="breadcrumb">
-    <li><a href="{{url('admin/supplier')}}"><i class="fa fa-dashboard"></i> {{trans('Supplier')}}</a></li>
+    <li><a href="{{url('admin/user/create')}}"><i class="fa fa-dashboard"></i> {{trans('Thêm nhân viên')}}</a></li>
     <li>Thêm mới</li>
 </ol>
 @stop
@@ -16,8 +16,8 @@
     </div>
     <div class="box-body">
         <!-- form start -->
-        {!! Form::open(array('url' => url("admin/supplier/store"), 'id' => 'form-area')) !!}
-            @include('admin.supplier._form')
+        {!! Form::open(array('url' => url("admin/user/store"), 'id' => 'form-area')) !!}
+            @include('admin.user._form')
         {!! Form::close() !!}
     </div><!-- /.box-body -->
 </div>

@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Addresse;
 use App\Models\User;
 use App\Models\Bill;
+use App\Models\BillStatus;
 use App\Models\InvoiceDetail;
 use Cart;
 use Illuminate\Support\Facades\Auth;
@@ -184,6 +185,7 @@ class CartsController extends Controller
         $cart = Cart::content();
         $id_bill = Bill::select()->max('id');
         $bills = Bill::find($id_bill);
+        $stt = BillStatus::where('id',$bills->bill_stt_id)->first();
         $add = Addresse::find($id);
         $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
 
@@ -196,7 +198,7 @@ class CartsController extends Controller
             $message->subject('Xác nhận hóa đơn mua hàng Shop đá phong thủy Mixi');
         
         });
-        return view('errors.success',compact('user','cart','add','bills','invoice'));
+        return view('errors.success',compact('user','cart','add','bills','invoice','stt'));
     }
 
     public function cartInfo()

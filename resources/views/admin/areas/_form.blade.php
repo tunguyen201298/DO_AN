@@ -27,19 +27,11 @@
 
         <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Loại sản phẩm')}}</label>
-            <select name="category" class="form-control" placeholder="trans('Loại sản phẩm')">
-                @foreach($category as $categorys)
-                    <option value="{{$categorys->id}}">{{$categorys->name}}</option>
-                @endforeach
-            </select>
+            {!! Form::select('category', $categories,trans('-- Chọn nhà cung cấp --'), array('class' => 'form-control', 'id' => 'input_category','placeholder' => $n )) !!}
         </div>
         <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Nhà cung cấp')}}</label>
-            <select name="supplier" class="form-control" placeholder="trans('Nhà cung cấp')">
-                @foreach($supplier as $suppliers)
-                    <option value="{{$suppliers->id}}">{{$suppliers->name}}</option>
-                @endforeach
-            </select>
+             {!! Form::select('supplier', $supplier,trans('-- Chọn nhà cung cấp --'), array('class' => 'form-control', 'id' => 'input_supplier', 'placeholder' => $s)) !!}
         </div>
         <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Giá Tiền')}}</label>
@@ -51,7 +43,10 @@
             @endif
         </div>
         <div class="form-group">
-            <label class="required" for="input_area_name">{{trans('Hình ảnh')}}</label>
+            <label class="required" for="input_area_name">{{trans('Hình ảnh')}}</label><br>
+            @if(\Request::is('admin/product/edit/*'))
+                <img src="{{asset('storage/app/products/'.$area->img_link)}}" style="width: 100px">
+            @endif
             {!! Form::file('image', ['class' => 'form-control', 'maxlength' => 100,  'placeholder' => trans('Nội Dung')]) !!} 
             @if ($errors->has('image'))
                 <span class="help-block">
@@ -66,7 +61,7 @@
         </div> -->
         <div class="form-group">
             <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{trans('Lưu')}}</button>
-            <a href="{{url('admin/slide')}}" class="btn btn-default"><i class="fa fa-reply"></i> {{trans('Trở lại')}}</a>
+            <a href="{{url('admin/product')}}" class="btn btn-default"><i class="fa fa-reply"></i> {{trans('Trở lại')}}</a>
         </div>
     </div>
     <div class="col-sm-7">

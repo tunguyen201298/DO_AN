@@ -9,9 +9,9 @@
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
-
+    
     <title>@yield('title')</title>
-
+    <link rel="icon" href="{{asset('storage/app/logo/logodongphucandy.png')}}" type="image/png">
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="{{asset('public/assets/css/bootstrap.min.css')}}">
     
@@ -29,7 +29,7 @@
     <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="{{asset('public/assets/css/font-awesome.css')}}">
     <!-- Fonts --> 
-    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -53,7 +53,7 @@
     <script src="{{asset('public/assets/js/echo.min.js')}}"></script>
     <script src="{{asset('public/assets/js/jquery.easing-1.3.min.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-slider.min.js')}}"></script>
-    <script src="{{asset('public/assets/js/jquery.rateit.min.js')}}"></script>
+    <!-- <script src="{{asset('public/assets/js/jquery.rateit.min.js')}}"></script> -->
     <script src="{{asset('public/assets/js/lightbox.min.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-select.min.js')}}"></script>
     <script src="{{asset('public/assets/js/wow.min.js')}}"></script>

@@ -62,7 +62,7 @@
                         </td>
                         <td class="action">
                             <a href="{{url('admin/slider/edit/' . $slides->id)}}" class="btn btn-primary" title="{{trans('common.edit')}}"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:;" onclick="deleteModal('{{$slides->id}}', '/admin/slides/destroy')" title="{{trans('common.delete')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                            <a href="javascript:;" onclick="deleteModal('{{$slides->id}}', '/admin/slider/destroy')" title="{{trans('common.delete')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                     @endforeach
