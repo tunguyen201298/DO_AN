@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
-				<li><a href="#">Home</a></li>
+				<li style="width: 80px"><a href="{{url('/')}}">Trang chủ</a></li>
 				<li class="active">{{$title}}</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->

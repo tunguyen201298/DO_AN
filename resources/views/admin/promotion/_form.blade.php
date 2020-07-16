@@ -19,7 +19,7 @@
         </div>
         <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Ngày bắt đầu')}}</label>
-            {!! Form::text('star_date', $promotions->star_date, array('class' => 'form-control input--style-1 js-datepicker',  'id' => 'input_promotio_star_date', 'placeholder' => trans('Ngày bắt đầu'))) !!}
+            {!! Form::text('star_date', $promotions->star_date, array('class' => 'form-control input--style-1 js-datepicker',  'id' => 'input_promotio_star_date', 'placeholder' => trans('Ví dụ: 12/30/2020'))) !!}
             @if ($errors->has('star_date'))
                 <span class="help-block">
                     {{ $errors->first('star_date') }}
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Ngày kết thúc')}}</label>
-            {!! Form::text('end_date', $promotions->end_date, array('class' => 'form-control input--style-1 js-datepicker1',  'id' => 'input_promotio_end_date', 'placeholder' => trans('Ngày kết thúc'))) !!}
+            {!! Form::text('end_date', $promotions->end_date, array('class' => 'form-control input--style-1 js-datepicker',  'id' => 'input_promotio_end_date', 'placeholder' => trans('Ví dụ: 12/30/2020'))) !!}
             @if ($errors->has('end_date'))
                 <span class="help-block">
                     {{ $errors->first('end_date') }}
@@ -36,8 +36,13 @@
             @endif
         </div>
         <div class="form-group">
-            <label class="required" for="input_area_name">{{trans('Nội dung')}}</label>
-            {!! Form::text('detail', $promotions->detail, array('class' => 'form-control',  'id' => 'input_supplier_detail', 'placeholder' => trans('Nội dung'))) !!} 
+            <label class="required" for="input_area_name">{{trans('Khuyến mãi theo')}}</label>
+            {!! Form::select('type', ['phantram' => 'Theo phần trăm','gia' => 'Theo giá'],
+            $type, array('class' => 'form-control', 'id' => 'input_follow' )) !!}
+        </div>
+        <div class="form-group">
+            <label class="required" for="input_area_name">{{trans('Giá trị')}}</label>
+            {!! Form::text('detail', $promotions->detail, array('class' => 'form-control',  'id' => 'input_promotion_detail', 'placeholder' => trans('Theo %: 5,10... hoặc theo giá 10000'))) !!} 
             @if ($errors->has('detail'))
                 <span class="help-block">
                     {{ $errors->first('detail') }}
@@ -63,18 +68,19 @@
             <label class="required" for="input_area_name">{{trans('Chọn sản phẩm')}}</label>
 
             <select class="js-example-basic-multiple form-control" name="products[]" multiple="multiple">
-               <option value="{{$products->id}}" selected="selected">{{$products->name}}</option>
+                @if(\Request::is('admin/promotion/edit/*'))
+                    @foreach($products as $item)
+                        <option value="{{$item->id}}" selected="selected">{{$item->name}}</option>
+                    @endforeach
+                @endif
             </select>
         </div>
     </div>
 </div>
-
-  
-
 <script type="text/javascript">
     $(document).ready(function () {
          $('.js-example-basic-multiple').select2({
-            minimumInputLength: 10,
+            minimumInputLength: 1, 
           ajax: {
             url: '{{url("admin/product/search")}}',
             processResults: function (data) {

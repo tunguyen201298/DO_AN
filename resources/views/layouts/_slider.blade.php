@@ -1,6 +1,6 @@
 <div id="hero">
     <div id="owl-main" class="owl-carousel owl-inner-nav owl-ui-sm">
-        @foreach($slide as $slides)
+        @foreach($sliders as $slides)
         <div class="item" style="background-image: url({{ asset('storage/app/sliders/'.$slides->image) }});">
             <div class="container-fluid">
                 <div class="caption bg-color vertical-center text-left">

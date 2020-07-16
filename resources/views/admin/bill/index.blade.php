@@ -32,7 +32,9 @@
                 </div>
                 {!! Form::open(array('url' => url("admin/bill"), 'id' => 'form-search', 'method' => 'GET')) !!}
                 <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> {{trans('Tìm kiếm')}}</button>
+
                 {!! Form::text('search', Input::get('search'), array('class' => 'form-control form-inline', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => trans('Nhập từ khóa'))) !!} 
+                {!! Form::select('key', $key, NULL,array('class' => 'form-control form-inline', 'maxlength' => 50, 'id' => 'input_key')) !!}
                 {!!Form::hidden("numpaging", Input::get('numpaging'))!!}
                 {!!Form::hidden("paging", Input::get('paging'))!!}
                 {!! Form::close() !!}

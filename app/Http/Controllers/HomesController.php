@@ -13,7 +13,9 @@ use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Image;
 use App\Models\Blog;
+use App\Models\Promotion;
 use Validator;
+use App\models\Review;
 use Cart;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Bill;
@@ -22,31 +24,24 @@ class HomesController extends Controller
 {
    
     public function index(){
-        $title = "Shop đá Mixi";
-        $products = Product::Orderby('id', 'asc')->limit('10')->where('is_visible', 1)
+        $title = "Phong Thủy Shop";
+        $product = Product::Orderby('id', 'DESC')->limit('10')->where('is_visible', 1)
             ->get();
         $pro_sell = Product::Orderby('qty_number_sell', 'asc')->limit('10')->where('is_visible', 1)->get();
-        $pro_new = Product::Orderby('id', 'asc')->limit('10')->get();
-        $blog = Blog::Orderby('id', 'asc')->limit('5')->get();
-        $banner = Image::where('type', 'banner')->first();
+        $pro_new = Product::Orderby('id', 'DESC')->limit('10')->get();
+        $blog = Blog::Orderby('id', 'DESC')->limit('5')->get();
+        $banner = Image::where('type', 'banner')->Orderby('id', 'DESC')->first();
         $slide = Slide::where('is_visible',1)->get();
-        return view('homes.index', compact('title', 'products','slide','banner', 'pro_sell','blog','pro_new'));
+        $promotions = Promotion::with('products')->get();
+        $start_review = new Review();
+        return view('homes.index', compact('title', 'product','slide','banner', 'pro_sell','blog','pro_new','promotions','start_review'));
         
     }
-
-    /*public function myTestMail()
+    public function introduce()
     {
-    	$data = Bill::
-    	$email = 'thanhtrungtran8888@gmail.com';
-    	Mail::send('email.index', $data, function ($message) use ($email) {
-            $message->from('tudtdt1998@gmail.com', 'Giày Store');
+        $title = "Giới thiệu";
+        $blog_detail = Blog::select('*')->limit('1')->first();
+        return view('blog.introduce', compact('title','blog_detail'));  
+    }
 
-            $message->to($email , $email);
-            $message->subject('Xác nhận hóa đơn mua hàng Giày Store');
-        
-        });
-    	
-    }*/
-   
-    
 }

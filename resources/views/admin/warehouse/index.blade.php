@@ -44,7 +44,9 @@
                         <th class="rowCheckAll w_30"><input type="checkbox" id="checkAll" /></th>
                         <th class="w_30">STT</th>
                         <th>{!!sort_title('name',trans('Tên'))!!}</th>
-                        <th>{!!sort_title('name',trans('Số lượng trong kho'))!!}</th>
+                        <th>{!!sort_title('name',trans('Số lượng nhập'))!!}</th>
+                        <th>{!!sort_title('name',trans('Số lượng xuất'))!!}</th>
+                        <th>{!!sort_title('name',trans('Số lượng còn'))!!}</th>
                         <th>{!!sort_title('is_visible',trans('Trạng thái'))!!}</th>
                         <th class="w_100">{{trans('Thao tác')}}</th>
                     </tr>
@@ -60,12 +62,17 @@
                         <td class="text-center">{{$no++}}</td>
                         <td>{{$warehouse->name}}</td>
                         <td>{{$warehouse->quantity}}</td>
+                        <td>{{$warehouse->quantity}}</td>
+                        <td>{{$warehouse->quantity}}</td>
                         <td class="text-center w_100">
                             <input type="checkbox" value="{{$warehouse->id}}" data-size="mini" data-on-text="Hiện" data-off-text="Ẩn" data-on-color="success" data-off-color="danger" name="is_visible" {{$warehouse->is_visible?'checked':''}} />
                         </td>
                         <td class="action">
-                            <a href="{{url('admin/product/edit/' . $warehouse->id)}}" class="btn btn-primary" title="{{trans('common.edit')}}"><i class="fa fa-edit"></i></a>
+                            
+                            <a href="{{url('admin/warehouse/edit/' . $warehouse->id)}}" class="btn btn-primary" title="{{trans('common.edit')}}"><i class="fa fa-edit"></i></a>
+
                             <a href="javascript:;" onclick="deleteModal('{{$warehouse->id}}', '/admin/warehouses/destroy')" title="{{trans('common.delete')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                            <a href="{{url('admin/warehouse/input_product')}}" class="btn btn-primary" title="{{trans('Nhập')}}"><i class="fa fa-plus"></i></a>
                         </td>
                     </tr>
                     @endforeach

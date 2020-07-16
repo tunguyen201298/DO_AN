@@ -10,58 +10,45 @@
                 <div class="row  wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
 
                     <div class="col-xs-12 col-sm-6 col-md-5 gallery-holder">
-                        <div class="product-item-holder size-big single-product-gallery small-gallery">
+    <div class="product-item-holder size-big single-product-gallery small-gallery">
 
-                            <div id="owl-single-product" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
-                                <div class="owl-wrapper-outer">
-                                    <div class="owl-wrapper" style="width: 5742px; left: 0px; display: block;">
-                                        <div class="owl-item" style="width: 319px;">
-                                            
-                                            <div class="single-product-gallery-item" id="slide{{$no}}">
-                                                <a data-lightbox="image-{{$no++}}" data-title="Gallery" href="{{ asset('storage/app/products/'.$product_detail->img_link) }}">
-                                                    <img class="img-responsive" alt="" src="{{ asset('storage/app/products/'.$product_detail->img_link) }}">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- /.single-product-gallery-item -->
+        <div id="owl-single-product">
 
-                                <div class="owl-controls clickable">
-                                    <div class="owl-pagination">
-                                        <div class="owl-page active">
-                                            <span class=""></span>
-                                        </div>
-                                        <div class="owl-page">
-                                            <span class=""></span>
-                                        </div>
-                                        <div class="owl-page">
-                                            <span class=""></span>
-                                        </div>
-                                        <div class="owl-page">
-                                            <span class=""></span>
-                                        </div>
-                                        <div class="owl-page">
-                                            <span class=""></span>
-                                        </div>
-                                        <div class="owl-page">
-                                            <span class=""></span>
-                                        </div>
-                                        <div class="owl-page">
-                                            <span class=""></span>
-                                        </div>
-                                        <div class="owl-page">
-                                            <span class=""></span>
-                                        </div>
-                                        <div class="owl-page">
-                                            <span class=""></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- /.single-product-slider -->
+            @foreach($product_img as $item)
+            <div class="single-product-gallery-item" id="slide{{$no}}">
+                <a data-lightbox="image-{{$no}}" data-title="Gallery" href="{{ asset('storage/app/products/'.$item->link) }}">
+                    <img class="img-responsive" alt="" src="{{ asset('storage/app/products/'.$item->link) }}" data-echo="{{ asset('storage/app/products/'.$item->link) }}">
+                </a>
+                <input type="hidden" name="{{$no++}}">
+            </div><!-- /.single-product-gallery-item -->
+            
+            
+            @endforeach
+
+        </div><!-- /.single-product-slider -->
 
 
-                        </div><!-- /.single-product-gallery -->
-                    </div><!-- /.gallery-holder -->                 
+        <div class="single-product-gallery-thumbs gallery-thumbs">
+
+            <div id="owl-single-product-thumbnails">
+                
+                @foreach($product_img as $item)
+                <div class="item">
+                    <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="{{$no1}}" href="{{ asset('storage/app/products/'.$item->link) }}">
+                        <img class="img-responsive" width="85" alt="" src="{{ asset('storage/app/products/'.$item->link) }}" data-echo="{{ asset('storage/app/products/'.$item->link) }}">
+                    </a>
+                    <input type="hidden" name="1{{$no1++}}">
+                </div>
+
+                @endforeach
+            </div><!-- /#owl-single-product-thumbnails -->
+
+            
+
+        </div><!-- /.gallery-thumbs -->
+
+    </div><!-- /.single-product-gallery -->
+</div><!-- /.gallery-holder -->              
                     <div class="col-sm-6 col-md-7 product-info-block">
                         <div class="product-info">
                             <h1 class="name">{{ $product_detail->name }}</h1>
@@ -69,11 +56,11 @@
                             <div class="rating-reviews m-t-20">
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <div class="rating rateit-small rateit"><button id="rateit-reset-5" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-5" style="display: none;"></button><div id="rateit-range-5" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-5" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
+                                        <div class="rating rateit-small"  data-rateit-value="{{$sum_start_detail}}"></div>
                                     </div>
                                     <div class="col-sm-8">
                                         <div class="reviews">
-                                            <a href="#" class="lnk">(13 Reviews)</a>
+                                            <a href="#" class="lnk">({{$count_review}} Bình luận)</a>
                                         </div>
                                     </div>
                                 </div><!-- /.row -->        
@@ -88,7 +75,13 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="stock-box">
-                                            <span class="value">In Stock</span>
+                                            @if($count_qty >= 5)
+                                                <span class="value" style="color: green">Còn hàng</span>
+                                            @elseif($count_qty >= 5)
+                                                <span class="value" style="color: yellow">Sắp hết</span>
+                                            @else
+                                                <span class="value" style="color: red">Hết hàng</span>
+                                            @endif
                                         </div>  
                                     </div>
                                 </div><!-- /.row -->    
@@ -114,17 +107,7 @@
                                     </div>
 
                                     <div class="col-sm-6">
-                                        <div class="favorite-button m-t-10">
-                                            <a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="" href="#" data-original-title="Wishlist">
-                                                <i class="fa fa-heart"></i>
-                                            </a>
-                                            <a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="" href="#" data-original-title="Add to Compare">
-                                                <i class="fa fa-signal"></i>
-                                            </a>
-                                            <a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="" href="#" data-original-title="E-mail">
-                                                <i class="fa fa-envelope"></i>
-                                            </a>
-                                        </div>
+                                        
                                     </div>
 
                                 </div><!-- /.row -->
@@ -146,7 +129,7 @@
                                                         <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
                                                         <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
                                                     </div>
-                                                    <input type="number" name="qty" value="1">
+                                                    <input type="number" name="qty" value="1" min="1" max="10">
                                                 </div>
                                             </div>
                                         </div>
@@ -168,7 +151,6 @@
                         <ul id="product-tabs" class="nav nav-tabs nav-tab-cell">
                             <li class="active"><a data-toggle="tab" href="#description">Mô tả</a></li>
                             <li><a data-toggle="tab" href="#review">Đánh giá</a></li>
-                            <li><a data-toggle="tab" href="#tags">TAGS</a></li>
                         </ul><!-- /.nav-tabs #product-tabs -->
                     </div>
                     <div class="col-sm-9">
@@ -193,9 +175,12 @@
                                                         <div class="review-title">
                                                             <span class="summary"><b>
                                                             {{$item->name}}</b>
-                                                            </span><br>
-                                                            <span class="summary">{{$item->title}}</span><span class="date"><i class="fa fa-calendar"></i><span>1 days ago</span></span></div>
+                                                            </span><br><div class="rating rateit-small" data-rateit-value="{{$item->rating}}"></div><br>
+                                                            <span class="summary">{{$item->title}}</span><span class="date"><i class="fa fa-calendar"></i><span>
+                                                                {{ App\Models\Review::find($item->id)->created_at->diffForHumans($now)}}
+                                                            </span></span></div>
                                                         <div class="text">{{$item->content}}</div>
+                                                        <hr>
                                                     @endforeach
                                                 @else
                                                     <span>Chưa có bình luận nào.</span>
@@ -205,17 +190,17 @@
 
                                         </div><!-- /.reviews -->
                                     </div><!-- /.product-reviews -->
-                                    <form action="" method="post" role="form" class="cnt-form" id="theForm">
-                                        {{ csrf_field() }}
+                                    <form action="#" method="post" role="form" class="cnt-form" id="theForm">
                                         <div class="product-add-review">
                                             <h4 class="title">Viết nhận xét của riêng bạn</h4>
-                                            <fieldset class="rating star">
-                                                <input type="radio" id="field6_star5" name="rating2" value="5" /><label class = "full" for="field6_star5"></label>
-                                                <input type="radio" id="field6_star4" name="rating2" value="4" /><label class = "full" for="field6_star4"></label>
-                                                <input type="radio" id="field6_star3" name="rating2" value="3" /><label class = "full" for="field6_star3"></label>
-                                                <input type="radio" id="field6_star2" name="rating2" value="2" /><label class = "full" for="field6_star2"></label>
-                                                <input type="radio" id="field6_star1" name="rating2" value="1" /><label class = "full" for="field6_star1"></label>
-                                            </fieldset>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <span>Chọn số sao: </span>
+                                                    <div class="rating rateit-small rateit" id="start_review"></div>
+                                                    <input type="hidden" name="rating" id="rating_ajax">
+                                                </div>
+                                            </div>
+                                            
                                             <div class="review-form">
                                                 <div class="form-container">
                                                         <div class="row">
@@ -223,7 +208,7 @@
                                                                 
                                                                 <div class="form-group">
                                                                     <label for="exampleInputSummary">Tóm tắt <span class="astk">*</span></label>
-                                                                    <input type="text" class="form-control txt" id="exampleInputSummary" placeholder="Tóm tắt" name="title" id="title_review">
+                                                                    <input type="text" class="form-control txt" id="exampleInputSummary" placeholder="Tóm tắt" name="title" id="title_review" required>
                                                                 </div><!-- /.form-group -->
                                                             </div>
 
@@ -236,9 +221,9 @@
                                                         </div><!-- /.row -->
                                                         
                                                         <div class="action text-right">
-                                                            <!-- <button class="btn btn-primary btn-upper" type="submit">GỬI</button> -->
+                                                            <button class="btn btn-primary btn-upper" type="submit">GỬI</button>
                                                             <input type="hidden" name="id" value="{{$product_detail->id}}">
-                                                            <a href="#" class="btn btn-primary btn-upper" id="submit_review">GỬI</a>
+                                                            <!-- <a href="#" class="btn btn-primary btn-upper" id="submit_review">GỬI</a> -->
                                                         </div><!-- /.action -->
                                                 </div><!-- /.form-container -->
                                             </div><!-- /.review-form -->
@@ -247,34 +232,7 @@
                                 </div><!-- /.product-tab -->
                             </div><!-- /.tab-pane -->
 
-                            <div id="tags" class="tab-pane">
-                                <div class="product-tag">
-
-                                    <h4 class="title">Product Tags</h4>
-                                    <form role="form" class="form-inline form-cnt">
-                                        <div class="form-container">
-
-                                            <div class="form-group">
-                                                <label for="exampleInputTag">Add Your Tags: </label>
-                                                <input type="email" id="exampleInputTag" class="form-control txt">
-
-
-                                            </div>
-
-                                            <button class="btn btn-upper btn-primary" type="submit">ADD TAGS</button>
-                                        </div><!-- /.form-container -->
-                                    </form><!-- /.form-cnt -->
-
-                                    <form role="form" class="form-inline form-cnt">
-                                        <div class="form-group">
-                                            <label>&nbsp;</label>
-                                            <span class="text col-md-offset-3">Use spaces to separate tags. Use single quotes (') for phrases.</span>
-                                        </div>
-                                    </form><!-- /.form-cnt -->
-
-                                </div><!-- /.product-tab -->
-                            </div><!-- /.tab-pane -->
-
+                            
                         </div><!-- /.tab-content -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -290,7 +248,7 @@
             <div class="tab-content outer-top-xs">
                 <div class="tab-pane in active" id="all">
                     <div class="product-slider">
-                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="5">
+                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
 
                             @foreach($tt as $item)
                             <div class="item item-carousel">
@@ -304,10 +262,17 @@
                                         <!-- /.product-image -->
 
                                         <div class="product-info text-left">
-                                            <h3 class="name" style="height: 45px"><a href="detail.html">{{$item->name}}</a></h3>
-                                            <div class="rating rateit-small"></div>
+                                            <h3 class="name"><a href="detail.html">{{$item->name}}</a></h3>
+                                            <div class="rating rateit-small" data-rateit-value="{{$start_review->startReview($item->id)}}"></div>
                                             <div class="description"></div>
-                                            <div class="product-price"> <span class="price"> {{number_format($item->price)." ₫"}} </span>  </div>
+                                            <div class="product-price">
+                                                @if(!empty($item->discount))
+                                                    <span class="price">{{ number_format($item->discount)."₫" }}</span>
+                                                    <span class="price-before-discount">{{ number_format($item->price)."₫" }}</span>
+                                                @else
+                                                    <span class="price">{{ number_format($item->price)."₫" }}</span>
+                                                @endif 
+                                            </div>
                                             <!-- /.product-price --> 
 
                                         </div>
@@ -315,10 +280,18 @@
                                         <div class="cart clearfix animate-effect">
                                             <div class="action">
                                                 <ul class="list-unstyled">
-                                                    <li class="lnk"> <a class="add-to-cart" href="{{asset('cart/ad/'.$item->id)}}" title="Thêm vào giỏ hàng"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> </a> </li>
+                                                    <li class="add-cart-button btn-group">
+                                                                    
+                                                                    <button class="btn btn-primary icon" title="Add Cart" id="addCart{{$item->id}}" onclick="addTocart({{$item->id}})"> 
+                                                                        <i class="fa fa-shopping-cart"></i> 
+                                                                    </button>
+                                                            </li>
                                                     
-                                                    <li class="lnk wishlist"> <a class="add-to-cart" href="detail.html" title="Thêm vào yêu thích"> <i class="icon fa fa-heart"></i> </a> </li>
-                                                    <li class="lnk"> <a class="add-to-cart" href="" title="Xem chi tiết"> <i class="fa fa-signal" aria-hidden="true"></i> </a> </li>
+                                                    <li class="lnk">
+                                                        <a data-toggle="tooltip" class="add-to-cart" href="{{route('product-details',['id'=>$item->id]) }}" title="Xem chi tiết">
+                                                            <i class="fa fa-signal" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                             <!-- /.action --> 
@@ -351,37 +324,53 @@
         </div>
     </div>
 </div>
+
+@stop
+@section('scripts')
 <script type="text/javascript">
-    $("label").click(function(){
-      $(this).parent().find("label").css({"background-color": "#78e2fb"});
-      $(this).css({"background-color": "yellow"});
-      $(this).nextAll().css({"background-color": "yellow"});
-    });
-    $(".star label").click(function(){
-      $(this).parent().find("label").css({"color": "#78e2fb"});
-      $(this).css({"color": "yellow"});
-      $(this).nextAll().css({"color": "yellow"});
-      $(this).css({"background-color": "transparent"});
-      $(this).nextAll().css({"background-color": "transparent"});
-    });
-    $("#submit_review").on('click',function() {
-        var user = '{{ !Auth::check()}}';
-        if (user){
-            Swal.fire('Xin mời đăng nhập')
-        }
-        else{
-            var form = $("#theForm").serialize();
-            $.ajax({
-               url: "{{url('product/reviews')}}",
-               data: form,
-               type: "POST",
-               success: function(data)
-               {
-                    
-               }
-             });
-        }
-        
+    $(document).ready(function () {
+        $("#submit_review").on('click',function() {
+            var user = '{{ Auth::check()}}';
+            var rating = $('#start_review').rateit('value');
+            if (!user){
+                Swal.fire('Vui lòng đăng nhập');
+                return false;
+            }else if(rating == 0){
+                Swal.fire('Vui lòng chọn ít nhất 1 sao');
+            }else{
+                $('#rating_ajax').val(rating);
+                var form = $("#theForm").serialize();
+                $.ajax({
+                   url:"{{url('product-reviews')}}",
+                   data: form,
+                   type: 'POST',
+                   headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                   success: function(response)
+                   {
+                        (async () => {
+                                const Toast = Swal.mixin({
+                                  toast: true,
+                                  position: 'top-end',
+                                  showConfirmButton: false,
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  onOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                  }
+                                })
+
+                                Toast.fire({
+                                  icon: 'success',
+                                  title: 'Đánh giá thành công'
+                                })
+                            })()
+                   }
+                 });
+            }            
+        });
     });
 </script>
 @stop

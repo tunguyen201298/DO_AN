@@ -22,16 +22,7 @@
 					<div class="col col-sm-12 col-md-6">
 					</div><!-- /.col -->
 					<div class="col col-sm-6 col-md-4 text-right">
-						<div class="pagination-container">
-				<ul class="list-inline list-unstyled">
-					<li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-					<li><a href="#">1</a></li>	
-					<li class="active"><a href="#">2</a></li>	
-					<li><a href="#">3</a></li>	
-					<li><a href="#">4</a></li>	
-					<li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-				</ul><!-- /.list-inline -->
-			</div><!-- /.pagination-container -->		</div><!-- /.col -->
+						{{$product_category->appends(Input::all())->render()}}		</div><!-- /.col -->
 				</div><!-- /.row -->
 			</div>
 
@@ -44,7 +35,10 @@
 							<div class="category-product">
 								<div class="row">									
 										
-		
+@if(!$product_category->isEmpty())
+    @php
+    $no = (($product_category->currentPage() - 1) * $product_category->perPage() + 1) 
+    @endphp	
 @foreach($product_category as $item)	
 		<div class="col-sm-6 col-md-4 wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
 			<div class="products">
@@ -61,13 +55,13 @@
 		
 		<div class="product-info text-left">
 			<h3 class="name"><a href="detail.html">{{$item->name}}</a></h3>
-			<div class="rating rateit-small rateit"><button id="rateit-reset-3" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-3" style="display: none;"></button><div id="rateit-range-3" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-3" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
+			<div class="rating rateit-small" data-rateit-value="{{$sum_start->startReview($item->id)}}"></div>
 			<div class="description"></div>
 
 			<div class="product-price">	
-				@if(!empty($value->discount))
+				@if(!empty($item->discount))
                     <span class="price">{{ number_format($item->discount)."₫" }}</span>
-                    <span class="price-before-discount">{{ number_format($value->price)."₫" }}</span>
+                    <span class="price-before-discount">{{ number_format($item->price)."₫" }}</span>
                 @else
                     <span class="price">{{ number_format($item->price)."₫" }}</span>
                 @endif
@@ -128,11 +122,11 @@
 		<div class="col col-sm-8 col-lg-8">
 			<div class="product-info">
 				<h3 class="name"><a href="{{url('product-details/'.$item->id) }}">{{$item->name}}</a></h3>
-				<div class="rating rateit-small rateit"><button id="rateit-reset-14" data-role="none" class="rateit-reset" aria-label="reset rating" aria-controls="rateit-range-14" style="display: none;"></button><div id="rateit-range-14" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-14" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 70px; height: 14px;"><div class="rateit-selected" style="height: 14px; width: 56px;"></div><div class="rateit-hover" style="height:14px"></div></div></div>
+				<div class="rating rateit-small" data-rateit-value="{{$sum_start->startReview($item->id)}}"></div>
 				<div class="product-price">	
 					@if(!empty($value->discount))
                     <span class="price">{{ number_format($item->discount)."₫" }}</span>
-                    <span class="price-before-discount">{{ number_format($value->price)."₫" }}</span>
+                    <span class="price-before-discount">{{ number_format($item->price)."₫" }}</span>
                 @else
                     <span class="price">{{ number_format($item->price)."₫" }}</span>
                 @endif				
@@ -171,7 +165,11 @@
 			</div><!-- /.products -->
 		</div><!-- /.category-product-inner -->
 @endforeach
-	
+@else 
+				                    <tr>
+				                        <td colspan="6">{{trans('Không có dữ liệu')}}</td>
+				                    </tr>
+				                    @endif		
 							</div><!-- /.category-product -->
 						</div><!-- /.tab-pane #list-container -->
 					</div>
@@ -182,16 +180,7 @@
 					<div class="clearfix filters-container">
 						
 							<div class="text-right">
-						         <div class="pagination-container">
-	<ul class="list-inline list-unstyled">
-		<li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-		<li><a href="#">1</a></li>	
-		<li class="active"><a href="#">2</a></li>	
-		<li><a href="#">3</a></li>	
-		<li><a href="#">4</a></li>	
-		<li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-	</ul><!-- /.list-inline -->
-</div><!-- /.pagination-container -->						    </div><!-- /.text-right -->
+						         {{$product_category->appends(Input::all())->render()}}						    </div><!-- /.text-right -->
 						
 					</div>
         

@@ -17,18 +17,9 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer([
-            'homes.index',
-            'products.product_detail',
-            'searchs.search',
-            'products.product_category'
-        ], MenuComposer::class);
+        view()->composer('*', MenuComposer::class);
         view()->composer('*', CartComposer::class);
-        view()->composer([
-            'homes.index',
-            'searchs.search',
-            'products.product_category'
-        ], SliderComposer::class);
+        view()->composer('*', SliderComposer::class);
         view()->composer('*', ReadComposer::class);
     }
 

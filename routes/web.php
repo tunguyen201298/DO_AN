@@ -75,7 +75,7 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 
 			});
 			/*------------------------------------------------------------------------*/
-			/* Bill
+			/* Bill  
 			/*------------------------------------------------------------------------*/
 			Route::group(array('prefix' => '/bill'), function () {
 				Route::get('/', 'BillsController@billShow');
@@ -83,6 +83,7 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 				Route::get('/invoice/{id}', 'BillsController@invoice');
 				Route::get('/print/{id}', 'BillsController@print');
 				Route::post('/active', 'BillsController@active');
+				Route::post('/update-status', 'BillsController@updateStatus');
 				Route::post('/check-read', 'BillsController@checkRead');
 			});
 			/*------------------------------------------------------------------------*/
@@ -94,6 +95,7 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 				Route::post('/destroy', 'PromotionsController@destroy');
 				Route::get('/create', 'PromotionsController@create');
 				Route::get('/edit/{id}', 'PromotionsController@edit');
+				Route::post('/update/{id}', 'PromotionsController@update');
 				//Route::post('/de', 'BillsController@active');
 				//Route::post('/check-read', 'BillsController@checkRead');
 			});
@@ -135,6 +137,12 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 			Route::group(array('prefix' => '/warehouse'), function () {
 				Route::get('/', 'WarehousesController@index');
 			});
+			/*----------------------------------------------------------------------------*/
+			//warehouse
+			/*----------------------------------------------------------------------------*/
+			Route::group(array('prefix' => '/import-bills'), function () {
+				Route::get('/', 'ImportbillController@index');
+			});
 		});
 	});
 });
@@ -151,6 +159,7 @@ Route::get('list-product.html', 'ProductsController@listView')->name('list-produ
 Route::get('product-details/{id}', 'ProductsController@productDetail')->name('product-details');
 Route::get('product-category/{id}', 'ProductsController@productCategory')->name('product-category');
 Route::post('product/search', 'SearchsController@index')->name('product-search');
+Route::get('product', 'ProductsController@productShow')->name('product-show');
 Route::get('product-heart', 'ProductsController@productWishlist')->name('product-heart');
 Route::get('track-order', 'ProductsController@trackOrder')->name('track-order');
 Route::post('submit-track-order', 'ProductsController@submitTrackOrder');
@@ -158,15 +167,16 @@ Route::post('submit-track-order', 'ProductsController@submitTrackOrder');
 
 Route::get('cart.html', 'CartsController@cart')->name('cart');
 Route::get('grid-product.html', 'ProductsController@gridView')->name('grid-product');
-//Route::get('contact-us.html', 'ContactsController@contact')->name('grid-product');
+Route::get('promotions', 'PromotionsController@index')->name('promotions');
 Route::get('three-col.html', 'ProductsController@threeColumn')->name('three-col');
 Route::get('four-col.html', 'ProductsController@fourColumn')->name('four-col');
-Route::post('product/reviews', 'ProductsController@review')->name('reviews');
+Route::post('product-reviews', 'ProductsController@review')->name('product-reviews');
 Route::get('insert', 'AdminCategoryController@insert')->name('insert');
 Route::get('insertproduct', 'AdminCategoryController@insertProduct')->name('insertProduct');
 /*----------------------------------------------------------------------------*/
 //Cart
 /*----------------------------------------------------------------------------*/
+Route::get('load-cart', 'CartsController@loadCart')->name('load-cart-ajax');
 Route::post('add-cart', 'CartsController@addCart')->name('add-cart');
 Route::post('add-cart-ajax', 'CartsController@addCartAjax')->name('add-cart-ajax');
 Route::get('cart-show', 'CartsController@showCart')->name('cart-show');
@@ -178,6 +188,8 @@ Route::get('success-post/{id}', 'CartsController@successPost')->name('successPos
 Route::get('success-get/{id}', 'CartsController@successGet')->name('successGet');
 Route::get('get-cart-info', 'CartsController@cartInfo')->name('get-cart-info');
 Route::post('add-address','CartsController@address');
+Route::post('update-address-default', 'CartsController@updateAddressDefault');
+Route::post('checked-address-default', 'CartsController@checkedAddressDefault');
 //Route::get('my-test-mail','HomesController@myTestMail');
 /*----------------------------------------------------------------------------*/
 //User
@@ -200,6 +212,7 @@ Route::get('register/verify/{confirmation_code}', 'AccountsController@activateUs
 Route::get('blogs', 'BlogsController@index')->name('blogs');
 Route::get('blogs/detail/{id}', 'BlogsController@detail')->name('blogs-detail');
 Route::get('contact', 'ContactsController@contact')->name('contact');
+Route::get('introduce', 'HomesController@introduce')->name('introduce');
 
 //cái này chính là dùng cái có sẵn đó
 //Auth::routes();
@@ -207,5 +220,5 @@ Route::get('contact', 'ContactsController@contact')->name('contact');
 //Chưa làm mấy cái đó àdạ mấy cái dưới chwua làm
 //Còn phần nào khó nữa ko coi chỉnh lại cái hiện ẩn với
 
-Route::get('/home', 'HomeController@index');
+Route::get('/ship', 'HomeController@index');
 Route::get('abc', 'CartsController@index');

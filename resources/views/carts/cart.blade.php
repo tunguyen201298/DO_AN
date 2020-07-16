@@ -5,16 +5,7 @@
 
 <div class="container">
     <div class="row ">
-        <div class="breadcrumb">
-            <div class="container">
-                <div class="breadcrumb-inner">
-                    <ul class="list-inline list-unstyled">
-                        <li><a href="#">Home</a></li>
-                        <li class='active'>Shopping Cart</li>
-                    </ul>
-                </div><!-- /.breadcrumb-inner -->
-            </div><!-- /.container -->
-        </div><!-- /.breadcrumb -->
+        @include('layouts._breadcrumd')
 
         <div class="shopping-cart">
             <div class="shopping-cart-table ">
@@ -48,17 +39,14 @@
                                         <h4 class='cart-product-description'><a href="detail.html">{{ $item->name}}</a></h4>
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <div class="rating rateit-small"></div>
+                                                <div class="rating rateit-small"  data-rateit-value="{{$start_review->startReview($item->id)}}"></div>
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="reviews">
-                                                    (06 Reviews)
+                                                    ({{App\Models\Review::where('product_id', $item->id)->count()}} Bình luận)
                                                 </div>
                                             </div>
                                         </div><!-- /.row -->
-                                        <div class="cart-product-info">
-                                            <span class="product-color">COLOR:<span>Blue</span></span>
-                                        </div>
                                     </td>
                                     <td class="cart-product-quantity">
                                         <div class="quant-input">
@@ -174,7 +162,7 @@
                         <tr>
                             <th>
                                 <div class="cart-sub-total">
-                                    Thành tiền:<span class="inner-left-md" id="total">{{ $subtotal." ₫" }}</span>
+                                    Thành tiền:<span class="inner-left-md" id="total">{{ $subtotal ." ₫" }}</span>
                                 </div>
                             </th>
                         </tr>
@@ -264,7 +252,10 @@
 
     </div><!-- /.logo-slider -->
     <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+@stop
+@section('scripts')
 <script>
         Number.prototype.formatMoney = function(decPlaces, thouSeparator, decSeparator) {
         var n = this,

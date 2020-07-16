@@ -11,7 +11,8 @@ use App\Models\Product;
 use App\Models\Addresse;
 use App\Models\User;
 use App\Models\Bill;
-use App\Models\BillStatus;
+use App\Models\Review;
+use App\Models\StatusBill;
 use App\Models\InvoiceDetail;
 use Cart;
 use Illuminate\Support\Facades\Auth;
@@ -80,16 +81,27 @@ class CartsController extends Controller
 
     public function showCart()
     {
-        if (!Auth::check()) {
-            $title = "Đăng Nhập";
-            return view('accounts.login', compact('title'));
-        }else{
-            $title = "Giỏ Hàng";
-            $cart = Cart::content();
-            $subtotal = Cart::subtotal(0,0,',');
-            $error = 'Giỏ hàng rỗng';
-            return view('carts.cart', compact('title','cart', 'subtotal','error'));
+        try{
+            if (!Auth::check()) {
+                $title = "Đăng Nhập";
+                return view('accounts.login', compact('title'));
+            }else{
+                $title = "Giỏ Hàng";
+                $start_review = new Review();
+                //$count_review = Review::where('product_id', $id)->count();
+                $cart = Cart::content();
+                $subtotal = Cart::subtotal(0,0,',');
+                
+
+                $error = 'Giỏ hàng rỗng';
+                return view('carts.cart', compact('title','cart', 'subtotal','error','start_review'));
+            }
         }
+        catch(Exception $e){
+            $title = "Không tìm thấy trang";
+            return view('errors.404',compact('title'));
+        }
+            
     }
 
     public function cartUpdate(Request $request)
@@ -111,33 +123,61 @@ class CartsController extends Controller
     public function removeCart($rowId)
     {
         Cart::remove($rowId);
-        return redirect('cart-show');
+        return redirect()->back();
     }
     public function checkout()
     {
-        $title = 'Thanh toán';
-        $user = Auth::user();
-        $id_cus = $user->id;
-        $add = Auth::check() ? User::find($id_cus)->addresse()->get() : '';
-        $cart = Cart::content();
-        return view('carts.checkout', compact('title', 'user', 'cart', 'add'));
+        try{
+            $title = 'Thanh toán';
+            $user = Auth::user();
+            $add = Auth::check() ? User::find(Auth::user()->id)->addresse()->get() : '';
+            $lng = 108.2124429;
+            $lat = 16.0799072;
+            $radians = 20;
+            $km = Addresse::where([['user_id',Auth::user()->id],['default',1]])->selectRaw("*,
+                ( 6371 * acos( cos( radians(" . $lat . ") ) *
+                cos( radians(addresses.lat) ) *
+                cos( radians(addresses.lng) - radians(" . $lng . ") ) + 
+                sin( radians(" . $lat . ") ) *
+                sin( radians(addresses.lat) ) ) ) 
+                AS distance")
+                ->first();
+            $money_ship = $km->distance <= 30 ? 15000 : 35000;
+            $cart = Cart::content();
+            $total = Cart::subtotal(0,0,',');
+            return view('carts.checkout', compact('title', 'user', 'cart', 'add','money_ship','total'));
+        }catch(Exception $e){
+            $title = "Không tìm thấy trang";
+            return view('errors.404',compact('title'));
+        }
+            
     }
     public function successPost($id)
     {
-       
-            $subtotal = Cart::subtotal(0,'',''); 
+            $lng = 108.2124429;
+            $lat = 16.0799072;
+            $radians = 20;
+            $km = Addresse::where([['user_id',Auth::user()->id],['default',1]])->selectRaw("*,
+                ( 6371 * acos( cos( radians(" . $lat . ") ) *
+                cos( radians(addresses.lat) ) *
+                cos( radians(addresses.lng) - radians(" . $lng . ") ) + 
+                sin( radians(" . $lat . ") ) *
+                sin( radians(addresses.lat) ) ) ) 
+                AS distance")
+                ->first();
+            $money_ship = $km->distance <= 30 ? 15000 : 35000;
+            $subtotal = Cart::subtotal(0,0,''); 
+            $total = $subtotal + $money_ship;
             $user =Auth::user();
             $cart = Cart::content();
             $add = Addresse::find($id);
-            
-            
 
             $bill = new Bill();
             $bill->user_id = $user->id;
             $bill->name = $add->name;
             $bill->phone = $add->phone;
             $bill->address = $add->street;
-            $bill->total = $subtotal;
+            $bill->total = $total;
             $bill->email = $user->email;
             $bill->status = 1;
             if($bill->save())
@@ -162,9 +202,7 @@ class CartsController extends Controller
                     
                     //Product::where('id', $value->id)->update('qty_number_sell', $qty_number_sell);
                 }
-                /*foreach ($cart as $value) {
-                    # code...
-                }*/
+                
 
 
                 Cart::destroy();
@@ -180,12 +218,13 @@ class CartsController extends Controller
 
     public function successGet($id)
     {
-        
+        $title = 'Thanh toán';
         $user =Auth::user();
         $cart = Cart::content();
         $id_bill = Bill::select()->max('id');
         $bills = Bill::find($id_bill);
-        $stt = BillStatus::where('id',$bills->bill_stt_id)->first();
+        $id_stt = !empty($bills->bill_stt_id) ? $bills->bill_stt_id : 1;
+        $stt = StatusBill::where('id',$id_stt)->first();
         $add = Addresse::find($id);
         $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
 
@@ -198,7 +237,7 @@ class CartsController extends Controller
             $message->subject('Xác nhận hóa đơn mua hàng Shop đá phong thủy Mixi');
         
         });
-        return view('errors.success',compact('user','cart','add','bills','invoice','stt'));
+        return view('errors.success',compact('user','cart','add','bills','invoice','stt','title'));
     }
 
     public function cartInfo()
@@ -212,14 +251,39 @@ class CartsController extends Controller
 
     public function address(Request $request)
     {
-
         $addresses = new Addresse();
-        $addresses->user_id = $request->id;
-        $addresses->street = $request->street;
+        $addresses->user_id = $request->user_id;
+        $addresses->street = $request->address;
         $addresses->phone = $request->phone;
         $addresses->name = $request->name;
+        $addresses->lng = $request->lng;
+        $addresses->lat = $request->lat;
         if ($addresses->save()) {
             return response()->json(['code' => 'Thêm mới thành công']);
         }
+    }
+
+    public function ckeckedAddressDefault(Request $request)
+    {
+        /*$a = Addresse::where('user_id',Auth::user()->id)->update(['default' => 0]);
+        $address_id = $request->address_id;
+        $addresses = Addresse::find($address_id)->update(['default' => 1]);
+        return response()->json(['data'=>$addresses,'message' => 'Ok']);*/
+        dd($request->all());
+
+    }
+
+    public function updateAddressDefault(Request $request)
+    {
+        $a = Addresse::where('user_id',Auth::user()->id)->update(['default' => 0]);
+        $address_id = $request->address_id;
+        $addresses = Addresse::find($address_id)->update(['default' => 1]);
+        return response()->json(['data'=>$addresses,'message' => 'Ok']);
+
+    }
+
+     public function loadCart() {
+        $view = view("carts._cart_mini")->render();
+        return response()->json(['html' => $view]);
     }
 }

@@ -40,16 +40,18 @@ class AccountsController extends Controller
     }
     public function checkLogin(Request $request)
     {
-        //$active = Auth::user()->id;
-        //dd($active);
         $remember = $request->has('remember') ? true : false;
-        /*if () {
-            # code...
-        }*/
          if (Auth::attempt(['email' => $request->email, 'password' => $request->password ], $remember)) {
             $active = User::where('email',$request->email)->first();
             if ($active->actives == 1) {
-               return redirect(url('/'));
+                if(url()->previous() == \Request::is('*cart-show')){
+                    dd(url()->previous());
+                }
+                else{
+                    dd(url()->previous());
+                    dd('k có');
+                }
+               return redirect()->back()->with('message', 'Đăng nhập thành công');
             }else{
                 return redirect()->back()->with('message', 'Tài khỏa của bạn chưa đc kích hoạt');
             }
@@ -157,7 +159,7 @@ class AccountsController extends Controller
     {
         Cart::destroy();
         Auth::logout();
-        return redirect('/');
+        return redirect()->back();
     }
 
 

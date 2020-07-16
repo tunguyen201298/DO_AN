@@ -10,7 +10,10 @@ class Addresse extends Model
          'user_id',
          'street',
          'phone',
-         'name'
+         'name',
+         'lat',
+         'lng',
+         'default'
 
    ];
 

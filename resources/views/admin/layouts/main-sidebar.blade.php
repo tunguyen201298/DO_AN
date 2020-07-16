@@ -4,7 +4,7 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
+            
             <li class="active treeview">
                 <a href="{{url('/admin')}}">
                     <i class="fa fa-th"></i> <span>Trang chủ</span>
@@ -51,7 +51,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{url('admin/warehouse')}}"><i class="fa fa-circle-o"></i>Thông tin</a></li>
-                    <li><a href="{{url('admin/img/banner')}}"><i class="fa fa-circle-o"></i>Phiếu nhập</a></li>
+                    <li><a href="{{url('admin/import-bills')}}"><i class="fa fa-circle-o"></i>Phiếu nhập</a></li>
                     <li><a href="{{url('admin/areas')}}"><i class="fa fa-circle-o"></i>Phiếu xuất</a></li>
                 </ul>
             </li>

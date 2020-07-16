@@ -14,11 +14,11 @@ class ImportBill extends Model
 
 	public function supplier() 
 	{	
-		return $this->belongsTo(\App\models\Supplier::class);
+		return $this->belongsTo(\App\Models\Supplier::class);
 	}
 
   public function importbilldetail() 
   { 
-    return $this->hasMany(\App\models\ImportBillDetail::class);
+    return $this->hasMany(\App\Models\ImportBillDetail::class);
   }
 }

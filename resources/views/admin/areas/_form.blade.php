@@ -15,16 +15,7 @@
             @endif
         </div>
         
-        <div class="form-group">
-            <label class="required" for="input_area_name">{{trans('Số lượng')}}</label>
-            {!! Form::text('quantity', $area->quantity, ['class' => 'form-control', 'maxlength' => 100,  'placeholder' => trans('Số lượng')]) !!} 
-            @if ($errors->has('quantity'))
-                <span class="help-block">
-                    {{ $errors->first('quantity') }}
-                </span>
-            @endif
-        </div>
-
+        <!--  -->
         <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Loại sản phẩm')}}</label>
             {!! Form::select('category', $categories,trans('-- Chọn nhà cung cấp --'), array('class' => 'form-control', 'id' => 'input_category','placeholder' => $n )) !!}
@@ -43,16 +34,23 @@
             @endif
         </div>
         <div class="form-group">
-            <label class="required" for="input_area_name">{{trans('Hình ảnh')}}</label><br>
+            <label class="required" for="input_area_name">{{trans('Ảnh bìa')}}</label><br>
             @if(\Request::is('admin/product/edit/*'))
                 <img src="{{asset('storage/app/products/'.$area->img_link)}}" style="width: 100px">
             @endif
-            {!! Form::file('image', ['class' => 'form-control', 'maxlength' => 100,  'placeholder' => trans('Nội Dung')]) !!} 
+            {!! Form::file('image', ['class' => 'form-control', 'accept' => '.png, .jpg, .jpeg','id' => 'image_product']) !!} 
             @if ($errors->has('image'))
                 <span class="help-block">
                     {{ $errors->first('image') }}
                 </span>
             @endif
+        </div>
+        <div class="form-group">
+            <label for="input_area_name">{{trans('Hình ảnh')}}</label><br>
+            @if(\Request::is('admin/product/edit/*'))
+                <img src="{{asset('storage/app/products/'.$area->img_link)}}" style="width: 100px">
+            @endif
+            {!! Form::file('images[]', ['class' => 'form-control', 'accept' => '.png, .jpg, .jpeg', 'multiple' => 'multiple','id' => 'images']) !!} 
         </div>
 
         
@@ -83,7 +81,10 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        
+        if($('#image_product').get(0).files.length != 0)
+        {
+            alert('àdfgdg')
+        }
         $("[name='is_visible']").bootstrapSwitch();
         
         //validation form login

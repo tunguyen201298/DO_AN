@@ -77,6 +77,21 @@ function convertDate(date){
     
 }
 
+function loadCart(){
+    $.ajax({
+        url: root + '/load-cart',
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success:function(response){
+            $('#loadCart').html(response.html);
+        } 
+    });
+}
+
+loadCart();
+
 function updateCartInfo(url){
     $.ajax({
         url: url,
@@ -85,15 +100,7 @@ function updateCartInfo(url){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success:function(response){
-            $('#itemValue').text(response.total + 'đ');
-            $('#itemCount').text(response.cartLists.length);
-            alert(response.cartLists.length);
-            
-            for(var i = 0; i <= response.cartLists.length; i++)
-            {
-                alert(response.cartLists.name);
-                $('#nameProduct').text(response.cartLists.name);
-            }
+            loadCart();
         } 
     });
 }

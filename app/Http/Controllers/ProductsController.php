@@ -13,10 +13,15 @@ use App\models\Category;
 use App\models\Product;
 use App\models\User;
 use App\models\Review;
+use App\models\Addresse;
+use App\models\InvoiceDetail;
+use App\models\StatusBill;
 use App\models\ImgLink;
 use App\models\Bill;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use Cart;
+use Carbon\Carbon;
 
 use Validator;
 class ProductsController extends Controller
@@ -43,20 +48,24 @@ class ProductsController extends Controller
         $title = "Chi Tiết Sản Phẩm";
         
         $review = Review::where('product_id', $id)->count() > 0 ? Review::where('product_id', $id)->get() : '';
-        //$user = User::select('name')->where('id','=', Auth::user()->email)->get() : "";
-
+        Carbon::setLocale('vi');
+        $now = Carbon::now();
         $product_detail = Product::find($id);
-        $tt = Product::where('category_id',$product_detail->category_id)->get();
-        $product_img = ImgLink::select('link')->where('product_id',$id)->get();
+        $count_qty = $product_detail->quantity;
+        $count_review = Review::where('product_id', $id)->count();
+        $start_review = new Review();
+        $sum_start_detail = $start_review->startReview($id);
+        $tt = Product::where([['category_id',$product_detail->category_id],['is_visible',1]])->get();
+        $product_img = $product_detail->imgLink()->get();
         $no = 1;
-        $no1 = 1;
-        return view('products.product_detail', compact('title','product_detail','product_img','no','no1','review','tt'));
+        $no1 = 0;
+        return view('products.product_detail', compact('title','product_detail','product_img','no','no1','review','tt','count_qty','count_review','sum_start_detail','start_review','now'));
     }
 
     public function productCategory($id)
     {
         $title = "Theo thể loại";
-        $product_category = Product::where('category_id',$id)->get();
+        $product_category = Product::where('category_id',$id)->paginate();
         return view('products.product_category', compact('title','product_category'));
     }
 
@@ -79,36 +88,33 @@ class ProductsController extends Controller
         $title = 'Four Column';
         return view('products.four_column', compact('title'));
     }
+    public function productShow(){
+        $title = 'Sản phẩm';
+        $products = Product::paginate(6);
+        return view('products.product', compact('title','products'));
+    }
 
     public function review(Request $request)
     {
-        if (!empty($request->rating2)) {
-            $id = $request->id;
-            //$email = Auth::check() ? Auth::user()->email :'';
-            $user = User::where('email','=', Auth::user()->email)->first();
-            $user_id = $user->id;
-            $name = $user->name;
-            $title = !empty($request->title) ? $request->title : '';
-            $content = !empty($request->content) ? $request->content : '';
-            $review = new Review();
-            $review->user_id = $user_id;
-            $review->rating = $request->rating2;
-            $review->title = $title;
-            $review->product_id = $id;
-            $review->name = $name;
-            $review->content = $content;
-            $response = [
-            'message' => trans('Đánh giá thành công'),
-            'data' => $review->save()
-            ];
+        $id = $request->id;
+        $user = User::where('email','=', Auth::user()->email)->first();
+        $user_id = $user->id;
+        $name = $user->name;
+        $title = !empty($request->title) ? $request->title : '';
+        $content = !empty($request->content) ? $request->content : '';
 
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-        }else{
-            return response()->json('Vui lòng chọn số sao');
-        }
+        $review = new Review();
+        $review->user_id = $user_id;
+        $review->rating = $request->rating;
+        $review->title = $title;
+        $review->product_id = $id;
+        $review->name = $name;
+        $review->content = $content;
+        $response = [
+        'message' => trans('Đánh giá thành công'),
+        'data' => $review->save()
+        ];
+        return response()->json($response);
     }
     public function trackOrder()
     {
@@ -117,7 +123,18 @@ class ProductsController extends Controller
     }
     public function submitTrackOrder(Request $request)
     {
-        $bill = Bill::find($request->bill_id)->first();
+        $id = Bill::find($request->bill_id);
+        $user =Auth::user();
+        $cart = Cart::content();
+        $id_bill = Bill::select()->max('id');
+        $bills = Bill::find($id_bill);
+        $id_stt = !empty($bills->bill_stt_id) ? $bills->bill_stt_id : 1;
+        $stt = StatusBill::where('id',$id_stt)->first();
+        $add = Addresse::where([['user_id',$user->id],['default',1]])->first();
+        $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
+
+        
+        return view('errors.success',compact('user','cart','add','bills','invoice','stt'));
     }
     
 }

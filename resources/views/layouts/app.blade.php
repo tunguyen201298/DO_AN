@@ -28,6 +28,10 @@
     <link href="{{asset('public/assets/css/lightbox.css')}}" rel="stylesheet">
     <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="{{asset('public/assets/css/font-awesome.css')}}">
+    <script>
+        var root = '{{url("/")}}';
+        var mn_selected = '';
+    </script>
     <!-- Fonts --> 
 <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
@@ -53,7 +57,7 @@
     <script src="{{asset('public/assets/js/echo.min.js')}}"></script>
     <script src="{{asset('public/assets/js/jquery.easing-1.3.min.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-slider.min.js')}}"></script>
-    <!-- <script src="{{asset('public/assets/js/jquery.rateit.min.js')}}"></script> -->
+    <script src="{{asset('public/assets/js/jquery.rateit.min.js')}}"></script>
     <script src="{{asset('public/assets/js/lightbox.min.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-select.min.js')}}"></script>
     <script src="{{asset('public/assets/js/wow.min.js')}}"></script>
@@ -62,6 +66,8 @@
     <script src="{{asset('public/admin/js/app.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
+     @yield('scripts')
 </body>
 </html>

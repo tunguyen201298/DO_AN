@@ -45,7 +45,7 @@
 		</div>
 	  	<div class="form-group">
 		    <label class="info-title" for="exampleInputPassword1">Mật khẩu <span>*</span></label>
-		    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" name="Mật khẩu">
+		    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" name="password">
 		</div>
 		<div class="radio outer-xs">
 		  	<label>

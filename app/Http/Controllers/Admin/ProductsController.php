@@ -47,15 +47,14 @@ class ProductsController extends Controller
     }
     public function store(Request $request)
     {   
+        //dd($request->file('images'));
         $this->validate(
             $request,
             [
                 'name' => 'required|min:5|max:255',
                 'price' => 'required|numeric',
-                'discount' => 'numeric',
                 'image' => 'required',
-                'detail' => 'required|min:5',
-                'quantity' => 'numeric',
+                'detail' => 'required|min:5'
             ],
 
             [
@@ -81,7 +80,7 @@ class ProductsController extends Controller
             $product->category_id = $request->category;
             $product->supplier_id = $request->supplier;
             $product->discount = !empty($request->discount) ? $request->discount : 0;
-            $product->quantity = $request->quantity;
+            
             $response = [
                 'message' => trans('Thêm mới sản phẩm thành công'),
                 'data' => $product->save()
@@ -91,6 +90,21 @@ class ProductsController extends Controller
 
                 return response()->json($response);
             }
+
+            $product_id = Product::max('id');
+            $images=array();
+            
+            if ($request->hasFile('images')) {
+                $files = $request->file('images');
+                foreach($files as $file){
+                    $name = time() . $file->getClientOriginalName('file');
+                    $file->move('storage/app/products',$name);
+                    $images[]= new ImgLink(['link' => $name]);
+                }
+
+                $product->imgLink()->saveMany($images);
+            }
+            
 
             return redirect('admin/product')->with(['message' => $response['message'], 'alert-class' => 'alert-success']);
         }catch (ValidatorException $e) {
@@ -113,9 +127,7 @@ class ProductsController extends Controller
             [
                 'name' => 'required|min:5|max:255',
                 'price' => 'required|numeric',
-                'discount' => 'numeric',
-                'detail' => 'required|min:5',
-                'quantity' => 'numeric',
+                'detail' => 'required|min:5'
             ],
 
             [
@@ -146,7 +158,7 @@ class ProductsController extends Controller
             $product->category_id = $category;
             $product->supplier_id = $supplier;
             $product->discount = $request->discount;
-            $product->quantity = $request->quantity;
+            //$product->quantity = $request->quantity;
             $response = [
                 'message' => trans('Cập nhập sản phẩm thành công'),
                 'data' => $product->save()
@@ -196,6 +208,10 @@ class ProductsController extends Controller
 
     public function search(Request $request) {
         $products = Product::select(DB::raw('name AS text'), 'id')->where('name', 'LIKE', '%' . $request->get('q') . '%')->skip(0)->take(10)->get();
+        return response()->json($products);
+    }
+    public function searchProduct(Request $request) {
+        //$products = Product::select(DB::raw('name AS text'), 'id')->where('name', 'LIKE', '%' . $request->get('q') . '%')->skip(0)->take(10)->get();
         return response()->json($products);
     }
 }

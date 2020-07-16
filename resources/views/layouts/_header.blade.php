@@ -21,7 +21,7 @@
                         <li class="dropdown dropdown-small">
                             <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><i class="icon fa fa-user"></i><span class="value">
                                 @if(!Auth::check())
-                                    My Account
+                                    {{'Tài khoản'}}
                                 @else
                                     {{Auth::user()->name}}
                                 @endif
@@ -29,9 +29,9 @@
                             <ul class="dropdown-menu">
                                 
                                 @if(Auth::check())
-                                    <li><a href="{{ route('logout') }}"><i class=""></i>Đăng xuất</a></li>
+                                    <li><a href="{{ route('logout') }}"><i class=""></i> Đăng xuất</a></li>
                                 @else
-                                    <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Đăng nhập</a></li>
+                                    <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i> Đăng nhập</a></li>
                                     <!-- <li><a href="{{ route('login') }}"><i class=""></i>Register</a></li> -->
                                 @endif
                             </ul>
@@ -51,7 +51,7 @@
                     <div class="logo">
                         <a href="{{route('home')}}">
 
-                            <img src="{{asset('storage/app/logo/logo.png')}}" alt="Logo">
+                            <img src="{{asset('storage/app/logo/anhlogo.png')}}" alt="Logo">
                         </a>
                     </div><!-- /.logo -->
                     <!-- ============================================================= LOGO : END ============================================================= -->				</div><!-- /.logo-holder -->
@@ -77,61 +77,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
                     <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
 
-                    <div class="dropdown dropdown-cart">
-                        <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown">
-                            <div class="items-cart-inner">
-                                <div class="basket">
-                                    <i class="glyphicon glyphicon-shopping-cart"></i>
-                                </div>
-                                <div class="basket-item-count"><span id="itemCount" class="count">{{ $count }}</span></div>
-                                <div class="total-price-basket">
-                                    <span class="total-price">
-                                        <span id="itemValue" class="value">{{ number_format($total).' ₫' }}</span>
-                                    </span>
-                                </div>
-
-
-                            </div>
-                        </a>
-                        <ul id="cartLists" class="dropdown-menu">
-                            <li>
-                                @foreach($carts as $cart)
-                                <div class="cart-item product-summary" >
-                                    
-                                        <div class="row" style="border: solid 1px #66ad44;border-radius: 5px;margin-bottom: 2px">
-                                            <div class="col-xs-4">
-                                                <div class="image">
-                                                    <a href="{{route('product-details',['id'=>$cart->id])}}"><img src="{{ asset('storage/app/products/'.$cart->options->img) }}" alt=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-7">
-
-                                                <h3 class="name"  ><a href="#"><p style="white-space: nowrap;width: 100px;text-overflow: ellipsis;    overflow: hidden;" id="nameProduct"><b>{!! $cart->name !!}</b></p></a></h3>
-                                                <div class="price">{{ number_format($cart->price*$cart->qty).' ₫'}}</div>
-                                            </div>
-                                            <div class="col-xs-1 action">
-                                                <a href="#"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                   
-                                </div><!-- /.cart-item -->
-                                 @endforeach
-                                <div class="clearfix"></div>
-                                <hr>
-                                <div class="clearfix cart-total">
-                                    <div class="pull-right">
-
-                                        <span class="text">Tỏng cộng :</span><span class='price'>{{ number_format($total).' ₫' }}</span>
-
-                                    </div>
-                                    <div class="clearfix"></div>
-
-                                    <a href="{{route('cart-show')}}" class="btn btn-upper btn-primary btn-block m-t-20">Tới giỏ hàng</a>	
-                                </div><!-- /.cart-total-->
-
-
-                            </li>
-                        </ul><!-- /.dropdown-menu-->
+                    <div id="loadCart" class="dropdown dropdown-cart">
+                        
                     </div><!-- /.dropdown-cart -->
 
                     <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= -->				</div><!-- /.top-cart-row -->
@@ -157,29 +104,34 @@
                     <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
                         <div class="nav-outer">
                             <ul class="nav navbar-nav">
-                                <li class="active dropdown yamm-fw">
-                                    <a href="{{route('home')}}" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Trang chủ</a>
+                                <li class=" dropdown yamm-fw @if(\Request::is('*/')){{ 'active' }}@endif">
+                                    <a href="{{url('/')}}" >Trang chủ</a>
 
                                 </li>
                                 
                                 <li class="dropdown hidden-sm">
 
-                                    <a href="category.html">Giới thiệu
+                                    <a href="{{ route('introduce') }}">Giới thiệu
                                         <!-- <span class="menu-label new-menu hidden-xs">new</span> -->
                                     </a>
                                 </li>
-
-                                <li class="dropdown hidden-sm">
+                                <li class="dropdown hidden-sm @if(\Request::is('*product')){{ 'active' }}@endif">
+                                    <a href="{{ route('product-show') }}">Sản phẩm</a>
+                                </li>
+                                <li class="dropdown hidden-sm @if(\Request::is('*promotions')){{ 'active' }}@endif">
+                                    <a href="{{ route('promotions') }}">Khuyến mãi</a>
+                                </li>
+                                <li class="dropdown hidden-sm @if(\Request::is('*promotionss')){{ 'active' }}@endif">
                                     <a href="category.html">Dịch vụ</a>
                                 </li>
                                 <li class="dropdown hidden-sm">
                                     <a href="category.html">Tuyển dụng</a>
                                 </li>
-                                <li class="dropdown">
+                                <li class="dropdown @if(\Request::is('*blogs')){{ 'active' }}@endif">
                                     <a href="{{ route('blogs') }}">Bài viết</a>
                                 </li>
 
-                                <li class="dropdown">
+                                <li class="dropdown @if(\Request::is('*contact')){{ 'active' }}@endif">
                                     <a href="{{ route('contact') }}">Liên hệ</a>
                                 </li>
                                 

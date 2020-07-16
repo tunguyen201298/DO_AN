@@ -18,25 +18,39 @@ class BillsController extends Controller
     
     public function billShow()
     {
-    	$title = "Đơn hàng";
-    	$bills = Bill::where('active', 1)->paginate();
-        $counts = Bill::where('active', 1)->count();
-        $is_read = Bill::where('active', 1)->count();
-        DB::table('bills')->update(['is_read' => 1]);
-        return view('admin.bill.index', compact('title','bills','counts','is_read'));
+        try{
+            $title = "Đơn hàng";
+            $bills = Bill::Orderby('id', 'DESC')->where('active', 1)->paginate();
+            $counts = Bill::where('active', 1)->count();
+            $is_read = Bill::where('active', 1)->count();
+            DB::table('bills')->update(['is_read' => 1]);
+            $key = ['name' => 'Tên khách hàng','bill_id' => 'Mã hóa đơn','created_at' => 'Ngày tạo HĐ'];
+            return view('admin.bill.index', compact('title','bills','counts','is_read','key'));
+        }catch(Exception $e){
+            $title = "Không tìm thấy trang";
+            return view('errors.404',compact('title'));
+        }
+        	
     }
 
     public function invoice($id)
     {
-        $title = "Chi tiết hóa đơn";
-        $customer = Bill::find($id)->user()->first();
-        $invoices = Bill::find($id)->invoiceDetails()->paginate();
-        $invoice = InvoiceDetail::where('bill_id',$id)->get();
-        $bills = Bill::find($id);
-        $status = StatusBill::pluck('name', 'id');
-        $statuses = StatusBill::find($bills->status_id);
-        $status_bill = $statuses->name;
-        return view('admin.bill.invoice', compact('title','invoices', 'bills', 'customer','invoice','status', 'status_bill'));
+        try{
+            $title = "Chi tiết hóa đơn";
+            $customer = Bill::find($id)->user()->first();
+            $invoices = Bill::find($id)->invoiceDetails()->paginate();
+            $invoice = InvoiceDetail::where('bill_id',$id)->get();
+            $bills = Bill::find($id);
+            $status_id = $bills->status_id;
+            
+            $statuse = StatusBill::find($status_id);
+            $status_bill = $statuse->name;
+            $status = StatusBill::where('id','<>',$status_id)->pluck('name', 'id');
+            return view('admin.bill.invoice', compact('title','invoices', 'bills', 'customer','invoice','status', 'status_bill','status_id'));
+        }catch(Exception $e){
+            $title = "Không tìm thấy trang";
+            return view('errors.404',compact('title'));
+        }  
     }
 
     public function print($id)
@@ -69,6 +83,35 @@ class BillsController extends Controller
         $a = Bill::whereId(Input::get("id"))->update(['is_visible' => Input::get("is_visible")]);
         dd($a);
         return response()->json('ok');
+    }
+    public function updateStatus(Request $request)
+    {
+        try{
+            $id_status = $request->id_status;
+            $id_bill = $request->id;
+            $update = Bill::find($id_bill)->update(['status_id' => $id_status]);
+            if (request()->wantsJson()) {
+                $status_bill = StatusBill::find($id_status);
+                $data['status'] = $status_bill->name;
+                $bill = Bill::find($id_bill);
+                $email = $bill->email;
+                Mail::send('email.status_bill', $data, function ($message) use ($email) {
+                    $message->from('tudtdt1998@gmail.com', 'Shop đá phong thủy Mixi');
+                    $message->to($email , $email);
+                    $message->subject('Tình trạng đơn hàng');
+                
+                });
+                return response()->json([
+                            'message' => trans('Cập nhập tình trạng đơn hàng thành công'),
+                            'update' => $update
+                ]);
+            }
+            return redirect()->back()->with(['message' => trans('Cập nhập tình trạng đơn hàng thành công'), 'alert-class' => 'alert-success']);
+        }catch(Exception $e){
+            $title = "Không tìm thấy trang";
+            return view('errors.404',compact('title'));
+        }  
+        
     }
 
 }

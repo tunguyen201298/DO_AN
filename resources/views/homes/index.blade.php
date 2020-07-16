@@ -21,7 +21,7 @@
                         <div class="product-slider">
                             <div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
                                 
-                                    @foreach($products as $value)
+                                    @foreach($product as $value)
                                     <div class="item item-carousel">
                                         <div class="products">
                                             <div class="product">		
@@ -40,7 +40,7 @@
 
                                                 <div class="product-info text-left">
                                                     <h3 class="name"><a href="detail.html">{{ $value->name }}</a></h3>
-                                                    <div class="rating rateit-small"></div>
+                                                    <div class="rating rateit-small" data-rateit-value="{{$start_review->startReview($value->id)}}"></div>
                                                     <div class="description"></div>
 
                                                     <div class="product-price">	
@@ -59,19 +59,14 @@
                                                             <input type="hidden" name="id" value="{{ $value->id }}" id="productId{{ $value->id }}">
                                                             <li class="add-cart-button btn-group">
                                                                     
-                                                                    <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
+                                                                    <button class="btn btn-primary icon" type="button" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
                                                                         <i class="fa fa-shopping-cart"></i>	
-                                                                    </a>
+                                                                    </button>
                                                             </li>
 
-                                                            <li class="lnk wishlist">
-                                                                <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Wishlist">
-                                                                    <i class="icon fa fa-heart"></i>
-                                                                </a>
-                                                            </li>
-
+                                                            
                                                             <li class="lnk">
-                                                                <a data-toggle="tooltip" class="add-to-cart" href="detail.html" title="Compare">
+                                                                <a data-toggle="tooltip" class="add-to-cart" href="{{route('product-details',['id'=>$value->id]) }}" title="Xem chi tiết">
                                                                     <i class="fa fa-signal" aria-hidden="true"></i>
                                                                 </a>
                                                             </li>
@@ -113,15 +108,15 @@
 
                                 <div class="product-info text-left">
                                     <h3 class="name"><a href="detail.html">{{$item->name}}</a></h3>
-                                    <div class="rating rateit-small"></div>
+                                    <div class="rating rateit-small" data-rateit-value="{{$start_review->startReview($item->id)}}"></div>
                                     <div class="description"></div>
 
                                     <div class="product-price">	
-                                        @if(!empty($value->discount))
-                                            <span class="price">{{ number_format($value->discount)."₫" }}</span>
-                                            <span class="price-before-discount">{{ number_format($value->price)."₫" }}</span>
+                                        @if(!empty($item->discount))
+                                            <span class="price">{{ number_format($item->discount)."₫" }}</span>
+                                            <span class="price-before-discount">{{ number_format($item->price)."₫" }}</span>
                                         @else
-                                            <span class="price">{{ number_format($value->price)."₫" }}</span>
+                                            <span class="price">{{ number_format($item->price)."₫" }}</span>
                                         @endif
 
                                     </div><!-- /.product-price -->
@@ -137,14 +132,8 @@
 
                                             </li>
 
-                                            <li class="lnk wishlist">
-                                                <a class="add-to-cart" href="detail.html" title="Wishlist">
-                                                    <i class="icon fa fa-heart"></i>
-                                                </a>
-                                            </li>
-
                                             <li class="lnk">
-                                                <a class="add-to-cart" href="detail.html" title="Compare">
+                                                <a data-toggle="tooltip" class="add-to-cart" href="{{route('product-details',['id'=>$value->id]) }}" title="Xem chi tiết">
                                                     <i class="fa fa-signal" aria-hidden="true"></i>
                                                 </a>
                                             </li>
@@ -211,9 +200,10 @@
 
             <!-- ============================================== FEATURED PRODUCTS ============================================== -->
             <section class="section wow fadeInUp new-arriavls">
-                <h3 class="section-title">Sản phẩm mới</h3>
+                <h3 class="section-title">Sản phẩm khuyến mãi</h3>
                 <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
-                    @foreach($pro_new as $item)
+                    @foreach($promotions as $va)
+                    @foreach($va->products as $item)
                     <div class="item item-carousel">
                         <div class="products">
 
@@ -223,22 +213,19 @@
                                         <a href="detail.html"><img src="{{asset('storage/app/products/'.$item->img_link)}}" alt="Hình ảnh sản phẩm"></a>
                                     </div><!-- /.image -->			
 
-                                    <div class="tag new"><span>new</span></div>                        		   
+                                    <div class="tag new"><span>sale</span></div>                
+                                           		   
                                 </div><!-- /.product-image -->
 
 
                                 <div class="product-info text-left">
                                     <h3 class="name"><a href="detail.html">{{$item->name}}</a></h3>
-                                    <div class="rating rateit-small"></div>
+                                    <div class="rating rateit-small" data-rateit-value="{{$start_review->startReview($item->id)}}"></div>
                                     <div class="description"></div>
 
                                     <div class="product-price">	
-                                        @if(!empty($item->discount))
-                                            <span class="price">{{ number_format($item->discount)."₫" }}</span>
-                                            <span class="price-before-discount">{{ number_format($item->price)."₫" }}</span>
-                                        @else
-                                            <span class="price">{{ number_format($item->price)."₫" }}</span>
-                                        @endif
+                                        <span class="price">{{ number_format($item->discount)."₫" }}</span>
+                                        <span class="price-before-discount">{{ number_format($item->price)."₫" }}</span>
                                     </div><!-- /.product-price -->
 
                                 </div><!-- /.product-info -->
@@ -252,14 +239,8 @@
 
                                             </li>
 
-                                            <li class="lnk wishlist">
-                                                <a class="add-to-cart" href="detail.html" title="Wishlist">
-                                                    <i class="icon fa fa-heart"></i>
-                                                </a>
-                                            </li>
-
                                             <li class="lnk">
-                                                <a class="add-to-cart" href="detail.html" title="Compare">
+                                                <a data-toggle="tooltip" class="add-to-cart" href="{{route('product-details',['id'=>$value->id]) }}" title="Xem chi tiết">
                                                     <i class="fa fa-signal" aria-hidden="true"></i>
                                                 </a>
                                             </li>
@@ -271,6 +252,7 @@
                         </div><!-- /.products -->
                     </div><!-- /.item -->
                     @endforeach
+                    @endforeach
                 </div><!-- /.home-owl-carousel -->
             </section><!-- /.section -->
             <!-- ============================================== FEATURED PRODUCTS : END ============================================== -->
@@ -279,7 +261,9 @@
         <!-- ============================================== CONTENT : END ============================================== -->
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+@stop
+@section('scripts')
 <script type="text/javascript">
 
 
@@ -296,18 +280,32 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success:function(response){
-                            console.log(response)
-                            updateCartInfo("{{url('get-cart-info')}}")
+                            
+                            (async () => {
+                                const Toast = Swal.mixin({
+                                  toast: true,
+                                  position: 'top-end',
+                                  showConfirmButton: false,
+                                  timer: 3000,
+                                  timerProgressBar: true,
+                                  onOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                  }
+                                })
+
+                                Toast.fire({
+                                  icon: 'success',
+                                  title: 'Thêm vào giỏ hàng thành công'
+                                })
+                            })()
                         } 
                     });
                 }
     }
 
-    //chạy dược rồi đúng ko dạ rồi sao cho hén lên trên kia
-    //t/rên nào
-
     
 </script>
-@endsection
+@stop
 
 

@@ -31,8 +31,8 @@
                 <div class="box-delete_multi pull-left">
                     <a href="javascript:;" id="btn-delete-all" data-routes="/admin/product/destroy" class="btn btn-danger"><i class="fa fa-trash-o"></i> Xóa tất cả</a>
                 </div>
-                {!! Form::open(array('url' => url("admin/areas"), 'id' => 'form-search', 'method' => 'GET')) !!}
-                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> </button>
+                {!! Form::open(array('url' => url("admin/product/search-product"), 'id' => 'form-search', 'method' => 'GET')) !!}
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i>{{trans('Tìm kiếm')}} </button>
                 {!! Form::text('search', Input::get('search'), array('class' => 'form-control form-inline', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => trans('Nhập từ khóa'))) !!} 
                 {!!Form::hidden("numpaging", Input::get('numpaging'))!!}
                 {!!Form::hidden("paging", Input::get('paging'))!!}

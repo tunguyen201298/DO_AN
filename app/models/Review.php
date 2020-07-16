@@ -19,13 +19,21 @@ class Review extends Model
    		return $this->belongsTo(\App\Models\Product::class);
    }
 
-   /*public function customer()
-   {
-         return $this->hasMany(\App\Models\Customer::class);
-   }*/
-
    public function user()
    {
          return $this->belongsTo(\App\Models\User::class);
    }
+   
+   public function startReview($product_id)
+   {
+      $query = Review::where('product_id', $product_id);
+      $count_review = $query->count();
+      if ($count_review != 0) {
+         $sum = $query->sum('rating');
+         return $sum/$count_review;
+         
+      }
+      return 0;
+   }
+
 }

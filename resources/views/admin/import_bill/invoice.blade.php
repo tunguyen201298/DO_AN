@@ -20,6 +20,7 @@
             <ul class="header-action">
                 
                 <li><a href="{{url('admin/invoice')}}" class="btn btn-default" ><i class="fa fa-refresh"></i> {{trans('Tải lại')}}</a></li>
+                <li><a href="{{url('admin/bill')}}" class="btn btn-default"><i class="fa fa-reply"></i> {{trans('Trở lại')}}</a></li>
             </ul>
         </div>
     </div>
@@ -101,9 +102,17 @@
 
                             </tbody>
                         </table>
-                                    
+                         <div class="form-group">
+                            <form action="{{url('admin/bill/update-status')}}"  id="form-supplier" method="post">
+                                <input type="hidden" name="id" value="{{$bills->id}}">
+                                <input type="hidden" name="id_status" value="{{$status_id}}">
+                                <button class="btn btn-primary" type="submit" id="btn_update"><i class="fa fa-save"></i> {{trans('Cập nhật')}}</button>
+                                {{ csrf_field() }}
+                            </form>
+                        </div>           
                     </div>
                 </div>
+                
             </div>
             <div class="row">
                 <div class="col-sm-12">
@@ -159,24 +168,26 @@
             </div>
         </div>
     </div><!-- /.box-body -->
-<!-- <script type="text/javascript">
-    $(document).ready(function () {
-        $("[name='is_visible']").bootstrapSwitch();
-        $('input[name="is_visible"]').on('switchChange.bootstrapSwitch', function (event, state) {
-            var is_visible;
-            is_visible = (state == true) ? 1 : 0;
-            
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
+<script type="text/javascript">
+    /*$('#input_status').on('change', function(){
+        $('#btn_update').on('click', function() {
+            var id_status = $('#input_status').val()
+            var id_bill = $('input[name="id"]').val()
             $.ajax({
-                url: root + '/admin/invoices/active', 
+                url:"{{url('admin/bill/update-status')}}",
+                data:{id_status: id_status, id_bill: id_bill},
                 type: 'POST',
-                data: {id: $(this).val(), is_visible: is_visible}, 
-                success: function (data, success) {
-
-                }
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(response){
+                    
+                } 
             });
         });
-    });
-</script> -->
+    });*/
+</script>
 @stop
 
 

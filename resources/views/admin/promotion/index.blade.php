@@ -46,6 +46,7 @@
                         <th>{!!sort_title('star_date',trans('Ngày bắt đầu'))!!}</th>
                         
                         <th>{!!sort_title('end_date',trans('Ngày kết thúc'))!!}</th>
+                        <th>{!!sort_title('follow',trans('Theo'))!!}</th>
                         <th>{!!sort_title('is_visible',trans('Trạng thái'))!!}</th>
                         <th class="w_100">{{trans('Thao tác')}}</th>
                     </tr>
@@ -62,6 +63,12 @@
                         <td>{{$promotion->promotion_name}}</td>
                         <td>{{$promotion->star_date}}</td>
                         <td>{{$promotion->end_date}}</td>
+                        <td>@if($promotion->type == 'phantram')
+                                {{$promotion->detail ."%"}}
+                            @else
+                                {{number_format($promotion->detail)." ₫"}}
+                            @endif
+                        </td>
                         <td class="text-center w_100">
                             <div>
                                 <input type="checkbox" value="{{$promotion->id}}" data-size="mini" data-on-text="Hiện" data-off-text="Ẩn" data-on-color="success" data-off-color="danger" name="is_visible" {{$promotion->is_visible?'checked':''}} />
