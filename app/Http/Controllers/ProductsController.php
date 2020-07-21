@@ -123,6 +123,7 @@ class ProductsController extends Controller
     }
     public function submitTrackOrder(Request $request)
     {
+        $title = "Kiểm tra đơn hàng";
         $id = Bill::find($request->bill_id);
         $user =Auth::user();
         $cart = Cart::content();
@@ -134,7 +135,7 @@ class ProductsController extends Controller
         $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
 
         
-        return view('errors.success',compact('user','cart','add','bills','invoice','stt'));
+        return view('errors.success',compact('title','user','cart','add','bills','invoice','stt'));
     }
     
 }

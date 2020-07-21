@@ -121,12 +121,12 @@
                                 <li class="dropdown hidden-sm @if(\Request::is('*promotions')){{ 'active' }}@endif">
                                     <a href="{{ route('promotions') }}">Khuyến mãi</a>
                                 </li>
-                                <li class="dropdown hidden-sm @if(\Request::is('*promotionss')){{ 'active' }}@endif">
+                                <!-- <li class="dropdown hidden-sm @if(\Request::is('*promotionss')){{ 'active' }}@endif">
                                     <a href="category.html">Dịch vụ</a>
                                 </li>
                                 <li class="dropdown hidden-sm">
                                     <a href="category.html">Tuyển dụng</a>
-                                </li>
+                                </li> -->
                                 <li class="dropdown @if(\Request::is('*blogs')){{ 'active' }}@endif">
                                     <a href="{{ route('blogs') }}">Bài viết</a>
                                 </li>

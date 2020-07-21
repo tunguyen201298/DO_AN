@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $title)
+
 @section('content')
 	<div class="col-md-12 x-text text-center">
 		<h1>404</h1>

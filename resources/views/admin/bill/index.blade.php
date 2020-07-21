@@ -5,7 +5,7 @@
     mn_selected = 'mn_bill';</script>
 <ol class="breadcrumb">
     <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
-    <li>Danh sách khu vực</li>
+    <li>Hóa đơn</li>
 </ol>
 @stop
 @section('content')

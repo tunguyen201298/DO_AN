@@ -8,7 +8,7 @@
 				<div class="col-md-9">
 					@foreach($blogs as $item)
 					<div class="blog-post  wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
-						<a href="blog-details.html"><img class="img-responsive" src="{{asset('storage/app/blog-post/'.$item->image)}}" alt=""></a>
+						<a href="{{ url('blogs/detail/'.$item->id) }}"><img class="img-responsive" src="{{asset('storage/app/blog-post/'.$item->image)}}" alt=""></a>
 						<h1><a href="blog-details.html">{{$item->title}}</a></h1>
 						<span class="date-time">{{$item->created_at}}</span>
 						<!-- <p>{!!$item->content!!}</p> -->

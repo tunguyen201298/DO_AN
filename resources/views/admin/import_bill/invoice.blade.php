@@ -5,7 +5,7 @@
     mn_selected = 'mn_invoice';</script>
 <ol class="breadcrumb">
     <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
-    <li>Chi tiết hóa đơn</li>
+    <li>Chi tiết phiếu nhập</li>
 </ol>
 @stop
 @section('content')

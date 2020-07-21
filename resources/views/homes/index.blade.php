@@ -59,7 +59,7 @@
                                                             <input type="hidden" name="id" value="{{ $value->id }}" id="productId{{ $value->id }}">
                                                             <li class="add-cart-button btn-group">
                                                                     
-                                                                    <button class="btn btn-primary icon" type="button" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
+                                                                    <button class="btn btn-primary icon" type="button" title="Add Cart" id="addCart{{$value->id}}" onclick="updateCartInfo({{$value->id}})"> 
                                                                         <i class="fa fa-shopping-cart"></i>	
                                                                     </button>
                                                             </li>
@@ -126,7 +126,7 @@
                                     <div class="action">
                                         <ul class="list-unstyled">
                                             <li class="add-cart-button btn-group">
-                                                <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
+                                                <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="updateCartInfo({{$value->id}})"> 
                                                     <i class="fa fa-shopping-cart"></i> 
                                                 </a>
 
@@ -233,7 +233,7 @@
                                     <div class="action">
                                         <ul class="list-unstyled">
                                             <li class="add-cart-button btn-group">
-                                                <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
+                                                <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="updateCartInfo({{$value->id}})"> 
                                                     <i class="fa fa-shopping-cart"></i> 
                                                 </a>
 
@@ -265,9 +265,15 @@
 @stop
 @section('scripts')
 <script type="text/javascript">
-
-
-    function addTocart(id){
+/*function addTocart(id){
+    var user = '{{ Auth::check()}}';
+    if (!user){
+        Swal.fire('Xin mời đăng nhập')
+    }else{
+        updateCartInfo(id);
+    }
+};*/
+    /*function addTocart(id){
         var user = '{{ Auth::check()}}';
                 if (!user){
                     Swal.fire('Xin mời đăng nhập')
@@ -303,7 +309,7 @@
                     });
                 }
     }
-
+*/
     
 </script>
 @stop

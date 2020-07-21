@@ -5,6 +5,7 @@
  use App\models\Category;
  use App\Models\Promotion;
  use App\Models\Review;
+ use App\Models\Blog;
  use Carbon\Carbon;
 
  class MenuComposer
@@ -14,6 +15,8 @@
      public $newformat = [];
      public $products = [];
      public $sum_start = [];
+     public $blog_menu = [];
+     public $now = [];
      /**
       * Create a movie composer.
       *
@@ -27,6 +30,8 @@
          $this->newformat = [];
          $this->products = [];
          $this->sum_start = [];
+         $this->blog_menu = [];
+         $this->now = [];
      }
 
      /**
@@ -55,9 +60,14 @@
             $view->with('newformat', null);
         }
         $sum_start = new Review();
-
+        $blog_menu = Blog::orderBy('id', 'desc')
+               ->take(10)
+               ->get();
+               Carbon::setLocale('vi');
+        $now = Carbon::now();
          $view->with('menus', $categories);
-         
+         $view->with('blog_menu', $blog_menu);
          $view->with('sum_start', $sum_start);
+         $view->with('now', $now);
      }
  }

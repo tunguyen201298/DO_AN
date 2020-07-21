@@ -48,6 +48,7 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
     	
     	Route::group(array('middleware' => ['role.staff.sell']), function () {
 
+			Route::get('/revenue', 'BillsController@statisticalSevenue');
     		/*----------------------------------------------------------------------------*/
 			//Blogs
 			/*----------------------------------------------------------------------------*/
@@ -137,8 +138,9 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 			Route::group(array('prefix' => '/warehouse'), function () {
 				Route::get('/', 'WarehousesController@index');
 			});
+			
 			/*----------------------------------------------------------------------------*/
-			//warehouse
+			//importbill
 			/*----------------------------------------------------------------------------*/
 			Route::group(array('prefix' => '/import-bills'), function () {
 				Route::get('/', 'ImportbillController@index');

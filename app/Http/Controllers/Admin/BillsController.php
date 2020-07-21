@@ -44,9 +44,8 @@ class BillsController extends Controller
             $status_id = $bills->status_id;
             
             $statuse = StatusBill::find($status_id);
-            $status_bill = $statuse->name;
             $status = StatusBill::where('id','<>',$status_id)->pluck('name', 'id');
-            return view('admin.bill.invoice', compact('title','invoices', 'bills', 'customer','invoice','status', 'status_bill','status_id'));
+            return view('admin.bill.invoice', compact('title','invoices', 'bills', 'customer','invoice','status', 'statuse','status_id'));
         }catch(Exception $e){
             $title = "Không tìm thấy trang";
             return view('errors.404',compact('title'));
@@ -86,6 +85,7 @@ class BillsController extends Controller
     }
     public function updateStatus(Request $request)
     {
+        dd($request->all());
         try{
             $id_status = $request->id_status;
             $id_bill = $request->id;
@@ -112,6 +112,19 @@ class BillsController extends Controller
             return view('errors.404',compact('title'));
         }  
         
+    }
+    public function statisticalSevenue()
+    {
+        $title = 'Thống kê doanh thu';
+        $status_bill_charts = Bill::select(
+                'status_bills.name AS label', 
+                DB::raw('count(*) as value'))
+                    ->leftJoin('status_bills', 'bills.status_id', '=', 'status_bills.id')
+                     ->groupBy('bills.status_id', 'status_bills.name')
+                     ->get()->toArray();
+        $daily = Bill::select(DB::raw('Date(created_at) AS date'), DB::raw('SUM(total) AS total'))
+                     ->groupBy(DB::raw('Date(created_at)'))->get();
+        return view('admin.thong_ke.statistical',compact('title','daily','status_bill_charts'));    
     }
 
 }

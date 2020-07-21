@@ -103,7 +103,7 @@ class BlogsController extends Controller
                 $file->move('storage/app/blog-post',$name_img);
             }else{
                 $name_img = $blogs->image;
-            }
+            } 
             $blog = Blog::find($id);
             $blog->title = $request->title;
             $blog->content = $request->content;

@@ -13,17 +13,21 @@
     <div class="product-item-holder size-big single-product-gallery small-gallery">
 
         <div id="owl-single-product">
-
-            @foreach($product_img as $item)
+            @forelse($product_img as $item)
             <div class="single-product-gallery-item" id="slide{{$no}}">
                 <a data-lightbox="image-{{$no}}" data-title="Gallery" href="{{ asset('storage/app/products/'.$item->link) }}">
                     <img class="img-responsive" alt="" src="{{ asset('storage/app/products/'.$item->link) }}" data-echo="{{ asset('storage/app/products/'.$item->link) }}">
                 </a>
                 <input type="hidden" name="{{$no++}}">
             </div><!-- /.single-product-gallery-item -->
-            
-            
-            @endforeach
+            @empty
+                <div class="single-product-gallery-item" id="slide{{$no}}">
+                    <a data-lightbox="image-{{$no}}" data-title="Gallery" href="{{ asset('storage/app/products/'.$product_detail->img_link) }}">
+                        <img class="img-responsive" alt="" src="{{ asset('storage/app/products/'.$product_detail->img_link) }}" data-echo="{{ asset('storage/app/products/'.$product_detail->img_link) }}">
+                    </a>
+                    <input type="hidden" name="{{$no++}}">
+                </div><!-- /.single-product-gallery-item -->
+            @endforelse
 
         </div><!-- /.single-product-slider -->
 
@@ -32,15 +36,21 @@
 
             <div id="owl-single-product-thumbnails">
                 
-                @foreach($product_img as $item)
-                <div class="item">
-                    <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="{{$no1}}" href="{{ asset('storage/app/products/'.$item->link) }}">
-                        <img class="img-responsive" width="85" alt="" src="{{ asset('storage/app/products/'.$item->link) }}" data-echo="{{ asset('storage/app/products/'.$item->link) }}">
-                    </a>
-                    <input type="hidden" name="1{{$no1++}}">
-                </div>
-
-                @endforeach
+                @forelse($product_img as $item)
+                    <div class="item">
+                        <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="{{$no1}}" href="{{ asset('storage/app/products/'.$item->link) }}">
+                            <img class="img-responsive" width="85" alt="" src="{{ asset('storage/app/products/'.$item->link) }}" data-echo="{{ asset('storage/app/products/'.$item->link) }}">
+                        </a>
+                        <input type="hidden" name="1{{$no1++}}">
+                    </div>
+                @empty
+                    <div class="item">
+                        <a class="horizontal-thumb active" data-target="#owl-single-product" data-slide="{{$no1}}" href="{{ asset('storage/app/products/'.$product_detail->img_link) }}">
+                            <img class="img-responsive" width="85" alt="" src="{{ asset('storage/app/products/'.$product_detail->img_link) }}" data-echo="{{ asset('storage/app/products/'.$product_detail->img_link) }}">
+                        </a>
+                        <input type="hidden" name="1{{$no1++}}">
+                    </div>
+                @endforelse
             </div><!-- /#owl-single-product-thumbnails -->
 
             
@@ -190,7 +200,8 @@
 
                                         </div><!-- /.reviews -->
                                     </div><!-- /.product-reviews -->
-                                    <form action="#" method="post" role="form" class="cnt-form" id="theForm">
+                                    <form action="{{url('abc')}}" method="post" class="cnt-form" id="theForms">
+                                        {{ csrf_field() }}
                                         <div class="product-add-review">
                                             <h4 class="title">Viết nhận xét của riêng bạn</h4>
                                             <div class="row">
@@ -221,9 +232,9 @@
                                                         </div><!-- /.row -->
                                                         
                                                         <div class="action text-right">
-                                                            <button class="btn btn-primary btn-upper" type="submit">GỬI</button>
+                                                            <button class="btn btn-primary btn-upper" type="submit" id="submit_review">GỬI</button>
                                                             <input type="hidden" name="id" value="{{$product_detail->id}}">
-                                                            <!-- <a href="#" class="btn btn-primary btn-upper" id="submit_review">GỬI</a> -->
+                                                            
                                                         </div><!-- /.action -->
                                                 </div><!-- /.form-container -->
                                             </div><!-- /.review-form -->
@@ -255,7 +266,7 @@
                                 <div class="products">
                                     <div class="product">
                                         <div class="product-image">
-                                            <div class="image"> <a href=""><img   src="{{asset('storage/app/products/'.$item->img_link)}}" alt="" style="width: 164px;height:200px"></a> </div>
+                                            <div class="image"> <a href="{{route('product-details',['id'=>$item->id]) }}"><img   src="{{asset('storage/app/products/'.$item->img_link)}}" alt="" style="width: 164px;height:200px"></a> </div>
                                             <!-- /.image -->
 
                                         </div>
@@ -327,7 +338,7 @@
 
 @stop
 @section('scripts')
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).ready(function () {
         $("#submit_review").on('click',function() {
             var user = '{{ Auth::check()}}';
@@ -339,11 +350,11 @@
                 Swal.fire('Vui lòng chọn ít nhất 1 sao');
             }else{
                 $('#rating_ajax').val(rating);
-                var form = $("#theForm").serialize();
+                var form = $("#theForms").serialize();
                 $.ajax({
                    url:"{{url('product-reviews')}}",
-                   data: form,
-                   type: 'POST',
+                   data:{form:form},
+                   type:'POST',
                    headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
@@ -372,5 +383,5 @@
             }            
         });
     });
-</script>
+</script> -->
 @stop

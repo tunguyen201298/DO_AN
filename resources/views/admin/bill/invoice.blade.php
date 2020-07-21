@@ -95,7 +95,8 @@
                                 <tr>
                                     <td>
                                         <label for="input_area_name">{{trans('Tình trạng đơn hàng')}}</label>
-                                        {!! Form::select('status', $status, trans('-- Tình trạng đơn hàng --'), array('class' => 'form-control', 'id' => 'input_status','placeholder' => $status_bill )) !!}
+                                        
+                                        {!! Form::select('status',array_merge(['value' => $statuse->id, 'selected' => 'selected'], $status),trans('-- Tình trạng hóa đơn --'), array('class' => 'form-control', 'id' => 'input_supplier')) !!}
                                     </td>
                                     
                                 </tr>
@@ -105,7 +106,7 @@
                          <div class="form-group">
                             <form action="{{url('admin/bill/update-status')}}"  id="form-supplier" method="post">
                                 <input type="hidden" name="id" value="{{$bills->id}}">
-                                <input type="hidden" name="id_status" value="{{$status_id}}">
+                                <input type="hidden" name="status_id" value="{{$status_id}}">
                                 <button class="btn btn-primary" type="submit" id="btn_update"><i class="fa fa-save"></i> {{trans('Cập nhật')}}</button>
                                 {{ csrf_field() }}
                             </form>

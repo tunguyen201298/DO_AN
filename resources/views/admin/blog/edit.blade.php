@@ -16,7 +16,7 @@
     </div>
     <div class="box-body">
         <!-- form start -->
-        {!! Form::open(array('url' => url("admin/blog/update/" . $blog->id), 'id' => 'form-blog')) !!}
+        {!! Form::open(array('url' => url("admin/blog/update/" . $blog->id), 'id' => 'form-blog', 'enctype' => 'multipart/form-data')) !!}
             {!! Form::hidden('id', $blog->id) !!}
             @include('admin.blog._form')
         {!! Form::close() !!}

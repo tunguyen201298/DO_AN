@@ -418,16 +418,14 @@
             
             <!-- ============================================== Testimonials: END ============================================== -->
 
-            <div class="home-banner">
-                <img src="{{ asset('storage/app/banners/LHS-banner.jpeg') }}" alt="Image">
-            </div> 
+            
         </div><!-- /.sidemenu-holder -->
 
 
 @section('scripts')
 <script type="text/javascript">
 
-    function addTocart(id){
+    /*function addTocart(id){
         var user = '{{ Auth::check()}}';
                 if (!user){
                     Swal.fire('Xin mời đăng nhập')
@@ -464,7 +462,7 @@
                         } 
                     });
                 }
-    }
+    }*/
 
     function getTimeRemaining(endtime) {
               const total = Date.parse(endtime) - Date.parse(new Date());

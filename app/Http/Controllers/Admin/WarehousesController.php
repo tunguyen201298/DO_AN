@@ -9,6 +9,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
+use App\Models\Bill;
 
 class WarehousesController extends Controller
 {
@@ -18,4 +19,5 @@ class WarehousesController extends Controller
     	$warehouses = Product::paginate();
     	return view('admin.warehouse.index',compact('title','warehouses'));
     }
+    
 }

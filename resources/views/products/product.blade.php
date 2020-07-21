@@ -181,7 +181,7 @@
 @stop
 @section('scripts')
 <script type="text/javascript">
-	function addTocart(id){
+	/*function addTocart(id){
         var user = '{{ Auth::check()}}';
                 if (!user){
                     Swal.fire('Xin mời đăng nhập')
@@ -216,6 +216,6 @@
                         } 
                     });
                 }
-    }
+    }*/
 </script>
 @stop

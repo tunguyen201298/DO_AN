@@ -44,14 +44,8 @@ class AccountsController extends Controller
          if (Auth::attempt(['email' => $request->email, 'password' => $request->password ], $remember)) {
             $active = User::where('email',$request->email)->first();
             if ($active->actives == 1) {
-                if(url()->previous() == \Request::is('*cart-show')){
-                    dd(url()->previous());
-                }
-                else{
-                    dd(url()->previous());
-                    dd('k có');
-                }
-               return redirect()->back()->with('message', 'Đăng nhập thành công');
+                
+               return redirect()->route('home');
             }else{
                 return redirect()->back()->with('message', 'Tài khỏa của bạn chưa đc kích hoạt');
             }

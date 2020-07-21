@@ -92,7 +92,7 @@ function loadCart(){
 
 loadCart();
 
-function updateCartInfo(url){
+/*function updateCartInfo(url){
     $.ajax({
         url: url,
         type: 'GET',
@@ -103,7 +103,38 @@ function updateCartInfo(url){
             loadCart();
         } 
     });
-}
+}*/
+function updateCartInfo(id){
+    $.ajax({
+        url:"{{url('add-cart-ajax')}}",
+        data:{id: id},
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success:function(response){
+            (async () => {
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true,
+                  onOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Thêm vào giỏ hàng thành công'
+                })
+            })()
+            loadCart();
+        } 
+    });
+    }
 
 
 

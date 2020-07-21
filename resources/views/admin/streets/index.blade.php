@@ -5,7 +5,7 @@
     mn_selected = 'mn_street';</script>
 <ol class="breadcrumb">
     <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{__('Trang chủ')}}</a></li>
-    <li>Danh sách loại đường</li>
+    <li>Địa chỉ</li>
 </ol>
 @stop
 @section('content')
