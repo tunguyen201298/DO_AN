@@ -137,8 +137,8 @@
                                 <tr>
                                     
                                     <td class="text-center">{{$no++}}</td>
-                                    <td>{{$invoice->product_name}}</td>
-                                    <td>{{number_format($invoice->price)." ₫"}}</td>
+                                    <td>{{$invoice->product->name}}</td>
+                                    <td>{{number_format($invoice->product->price)." ₫"}}</td>
                                     <td class="text-center w_100">
                                         {{$invoice->quantity}}
                                     </td>

@@ -59,7 +59,7 @@
                                                             <input type="hidden" name="id" value="{{ $value->id }}" id="productId{{ $value->id }}">
                                                             <li class="add-cart-button btn-group">
                                                                     
-                                                                    <button class="btn btn-primary icon" type="button" title="Add Cart" id="addCart{{$value->id}}" onclick="updateCartInfo({{$value->id}})"> 
+                                                                    <button class="btn btn-primary icon" type="button" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
                                                                         <i class="fa fa-shopping-cart"></i>	
                                                                     </button>
                                                             </li>
@@ -126,7 +126,7 @@
                                     <div class="action">
                                         <ul class="list-unstyled">
                                             <li class="add-cart-button btn-group">
-                                                <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="updateCartInfo({{$value->id}})"> 
+                                                <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
                                                     <i class="fa fa-shopping-cart"></i> 
                                                 </a>
 
@@ -233,7 +233,7 @@
                                     <div class="action">
                                         <ul class="list-unstyled">
                                             <li class="add-cart-button btn-group">
-                                                <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="updateCartInfo({{$value->id}})"> 
+                                                <a href="#" class="btn btn-primary icon" title="Add Cart" id="addCart{{$value->id}}" onclick="addTocart({{$value->id}})"> 
                                                     <i class="fa fa-shopping-cart"></i> 
                                                 </a>
 
@@ -261,56 +261,19 @@
         <!-- ============================================== CONTENT : END ============================================== -->
     </div>
 </div>
-
 @stop
 @section('scripts')
 <script type="text/javascript">
-/*function addTocart(id){
-    var user = '{{ Auth::check()}}';
-    if (!user){
-        Swal.fire('Xin mời đăng nhập')
-    }else{
-        updateCartInfo(id);
-    }
-};*/
-    /*function addTocart(id){
+        function addTocart(id){
         var user = '{{ Auth::check()}}';
-                if (!user){
-                    Swal.fire('Xin mời đăng nhập')
-                }else{
-                    $.ajax({
-                        url:"{{url('add-cart-ajax')}}",
-                        data:{id: id},
-                        type: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success:function(response){
-                            
-                            (async () => {
-                                const Toast = Swal.mixin({
-                                  toast: true,
-                                  position: 'top-end',
-                                  showConfirmButton: false,
-                                  timer: 3000,
-                                  timerProgressBar: true,
-                                  onOpen: (toast) => {
-                                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                  }
-                                })
+        if (!user){
+            Swal.fire('Xin mời đăng nhập')
+        }else{
+            updateCartInfo(id);
+        }
+    };
 
-                                Toast.fire({
-                                  icon: 'success',
-                                  title: 'Thêm vào giỏ hàng thành công'
-                                })
-                            })()
-                        } 
-                    });
-                }
-    }
-*/
-    
+        
 </script>
 @stop
 

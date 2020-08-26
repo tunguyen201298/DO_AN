@@ -51,14 +51,16 @@
 
     @include('layouts._footer')
     <script src="{{asset('public/assets/js/jquery-1.11.1.min.js')}}"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <script src="{{asset('public/assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-hover-dropdown.min.js')}}"></script>
     <script src="{{asset('public/assets/js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('public/assets/js/echo.min.js')}}"></script>
     <script src="{{asset('public/assets/js/jquery.easing-1.3.min.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-slider.min.js')}}"></script>
-    <script src="{{asset('public/assets/js/jquery.rateit.min.js')}}"></script>
+    <script src="{{asset('public/js/jquery.rateit.js')}}"></script>
     <script src="{{asset('public/assets/js/lightbox.min.js')}}"></script>
+    <script src="{{asset('public/js/layout.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-select.min.js')}}"></script>
     <script src="{{asset('public/assets/js/wow.min.js')}}"></script>
     <script src="{{asset('public/assets/js/scripts.js')}}"></script>
@@ -66,8 +68,7 @@
     <script src="{{asset('public/admin/js/app.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
+
      @yield('scripts')
 </body>
 </html>

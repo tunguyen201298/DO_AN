@@ -85,11 +85,12 @@ class BillsController extends Controller
     }
     public function updateStatus(Request $request)
     {
-        dd($request->all());
+        
         try{
-            $id_status = $request->id_status;
-            $id_bill = $request->id;
-            $update = Bill::find($id_bill)->update(['status_id' => $id_status]);
+            $id_status = $request->status;
+            $id_bill = $request->bill_id;
+            /*$update = Bill::find($id_bill)->update(['status_id' => $id_status]);*/
+            $update = DB::table('bills')->where('id',$id_bill)->update(['status_id' => $id_status]);
             if (request()->wantsJson()) {
                 $status_bill = StatusBill::find($id_status);
                 $data['status'] = $status_bill->name;
@@ -126,5 +127,11 @@ class BillsController extends Controller
                      ->groupBy(DB::raw('Date(created_at)'))->get();
         return view('admin.thong_ke.statistical',compact('title','daily','status_bill_charts'));    
     }
+    public function getBillChart(Request $request)
+    {
+        dd($request->all());
+        return response()->json(['status' => 'ok']);
+    }
+    
 
 }

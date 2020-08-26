@@ -16,10 +16,16 @@ use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
-    public function productShow()
+    public function productShow(Request $request)
     {	
     	$title = 'Sản phẩm';
-    	$areas = Product::paginate();
+        $areas = Product::select('*');
+        
+        if($request->has('search')){
+            $areas->where('name', 'LIKE', '%' . $request->get('search')  . '%');    
+        }
+
+    	$areas = $areas->paginate();
     	return view('admin.areas.index', compact('title', 'areas'));
     }
     public function create()
@@ -39,11 +45,9 @@ class ProductsController extends Controller
     	$area = Product::find($id);
         $category = Category::find($area->category_id);
         $n = $category->name;
-        $supplier = Supplier::find($area->supplier_id);
-        $s = $supplier->name;
     	$categories = Category::where('parent_id','<>',0)->pluck('name', 'id');
         $supplier = Supplier::pluck('name', 'id');
-    	return view('admin.areas.edit', compact('title','area','categories','supplier','n','s'));
+    	return view('admin.areas.edit', compact('title','area','categories','n'));
     }
     public function store(Request $request)
     {   
@@ -78,7 +82,7 @@ class ProductsController extends Controller
             $product->detail = $request->detail;
             $product->img_link = $name_img;
             $product->category_id = $request->category;
-            $product->supplier_id = $request->supplier;
+            //$product->supplier_id = $request->supplier;
             $product->discount = !empty($request->discount) ? $request->discount : 0;
             
             $response = [
@@ -156,7 +160,7 @@ class ProductsController extends Controller
             $product->detail = $request->detail;
             $product->img_link = $name_img;
             $product->category_id = $category;
-            $product->supplier_id = $supplier;
+            //$product->supplier_id = $supplier;
             $product->discount = $request->discount;
             //$product->quantity = $request->quantity;
             $response = [

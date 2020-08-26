@@ -17,7 +17,8 @@ class ImportBill extends Model
 		return $this->belongsTo(\App\Models\Supplier::class);
 	}
 
-  public function importbilldetail() 
+  //tên hàng nên them hiểu camel
+  public function importBillDetails() 
   { 
     return $this->hasMany(\App\Models\ImportBillDetail::class);
   }

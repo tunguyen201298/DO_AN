@@ -20,10 +20,7 @@
             <label class="required" for="input_area_name">{{trans('Loại sản phẩm')}}</label>
             {!! Form::select('category', $categories,trans('-- Chọn nhà cung cấp --'), array('class' => 'form-control', 'id' => 'input_category','placeholder' => $n )) !!}
         </div>
-        <div class="form-group">
-            <label class="required" for="input_area_name">{{trans('Nhà cung cấp')}}</label>
-             {!! Form::select('supplier', $supplier,trans('-- Chọn nhà cung cấp --'), array('class' => 'form-control', 'id' => 'input_supplier', 'placeholder' => $s)) !!}
-        </div>
+        
         <div class="form-group">
             <label class="required" for="input_area_name">{{trans('Giá Tiền')}}</label>
             {!! Form::text('price', $area->price, ['class' => 'form-control', 'maxlength' => 100,  'placeholder' => trans('Nội Dung')]) !!} 

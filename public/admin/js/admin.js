@@ -106,7 +106,7 @@ loadCart();
 }*/
 function updateCartInfo(id){
     $.ajax({
-        url:"{{url('add-cart-ajax')}}",
+        url:'add-cart-ajax',
         data:{id: id},
         type: 'POST',
         headers: {

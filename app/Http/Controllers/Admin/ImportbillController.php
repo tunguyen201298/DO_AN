@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Models\ImportBill;
 use App\Models\BillStatus;
 use App\Models\StatusBill;
-use App\Models\InvoiceDetail;
+use App\Models\Supplier;
 use App\Models\Product;
+use App\Models\ImportBillDetail;
 use Illuminate\Support\Facades\Input;
+use Exception;
 use PDF;
 use DB;
 
@@ -23,16 +25,15 @@ class ImportbillController extends Controller
 		$counts = ImportBill::count();
 		return view('admin.import_bill.index',compact('title','import_bills','counts'));
 	}
-    public function billShow()
+    public function create()
     {
         try{
-            $title = "Đơn hàng";
-            $bills = Bill::Orderby('id', 'DESC')->where('active', 1)->paginate();
-            $counts = Bill::where('active', 1)->count();
-            $is_read = Bill::where('active', 1)->count();
-            DB::table('bills')->update(['is_read' => 1]);
-            $key = ['name' => 'Tên khách hàng','bill_id' => 'Mã hóa đơn','created_at' => 'Ngày tạo HĐ'];
-            return view('admin.bill.index', compact('title','bills','counts','is_read','key'));
+            $title = "Thêm mới phiếu nhập";
+            $import_bills = new ImportBillDetail();
+            $s = '-- Chọn nhà cung cấp --';
+            $supplier = Supplier::pluck('name', 'id');
+            $import_bills->is_visible = 1;
+            return view('admin.import_bill.create',compact('title','import_bills','supplier','s'));
         }catch(Exception $e){
             $title = "Không tìm thấy trang";
             return view('errors.404',compact('title'));
@@ -40,24 +41,80 @@ class ImportbillController extends Controller
         	
     }
 
-    public function invoice($id)
+    public function store(Request $request)
     {
-        try{
-            $title = "Chi tiết hóa đơn";
-            $customer = Bill::find($id)->user()->first();
-            $invoices = Bill::find($id)->invoiceDetails()->paginate();
-            $invoice = InvoiceDetail::where('bill_id',$id)->get();
-            $bills = Bill::find($id);
-            $status_id = $bills->status_id;
+        //dd($request->all());
+        $this->validate(
+            $request,
+            [
+                'supplier' => 'required'
+            ],
+
+            [
+                'required' => '*:attribute không được để trống',
+            ]
+        );
+        try {
+            DB::beginTransaction();
+            $import_bill = new ImportBill();
+            $import_bill->supplier_id = $request->supplier;
+
+            //$import_bill_detail->import_bill_id = $import_bill_id;
+            //$import_bill_detail->quantity = $request->quantity;
+            $importBillDetails = [];
+            $i = 0;
+            $total = 0;
+            foreach ($request->products as $value) {
+                $totalDetail = *$value['total'];
+                $importBillDetail = new ImportBillDetail([
+                    'product_id' => $value['product_id'],
+                    'quantity' => $value['quantity'],
+                    'price' => $value['total'],
+                    'total' => $totalDetail
+                ]);
+                $total += $totalDetail;
+                array_push($importBillDetails, $importBillDetail);
+            }
+
+            $import_bill->total = $total;
+            $import_bill->save();
             
-            $statuse = StatusBill::find($status_id);
-            $status_bill = $statuse->name;
-            $status = StatusBill::where('id','<>',$status_id)->pluck('name', 'id');
-            return view('admin.bill.invoice', compact('title','invoices', 'bills', 'customer','invoice','status', 'status_bill','status_id'));
-        }catch(Exception $e){
-            $title = "Không tìm thấy trang";
-            return view('errors.404',compact('title'));
-        }  
+            if($importBillDetails){
+                $import_bill->importBillDetails()->saveMany($importBillDetails);
+                $updateqty = ImportBillDetail::where('import_bill_id',$import_bill_id)->get();
+                foreach ($updateqty as $value) {
+                    foreach $request->products as $value) {
+                        $pro = Product::where('id', $value['product_id'])->first();
+                        DB::table('products')->where('id', $value['product_id'])->update(['quantity' => $value['quantity']+$pro->quantity]);
+                    }
+                    
+                }
+            }
+
+             DB::commit();
+            $response = [
+                'message' => trans('Thêm mới phiếu nhập thành công'),
+                'data' => $import_bill
+            ];
+
+
+            if ($request->wantsJson()) {
+
+                return response()->json($response);
+            }
+
+            return redirect('admin/import-bills')->with(['message' => $response['message'], 'alert-class' => 'alert-success']);
+        } catch (Exception $e) {
+            DB::rollback();
+            if ($request->wantsJson()) {
+                return response()->json([
+                            'error' => true,
+                            'message' => $e->getMessage()
+                ]);
+            }
+
+            return redirect()->back()->withErrors($e->getMessage())->withInput();
+        }
     }
 
     public function print($id)

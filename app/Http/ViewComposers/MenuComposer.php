@@ -47,7 +47,7 @@
             ->get();
         $id = Promotion::max('id');
         if ($id != null) {
-           $promotion = Promotion::find($id);
+            $promotion = Promotion::find($id);
             $end_time = $promotion->end_date;
             $mytime = Carbon::now('Asia/Ho_Chi_Minh');
             $time = strtotime($end_time);

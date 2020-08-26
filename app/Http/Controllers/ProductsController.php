@@ -123,19 +123,30 @@ class ProductsController extends Controller
     }
     public function submitTrackOrder(Request $request)
     {
+        $bills = Bill::find($request->bill_id);
+        if (!$bills) {
+            return redirect()->back()->with('trackoder', 'Không tìm thấy đơn hàng');
+        }else{
+            return redirect()->route('success-view',['id'=>$bills->id]);
+        }
+    }
+    public function successView($id)
+    {
+        $bills = Bill::find($id);
         $title = "Kiểm tra đơn hàng";
-        $id = Bill::find($request->bill_id);
+        $bills = Bill::find($id);
         $user =Auth::user();
         $cart = Cart::content();
-        $id_bill = Bill::select()->max('id');
-        $bills = Bill::find($id_bill);
-        $id_stt = !empty($bills->bill_stt_id) ? $bills->bill_stt_id : 1;
+        $id_stt = $bills->status_id;
         $stt = StatusBill::where('id',$id_stt)->first();
         $add = Addresse::where([['user_id',$user->id],['default',1]])->first();
-        $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
-
-        
+        $invoice = InvoiceDetail::where('bill_id',$bills->id)->get();
         return view('errors.success',compact('title','user','cart','add','bills','invoice','stt'));
     }
-    
+    public function deleteBill($id)
+    {
+        DB::table('bills')->where('id',$id)->update(['status_id'=>3]);
+        return redirect()->back()->with('updatebill', 'Hủy đơn hàng thành công');
+    }
+
 }

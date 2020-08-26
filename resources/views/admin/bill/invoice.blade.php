@@ -84,6 +84,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-6">
+                    <form action="{{url('admin/bill/update-status')}}"  id="form-supplier" method="post">
                     <div class="form-group">
                         <table class="table table-striped">
                             <thead>
@@ -95,8 +96,15 @@
                                 <tr>
                                     <td>
                                         <label for="input_area_name">{{trans('Tình trạng đơn hàng')}}</label>
-                                        
-                                        {!! Form::select('status',array_merge(['value' => $statuse->id, 'selected' => 'selected'], $status),trans('-- Tình trạng hóa đơn --'), array('class' => 'form-control', 'id' => 'input_supplier')) !!}
+                                        <select name="status" class="form-control" >
+                                            @if($bills->status_id==1)
+                                            <option value="1" @if($bills->status_id==1){{'selected="selected"'}}@endif>Chưa xác nhận</option>
+                                            @endif
+                                            <option value="2" @if($bills->status_id==2){{'selected="selected"'}}@endif>Đang giao hàng</option>
+                                            <option value="3" @if($bills->status_id==3){{'selected="selected"'}}@endif>Đã hủy</option>
+                                            <option value="4" @if($bills->status_id==4){{'selected="selected"'}}@endif>Đã thanh toán</option>
+                                        </select>
+                                        <!-- {!! Form::select('status', $status,trans('-- Tình trạng hóa đơn --'), array('class' => 'form-control', 'id' => 'input_supplier')) !!} -->
                                     </td>
                                     
                                 </tr>
@@ -104,14 +112,15 @@
                             </tbody>
                         </table>
                          <div class="form-group">
-                            <form action="{{url('admin/bill/update-status')}}"  id="form-supplier" method="post">
-                                <input type="hidden" name="id" value="{{$bills->id}}">
-                                <input type="hidden" name="status_id" value="{{$status_id}}">
+                            
+                                <input type="hidden" name="bill_id" value="{{$bills->id}}">
+                                <!-- <input type="hidden" name="status_id" value="{{$status_id}}"> -->
                                 <button class="btn btn-primary" type="submit" id="btn_update"><i class="fa fa-save"></i> {{trans('Cập nhật')}}</button>
                                 {{ csrf_field() }}
-                            </form>
+                            
                         </div>           
                     </div>
+                    </form>
                 </div>
                 
             </div>

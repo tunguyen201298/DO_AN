@@ -86,6 +86,7 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 				Route::post('/active', 'BillsController@active');
 				Route::post('/update-status', 'BillsController@updateStatus');
 				Route::post('/check-read', 'BillsController@checkRead');
+				Route::post('/get-bill-chart', 'BillsController@getBillChart');
 			});
 			/*------------------------------------------------------------------------*/
 			/* Promotion
@@ -144,6 +145,8 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 			/*----------------------------------------------------------------------------*/
 			Route::group(array('prefix' => '/import-bills'), function () {
 				Route::get('/', 'ImportbillController@index');
+				Route::get('/create', 'ImportbillController@create');
+				Route::post('/store', 'ImportbillController@store');
 			});
 		});
 	});
@@ -172,6 +175,8 @@ Route::get('grid-product.html', 'ProductsController@gridView')->name('grid-produ
 Route::get('promotions', 'PromotionsController@index')->name('promotions');
 Route::get('three-col.html', 'ProductsController@threeColumn')->name('three-col');
 Route::get('four-col.html', 'ProductsController@fourColumn')->name('four-col');
+Route::get('delete-bill/{id}','ProductsController@deleteBill')->name('delete-bill');
+Route::get('success-view/{id}','ProductsController@successView')->name('success-view');
 Route::post('product-reviews', 'ProductsController@review')->name('product-reviews');
 Route::get('insert', 'AdminCategoryController@insert')->name('insert');
 Route::get('insertproduct', 'AdminCategoryController@insertProduct')->name('insertProduct');
@@ -215,6 +220,7 @@ Route::get('blogs', 'BlogsController@index')->name('blogs');
 Route::get('blogs/detail/{id}', 'BlogsController@detail')->name('blogs-detail');
 Route::get('contact', 'ContactsController@contact')->name('contact');
 Route::get('introduce', 'HomesController@introduce')->name('introduce');
+
 
 //cái này chính là dùng cái có sẵn đó
 //Auth::routes();

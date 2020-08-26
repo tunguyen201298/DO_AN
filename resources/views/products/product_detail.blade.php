@@ -200,7 +200,7 @@
 
                                         </div><!-- /.reviews -->
                                     </div><!-- /.product-reviews -->
-                                    <form action="{{url('abc')}}" method="post" class="cnt-form" id="theForms">
+                                    <form action="#" method="post" class="cnt-form" id="theForms">
                                         {{ csrf_field() }}
                                         <div class="product-add-review">
                                             <h4 class="title">Viết nhận xét của riêng bạn</h4>
@@ -232,7 +232,7 @@
                                                         </div><!-- /.row -->
                                                         
                                                         <div class="action text-right">
-                                                            <button class="btn btn-primary btn-upper" type="submit" id="submit_review">GỬI</button>
+                                                            <button class="btn btn-primary btn-upper" type="button" id="submit_review">GỬI</button>
                                                             <input type="hidden" name="id" value="{{$product_detail->id}}">
                                                             
                                                         </div><!-- /.action -->
@@ -338,9 +338,10 @@
 
 @stop
 @section('scripts')
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function () {
         $("#submit_review").on('click',function() {
+
             var user = '{{ Auth::check()}}';
             var rating = $('#start_review').rateit('value');
             if (!user){
@@ -383,5 +384,5 @@
             }            
         });
     });
-</script> -->
+</script>
 @stop

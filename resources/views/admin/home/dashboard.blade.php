@@ -18,7 +18,7 @@
     <!-- /.Left col -->
     <!-- right col (We are only adding the ID to make the widgets sortable)-->
     <section class="col-lg-5 connectedSortable">
-        <h2>Xin chào</h2>
+        <h2>Xin chào   @if(Auth::check()){{Auth::user()->name}}@endif</h2>
     </section>
     <!-- right col -->
 </div>

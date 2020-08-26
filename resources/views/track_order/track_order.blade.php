@@ -13,7 +13,11 @@
 		    <label class="info-title" for="exampleOrderId1">Mã đơn hàng</label>
 		    <input type="text" class="form-control unicase-form-control text-input" id="exampleOrderId1" name="bill_id">
 		</div>
-	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Xem</button>
+		@if(Session::has('trackoder'))
+			<span class="title-tag inner-top-ss">{{Session::get('trackoder')}}</span>
+		@endif
+	  		<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Xem</button>
+
 
 	</form>	
 </div>			</div><!-- /.row -->

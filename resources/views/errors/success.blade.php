@@ -37,65 +37,100 @@
 	<div class="row">
 		<h2 class="heading-title">Chi tiết hóa đơn</h2>
 		<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Sản phẩm</th>
-								<th scope="col">Giá tiền</th>
-								<th scope="col">Số lượng</th>
-								<th scope="col">Thành tiền</th>
-							</tr>
-						</thead>
-						<tbody>
+			<thead>
+				<tr>
+					<th scope="col">Sản phẩm</th>
+					<th scope="col">Giá tiền</th>
+					<th scope="col">Số lượng</th>
+					<th scope="col">Thành tiền</th>
+				</tr>
+			</thead>
+			<tbody>
 
-							@foreach($invoice as $item)
-							<tr>
-								
-								<td>
-									{{$item->product_name}}
-								</td>
-								<td>
-									{{number_format($item->price)." ₫"}}
-								</td>
-								<td>
-									{{$item->quantity}}
-								</td>
-								<td>
-									{{number_format($item->total)." ₫"}}
-								</td>
-							</tr>
-							@endforeach
-							<tr>
-                                <td>
-                                    <h5></h5>
-                                </td>
-                                <td>
-                                    <h5></h5>
-                                </td>
-                                <td>
-                                    <h4>Tổng tiền : {{number_format($bills->total)." ₫"}}</h4>
-                                </td>
-                                <td>
-                                   
-                                </td>
-                            </tr>
-							<tr>
-								<td>
-									<h4></h4>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<h5></h5>
-								</td>
-								<td>
-									<a href="{{url('/')}}" class="btn-upper btn btn-primary checkout-page-button" style="margin-left: 240px">Trở lại</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+				@foreach($invoice as $item)
+				<tr>
+					
+					<td>
+						{{$item->product->name}}
+					</td>
+					<td>
+						{{number_format($item->product->price)." ₫"}}
+					</td>
+					<td>
+						{{$item->quantity}}
+					</td>
+					<td>
+						{{number_format($item->total)." ₫"}}
+					</td>
+				</tr>
+				@endforeach
+				<tr>
+                    <td>
+                        <h5></h5>
+                    </td>
+                    <td>
+                        <h5></h5>
+                    </td>
+                    <td>
+                        <h4>Tổng tiền : {{number_format($bills->total)." ₫"}}</h4>
+                    </td>
+                    <td>
+                       
+                    </td>
+                </tr>
+				<tr>
+					<td>
+						<h4></h4>
+					</td>
+					<td>
+						<h5></h5>
+					</td>
+					<td>
+						<!-- <form action="{{url('delete-bill')}}" method="post">
+							{{ csrf_field() }}
+							<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Hủy đơn hàng</button>
+						</form> -->
+						@if($stt->id==1)
+						<a href="{{url('delete-bill/'.$bills->id)}}" class="btn-upper btn btn-primary checkout-page-button" style="margin-left: 240px; background-color:red">Hủy đơn hàng</a>
+						@endif
+					</td>
+					<td>
+
+						<a href="{{url('/')}}" class="btn-upper btn btn-primary checkout-page-button" style="margin-left: 240px">Trở lại</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 </div>
 
+
 @endsection
+@section('scripts')
+<script type="text/javascript">
+	$(document).ready(function(){
+		var sta = "{{Session::has('updatebill')}}";
+		if (sta) {
+			(async () => {
+	                const Toast = Swal.mixin({
+	                  toast: true,
+	                  position: 'top-end',
+	                  showConfirmButton: false,
+	                  timer: 1500,
+	                  timerProgressBar: true,
+	                  onOpen: (toast) => {
+	                    toast.addEventListener('mouseenter', Swal.stopTimer)
+	                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+	                  }
+	                })
+
+	                Toast.fire({
+	                  icon: 'success',
+	                  title: 'Hủy đơn hàng thành công'
+	                })
+	            })()
+		}
+	});
+</script>
+@stop

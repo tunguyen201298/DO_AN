@@ -84,9 +84,12 @@
                         </td>
                         <td class="action">
                             <!-- <a href="{{url('admin/bill/edit/' . $bill->id)}}" class="btn btn-primary" title="{{trans('Chỉnh sửa')}}"><i class="fa fa-edit"></i></a> -->
+                            @if($bill->status_id != 3)
                             <a href="{{url('admin/bill/invoice/' . $bill->id)}}" class="btn btn-primary" title="{{trans('Chi tiết')}}"><i class="fa fa-list"></i></a>
-                            <a href="javascript:;" onclick="deleteModal('{{$bill->id}}', '/admin/bill/destroy')" title="{{trans('Xóa')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                            
                             <a href="{{url('admin/bill/print/'.$bill->id)}}" class="btn btn-primary" title="{{trans('In')}}"><i class="fa fa-print"></i></a>
+                            @endif
+                            <a href="javascript:;" onclick="deleteModal('{{$bill->id}}', '/admin/bill/destroy')" title="{{trans('Xóa')}}" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
                             
                             
                             

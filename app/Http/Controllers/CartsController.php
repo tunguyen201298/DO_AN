@@ -154,17 +154,17 @@ class CartsController extends Controller
     }
     public function successPost($id)
     {
-            $lng = 108.2124429;
-            $lat = 16.0799072;
-            $radians = 20;
-            $km = Addresse::where([['user_id',Auth::user()->id],['default',1]])->selectRaw("*,
-                ( 6371 * acos( cos( radians(" . $lat . ") ) *
-                cos( radians(addresses.lat) ) *
-                cos( radians(addresses.lng) - radians(" . $lng . ") ) + 
-                sin( radians(" . $lat . ") ) *
-                sin( radians(addresses.lat) ) ) ) 
-                AS distance")
-                ->first();
+                $lng = 108.2124429;
+                $lat = 16.0799072;
+                $radians = 20;
+                $km = Addresse::where([['user_id',Auth::user()->id],['default',1]])->selectRaw("*,
+                    ( 6371 * acos( cos( radians(" . $lat . ") ) *
+                    cos( radians(addresses.lat) ) *
+                    cos( radians(addresses.lng) - radians(" . $lng . ") ) + 
+                    sin( radians(" . $lat . ") ) *
+                    sin( radians(addresses.lat) ) ) ) 
+                    AS distance")
+                    ->first();
             $money_ship = $km->distance <= 30 ? 15000 : 35000;
             $subtotal = Cart::subtotal(0,0,''); 
             $total = $subtotal + $money_ship;
@@ -188,9 +188,9 @@ class CartsController extends Controller
                     $invoice = new InvoiceDetail();
                     $invoice->bill_id = $id_bill;
                     $invoice->product_id = $value->id;
-                    $invoice->product_name = $value->name;
+                   
                     $invoice->quantity = $value->qty;
-                    $invoice->price = $value->price;
+                    
                     $invoice->total = $value->price*$value->qty;
                     $invoice->save();
                     $qty_number_sell = 0;
@@ -234,7 +234,7 @@ class CartsController extends Controller
         Mail::send('email.index', $data, function ($message) use ($email) {
             $message->from('tudtdt1998@gmail.com', 'Shop đá phong thủy Mixi');
             $message->to($email , $email);
-            $message->subject('Xác nhận hóa đơn mua hàng Shop đá phong thủy Mixi');
+            $message->subject('Xác nhận hóa đơn mua hàng tại Phong Thủy Shop');
         
         });
         return view('errors.success',compact('user','cart','add','bills','invoice','stt','title'));
