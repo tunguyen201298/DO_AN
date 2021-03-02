@@ -354,7 +354,8 @@
                 var form = $("#theForms").serialize();
                 $.ajax({
                    url:"{{url('product-reviews')}}",
-                   data:{form:form},
+                   dataType : 'json',
+                   data:form,
                    type:'POST',
                    headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

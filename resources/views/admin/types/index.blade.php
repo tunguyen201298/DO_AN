@@ -4,7 +4,7 @@
 <script type="text/javascript">
     mn_selected = 'mn_type';</script>
 <ol class="breadcrumb">
-    <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{__('Trang chủ')}}</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> {{__('Trang chủ')}}</a></li>
     <li>Danh sách loại hình</li>
 </ol>
 @stop

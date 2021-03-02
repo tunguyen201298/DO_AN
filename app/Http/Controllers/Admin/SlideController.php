@@ -3,11 +3,6 @@
 namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\collection;
-use Illuminate\Support\Facades\DB;
 use App\models\Slide;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
@@ -20,6 +15,7 @@ class SlideController extends Controller
     	$slide = Slide::paginate();
     	return view('admin.slide.index', compact('title', 'slide'));
     }
+    
     public function create()
     {
     	$slide = new Slide();
@@ -27,6 +23,7 @@ class SlideController extends Controller
     	$title = 'Thêm mới slider';
     	return view('admin.slide.create',compact('title','slide'));
     }
+
      public function edit($id)
     {
         $title = 'Sửa Slider';
@@ -41,7 +38,8 @@ class SlideController extends Controller
                 $request,
                 [
                     'title' => 'required|max:255',
-                    'content' => 'required|min:5|max:255'
+                    'content' => 'required|min:5|max:255',
+                    'image' => 'required',
                 ],
 
                 [
@@ -81,6 +79,7 @@ class SlideController extends Controller
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
+
     public function update(Request $request, $id)
     {
         $this->validate(

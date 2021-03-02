@@ -4,7 +4,7 @@
 <script type="text/javascript">
     mn_selected = 'mn_invoice';</script>
 <ol class="breadcrumb">
-    <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
     <li>Chi tiết phiếu nhập</li>
 </ol>
 @stop

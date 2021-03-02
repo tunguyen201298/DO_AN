@@ -19,5 +19,4 @@ class WarehousesController extends Controller
     	$warehouses = Product::paginate();
     	return view('admin.warehouse.index',compact('title','warehouses'));
     }
-    
 }

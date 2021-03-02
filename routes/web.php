@@ -80,13 +80,14 @@ Route::group(array('prefix' => '/admin', 'namespace' => 'Admin'), function () {
 			/*------------------------------------------------------------------------*/
 			Route::group(array('prefix' => '/bill'), function () {
 				Route::get('/', 'BillsController@billShow');
+				Route::get('/search', 'BillsController@searchBill');
 				Route::post('/destroy', 'BillsController@destroy');
 				Route::get('/invoice/{id}', 'BillsController@invoice');
 				Route::get('/print/{id}', 'BillsController@print');
 				Route::post('/active', 'BillsController@active');
 				Route::post('/update-status', 'BillsController@updateStatus');
 				Route::post('/check-read', 'BillsController@checkRead');
-				Route::post('/get-bill-chart', 'BillsController@getBillChart');
+				Route::get('/get-bill-chart', 'BillsController@statisticalSevenue');
 			});
 			/*------------------------------------------------------------------------*/
 			/* Promotion
@@ -177,6 +178,8 @@ Route::get('three-col.html', 'ProductsController@threeColumn')->name('three-col'
 Route::get('four-col.html', 'ProductsController@fourColumn')->name('four-col');
 Route::get('delete-bill/{id}','ProductsController@deleteBill')->name('delete-bill');
 Route::get('success-view/{id}','ProductsController@successView')->name('success-view');
+Route::post('user/update-default-address', 'AccountsController@updateDefaultAddress')->name('update-default-address');
+Route::post('user/check-password', 'AccountsController@checkPassword')->name('check-password');
 Route::post('product-reviews', 'ProductsController@review')->name('product-reviews');
 Route::get('insert', 'AdminCategoryController@insert')->name('insert');
 Route::get('insertproduct', 'AdminCategoryController@insertProduct')->name('insertProduct');
@@ -203,6 +206,10 @@ Route::post('checked-address-default', 'CartsController@checkedAddressDefault');
 /*----------------------------------------------------------------------------*/
 
 Route::get('user/login.html', 'AccountsController@login')->name('login');
+Route::get('user/profile', 'AccountsController@profile')->name('profile-user');
+Route::get('user/edit-profile', 'AccountsController@editProfile')->name('edit-profile');
+Route::post('user/update-profile', 'AccountsController@updateProfile')->name('update-profile');
+Route::get('user/change-password', 'AccountsController@changePassword')->name('change-password');
 Route::get('forgot-password', 'AccountsController@forgotPassword')->name('forgot-password');
 Route::post('submit-forgot-password', 'AccountsController@forgotPasswordSubmit')->name('forgot-password-submit');
 Route::get('submit-email', 'AccountsController@forgotPassword')->name('forgot-password');

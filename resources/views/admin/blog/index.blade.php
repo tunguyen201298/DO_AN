@@ -4,7 +4,7 @@
 <script type="text/javascript">
     mn_selected = 'mn_blog';</script>
 <ol class="breadcrumb">
-    <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
     <li>Bài viết</li>
 </ol>
 @stop

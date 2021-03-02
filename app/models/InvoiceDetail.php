@@ -11,7 +11,7 @@ class InvoiceDetail extends Model
    		'product_id',
    		'quantity',
    		'total',
-      'product_name'
+        'product_name'
    ];
 
 

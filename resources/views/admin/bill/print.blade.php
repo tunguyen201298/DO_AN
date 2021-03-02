@@ -16,7 +16,7 @@
       <b><span>SHOP ĐÁ PHONG THỦY MIXI</span></b><br>
       QUẢNG NAM<br>
       Số điện thoại: 01293963362<br>
-      Website: http://localhost/nongsancantho/
+      Website: http://localhost/shop-da/
     </div><hr>
     <center><h2>ĐƠN ĐẶT HÀNG</h2></center>
     
@@ -53,11 +53,11 @@
             <tr >
               <td style="border:thin blue solid;border-style:dashed;">{{ $no++}}</td>
               <td style="border:thin blue solid;border-style:dashed;">
-                  {{$item->product_name}}
+                  {{$item->product->name}}
               </td>
               <td style="border:thin blue solid;border-style:dashed;">{{$item->quantity}}</td>
               <td style="border:thin blue solid;border-style:dashed;">
-              {{number_format($item->price)." ₫"}}
+              {{number_format($item->product->price)." ₫"}}
               </td>
               
               <td style="border:thin blue solid;border-style:dashed;" >{{number_format($item->total)." ₫"}}</td>
@@ -68,7 +68,7 @@
                     <b>Ghi chú :</b>
               </td>
               <td colspan="4">
-                    zxdsf
+                   Giao giờ hành chính
                 </td>
             </tr>
       </tbody>
@@ -76,17 +76,21 @@
     <table class="sumary-table">
       <tr>
         <td width="500px">Giá trị đơn hàng</td>
-        <td style="border:thin blue solid;border-style:dashed;" width="152px">ádd</td>
+        <td style="border:thin blue solid;border-style:dashed;" width="152px">{{number_format($invoice->sum('total'))." ₫"}}</td>
+      </tr>
+      <tr>
+        <td width="500px">Phí ship</td>
+        <td style="border:thin blue solid;border-style:dashed;" width="152px">{{number_format($customer->total- $invoice->sum('total'))." ₫"}}</td>
       </tr>
       <tr>
         <td width="500px">Tổng giá trị</td>
-        <td width="152px" style="border:thin blue solid;border-style:dashed;">sadasd</td>
+        <td width="152px" style="border:thin blue solid;border-style:dashed;">{{number_format($customer->total)." ₫"}}</td>
       </tr>
     </table><br>
     <table style="margin-bottom:-300px;">
       <tr>
         <td width="500px"></td>
-        <td>Ngày lập: fdsfs</td>
+        <td>Ngày lập: {{$customer->created_at}}</td>
       </tr>
       <tr>
         <td width="500px" class="customer-title">   <strong>Khách hàng</strong></td>

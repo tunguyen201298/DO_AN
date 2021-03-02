@@ -29,6 +29,7 @@
                             <ul class="dropdown-menu">
                                 
                                 @if(Auth::check())
+                                    <li><a href="{{ route('profile-user') }}"><i class=""></i>Thông tin</a></li>
                                     <li><a href="{{ route('logout') }}"><i class=""></i> Đăng xuất</a></li>
                                 @else
                                     <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i> Đăng nhập</a></li>

@@ -2,7 +2,7 @@
     <!-- Logo -->
     <a href="index.php" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>ABC</b>G</span>
+        <span class="logo-mini"><b>PTS</b></span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><b>Phong Thủy</b> Shop</span>
     </a>
@@ -10,7 +10,7 @@
     <nav class="navbar navbar-static-top">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
+            <span class="sr-only"></span>
         </a>
 
         <div class="navbar-custom-menu">

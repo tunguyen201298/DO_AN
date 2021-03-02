@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <input type="hidden" name="id" id="del_modal_id" />
-                <p><i class="fa fa-exclamation-triangle red"></i> {{trans('Bạn chắc chắn muốn xóa?')}}</p>
+                <p><i class="fa fa-exclamation-triangle red"></i> {{trans(' Bạn chắc chắn muốn xóa?')}}</p>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">{{trans('Có')}}</button>

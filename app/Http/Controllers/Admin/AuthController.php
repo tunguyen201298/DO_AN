@@ -13,17 +13,12 @@ use Illuminate\Support\Facades\Input;
 class AuthController extends Controller
 {
     public function getLogin(){
-    	return view('admin.auth.login'); //trang này nên tạo 1 layout riêng
+    	return view('admin.auth.login');
     }
 
     public function checkLogin(Request $request)
     {
-    	
-    	
         $remember = $request->has('remember') ? true : false;
-       /* $user = User::where('email',$request->email )->first();
-        $role = $user->role;
-        dd($role);*/
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             $active = User::where('email',$request->email)->first();
@@ -36,6 +31,7 @@ class AuthController extends Controller
             return redirect()->back()->with('messenger', 'Đăng nhập thất bại');
         }
     }
+    
     public function getRegister()
     {
     	return view('admin.auth.register');

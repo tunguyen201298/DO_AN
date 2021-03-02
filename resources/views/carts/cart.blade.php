@@ -132,28 +132,7 @@
             </div> --><!-- /.estimate-ship-tax -->
 
             <div class="col-md-8 col-sm-12 estimate-ship-tax">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <span class="estimate-title">Mã giảm giá</span>
-                                <p>Nhập mã phiếu giảm giá nếu có.</p>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" class="form-control unicase-form-control text-input" placeholder="Mã phiếu">
-                                </div>
-                                <div class="clearfix pull-right">
-                                    <button type="submit" class="btn-upper btn btn-primary">Áp dụng</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody><!-- /tbody -->
-                </table><!-- /table -->
+                
             </div><!-- /.estimate-ship-tax -->
 
             <div class="col-md-4 col-sm-12 cart-shopping-total">

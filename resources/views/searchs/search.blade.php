@@ -41,7 +41,7 @@
 
 
                             <div class="product-info text-left">
-                                <h3 class="name"><a href="detail.html">{{ $value->name }}</a></h3>
+                                <h3 class="name"><a href="{{route('product-details',['id'=>$value->id]) }}">{{ $value->name }}</a></h3>
                                 <div class="rating rateit-small"></div>
                                 <div class="description"></div>
 

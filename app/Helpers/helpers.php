@@ -920,4 +920,19 @@ if (!function_exists('checkStringISDate')) {
         return $arr_date[2] . "-" . $arr_date[1] . "-" . $arr_date[0];
     }
 }
+
+if (!function_exists('formatBirthDay')) {
+    function formatBirthDay($date)
+    {
+        $format_date = date("Y-m-d", strtotime(str_replace('/', '-', $date)));
+        return Carbon\Carbon::parse($format_date);
+    }
+}
+
+if (!function_exists('formatDateBill')) {
+    function formatDateBill($date)
+    {
+        return date("Y-m-d", strtotime(str_replace('/', '-', $date)));
+    }
+}
     

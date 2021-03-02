@@ -24,9 +24,9 @@ class ProductsController extends Controller
         if($request->has('search')){
             $areas->where('name', 'LIKE', '%' . $request->get('search')  . '%');    
         }
-
+        $counts = Product::count();
     	$areas = $areas->paginate();
-    	return view('admin.areas.index', compact('title', 'areas'));
+    	return view('admin.areas.index', compact('title', 'areas', 'counts'));
     }
     public function create()
     {
@@ -51,7 +51,7 @@ class ProductsController extends Controller
     }
     public function store(Request $request)
     {   
-        //dd($request->file('images'));
+        dd($request->all());
         $this->validate(
             $request,
             [

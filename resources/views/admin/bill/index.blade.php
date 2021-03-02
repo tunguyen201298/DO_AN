@@ -4,7 +4,7 @@
 <script type="text/javascript">
     mn_selected = 'mn_bill';</script>
 <ol class="breadcrumb">
-    <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
     <li>Hóa đơn</li>
 </ol>
 @stop
@@ -35,8 +35,8 @@
 
                 {!! Form::text('search', Input::get('search'), array('class' => 'form-control form-inline', 'maxlength' => 50, 'id' => 'input_source', 'placeholder' => trans('Nhập từ khóa'))) !!} 
                 {!! Form::select('key', $key, NULL,array('class' => 'form-control form-inline', 'maxlength' => 50, 'id' => 'input_key')) !!}
-                {!!Form::hidden("numpaging", Input::get('numpaging'))!!}
-                {!!Form::hidden("paging", Input::get('paging'))!!}
+                {{-- {!!Form::hidden("numpaging", Input::get('numpaging'))!!}
+                {!!Form::hidden("paging", Input::get('paging'))!!} --}}
                 {!! Form::close() !!}
             </div>
             <table id="table-main" class="table table-striped">

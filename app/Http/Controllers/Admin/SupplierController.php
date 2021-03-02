@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Supplier;
-use Validator;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SupplierController extends Controller
 {

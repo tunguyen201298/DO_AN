@@ -81,7 +81,7 @@
                 name: {
                     validators: {
                         notEmpty: {
-                            message: '{{trans("Tên khu vực là bắt buộc")}}'
+                            message: '{{trans("Tên là bắt buộc")}}'
                         }
                     }
                 }

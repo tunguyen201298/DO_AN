@@ -4,7 +4,7 @@
 <script type="text/javascript">
     mn_selected = 'mn_invoice';</script>
 <ol class="breadcrumb">
-    <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
     <li>Chi tiết hóa đơn</li>
 </ol>
 @stop
@@ -147,8 +147,8 @@
                                 <tr>
                                     
                                     <td class="text-center">{{$no++}}</td>
-                                    <td>{{$invoice->product_name}}</td>
-                                    <td>{{number_format($invoice->price)." ₫"}}</td>
+                                    <td>{{$invoice->product->name}}</td>
+                                    <td>{{number_format($invoice->product->price)." ₫"}}</td>
                                     <td class="text-center w_100">
                                         {{$invoice->quantity}}
                                     </td>

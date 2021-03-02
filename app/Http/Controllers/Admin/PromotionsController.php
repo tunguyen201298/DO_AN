@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\Models\Promotion;
 use App\Models\product;
 use App\Models\ProductPromotion;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class PromotionsController extends Controller
 {
@@ -18,7 +18,8 @@ class PromotionsController extends Controller
 		$promotions = Promotion::where('is_visible', 1)->paginate();
 	    $counts = Promotion::where('is_visible', 1)->count();
 	    return view('admin.promotion.index', compact('title','promotions','counts'));
-	}
+    }
+    
 	public function create()
     {
     	$promotions = new Promotion();
@@ -27,23 +28,25 @@ class PromotionsController extends Controller
     	$title = 'Thêm mới khuyến mãi';
     	return view('admin.promotion.create',compact('title','promotions','type'));
     }
+
     public function store(Request $request)
     {
     	$this->validate(
-                $request,
-                [
-                    'promotion_name' => 'required|max:255',
-                    'star_date' => 'required',
-                    'end_date' => 'required',
-                    'detail' => 'required'
-                ],
+            $request,
+            [
+                'promotion_name' => 'required|max:255',
+                'star_date' => 'required',
+                'end_date' => 'required',
+                'detail' => 'required'
+            ],
 
-                [
-                    'required' => '*:attribute không được để trống',
-                    'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
-                    'max' => '*:attribute không được lớn hơn :max ky tu'
-                ]
-            );
+            [
+                'required' => '*:attribute không được để trống',
+                'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
+                'max' => '*:attribute không được lớn hơn :max ky tu'
+            ]
+        );
+
     	try {
     		$description = $request->description ? $request->description : null;
             $promotion = new Promotion();
@@ -58,7 +61,6 @@ class PromotionsController extends Controller
 
             foreach ($request->products as $item) {
                 $product = Product::find($item);
-                
                 $discount = $request->type == 'gia' ? $request->detail : $product->price-($product->price*$request->detail/100);
                 DB::table('products')->where('id', $item)->update(['discount' => $discount]);
             }
@@ -69,7 +71,6 @@ class PromotionsController extends Controller
             ];
 
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
 
@@ -77,22 +78,21 @@ class PromotionsController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                            'error' => true,
-                            'message' => $e->getMessageBag()
+                    'error' => true,
+                    'message' => $e->getMessageBag(),
                 ]);
             }
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
+
     public function edit($id)
     {
         $title = 'Sửa khuyến mãi';
         $promotions = Promotion::find($id);
         $type = $promotions->type;
         $products = Promotion::find($id)->products()->get();
-        //$product = $promotions->with('products')->select('*');
-        //$item = $product->products;
         $promotions->is_visible = 0;
         return view('admin.promotion.edit', compact('title','promotions', 'products','type'));
     }
@@ -100,20 +100,20 @@ class PromotionsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate(
-                $request,
-                [
-                    'promotion_name' => 'required|max:255',
-                    'star_date' => 'required',
-                    'end_date' => 'required',
-                    'detail' => 'required'
-                ],
+            $request,
+            [
+                'promotion_name' => 'required|max:255',
+                'star_date' => 'required',
+                'end_date' => 'required',
+                'detail' => 'required'
+            ],
 
-                [
-                    'required' => '*:attribute không được để trống',
-                    'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
-                    'max' => '*:attribute không được lớn hơn :max ky tu'
-                ]
-            );
+            [
+                'required' => '*:attribute không được để trống',
+                'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
+                'max' => '*:attribute không được lớn hơn :max ky tu'
+            ]
+        );
         try {
             $description = $request->description ? $request->description : null;
             $promotion = Promotion::find($id);
@@ -124,7 +124,6 @@ class PromotionsController extends Controller
             $promotion->detail = $request->detail;
             $promotion->description = $description;
             $promotion->save();
-
             $promotion->products()->attach($request->products);
 
             foreach ($request->products as $item) {
@@ -136,11 +135,10 @@ class PromotionsController extends Controller
 
             $response = [
                 'message' => trans('Cập nhập khuyến mãi thành công'),
-                'data' => $promotion
+                'data' => $promotion,
             ];
 
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
 
@@ -148,8 +146,8 @@ class PromotionsController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                            'error' => true,
-                            'message' => $e->getMessageBag()
+                    'error' => true,
+                    'message' => $e->getMessageBag(),
                 ]);
             }
 
@@ -157,8 +155,8 @@ class PromotionsController extends Controller
         }
     }
 
-    public function destroy() {
-
+    public function destroy() 
+    {
         $ids = Input::get('id');
         $arr_ids = explode(",", $ids);
        
@@ -169,11 +167,12 @@ class PromotionsController extends Controller
             DB::table('products')->where('id', $ids)->update(['discount' => null]);
             $deleted1 = Promotion::find($arr_idss)->delete();
         }  
+
         if (request()->wantsJson()) {
             return response()->json([
-                        'message' => trans('Xóa khuyến mãi thành công'),
-                        'deleted' => $deleted,
-                        'deleted1' => $deleted1,
+                'message' => trans('Xóa khuyến mãi thành công'),
+                'deleted' => $deleted,
+                'deleted1' => $deleted1,
             ]);
         }
         return redirect()->back()->with(['message' => trans('Xóa khuyến mãi thành công'), 'alert-class' => 'alert-success']);

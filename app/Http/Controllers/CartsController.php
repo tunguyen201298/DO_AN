@@ -188,23 +188,16 @@ class CartsController extends Controller
                     $invoice = new InvoiceDetail();
                     $invoice->bill_id = $id_bill;
                     $invoice->product_id = $value->id;
-                   
                     $invoice->quantity = $value->qty;
-                    
                     $invoice->total = $value->price*$value->qty;
                     $invoice->save();
                     $qty_number_sell = 0;
-                   
                     $qty_pr = Product::select('quantity')->where('id',$value->id)->first();
                     $qty_update = $qty_pr->quantity - $value->qty;
                     $qty_number_sell += $value->qty;
                     Product::where('id', $value->id)->update(['quantity'=> $qty_update, 'qty_number_sell' => $qty_number_sell]);
-                    
                     //Product::where('id', $value->id)->update('qty_number_sell', $qty_number_sell);
                 }
-                
-
-
                 Cart::destroy();
                 return redirect(url('success-get/'.$id));
 
@@ -224,10 +217,11 @@ class CartsController extends Controller
         $id_bill = Bill::select()->max('id');
         $bills = Bill::find($id_bill);
         $id_stt = !empty($bills->bill_stt_id) ? $bills->bill_stt_id : 1;
-        $stt = StatusBill::where('id',$id_stt)->first();
-        $add = Addresse::find($id);
-        $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
+        $stt = $bills->statusBill;
 
+        $add = Addresse::find($id);
+        // $invoice = InvoiceDetail::where('bill_id',$id_bill)->get();
+        $invoice = $bills->invoiceDetails()->get();
         $data['invoice'] =  $invoice;
         $data['customer'] = $bills;
         $email = $bills->email;

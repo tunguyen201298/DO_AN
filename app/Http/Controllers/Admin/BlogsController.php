@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 
 class BlogsController extends Controller
@@ -17,6 +15,7 @@ class BlogsController extends Controller
     	$blogs = Blog::paginate();
     	return view('admin.blog.index',compact('title','blogs'));
     }
+
      public function create()
     {
     	$blog = new Blog();
@@ -24,21 +23,23 @@ class BlogsController extends Controller
     	$title = 'Thêm mới bài viết';
     	return view('admin.blog.create',compact('title','blog'));
     }
+
     public function store(Request $request)
     {
         $this->validate(
-                $request,
-                [
-                    'title' => 'required|min:5|max:255',
-                    'content' => 'required|min:5'
-                ],
+            $request,
+            [
+                'title' => 'required|min:5|max:255',
+                'content' => 'required|min:5'
+            ],
 
-                [
-                    'required' => '*:attribute không được để trống',
-                    'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
-                    'max' => '*:attribute không được lớn hơn :max ky tu'
-                ]
-            );
+            [
+                'required' => '*:attribute không được để trống',
+                'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
+                'max' => '*:attribute không được lớn hơn :max ky tu'
+            ]
+        );
+
         try {
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
@@ -56,19 +57,16 @@ class BlogsController extends Controller
             ];
 
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
-
             return redirect('admin/blog')->with(['message' => $response['message'], 'alert-class' => 'alert-success']);
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                            'error' => true,
-                            'message' => $e->getMessageBag()
+                    'error' => true,
+                    'message' => $e->getMessageBag(),
                 ]);
             }
-
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -83,18 +81,19 @@ class BlogsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate(
-                $request,
-                [
-                    'title' => 'required|min:5|max:255',
-                    'content' => 'required|min:5'
-                ],
+            $request,
+            [
+                'title' => 'required|min:5|max:255',
+                'content' => 'required|min:5',
+            ],
 
-                [
-                    'required' => '*:attribute không được để trống',
-                    'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
-                    'max' => '*:attribute không được lớn hơn :max ky tu'
-                ]
-            );
+            [
+                'required' => '*:attribute không được để trống',
+                'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
+                'max' => '*:attribute không được lớn hơn :max ky tu',
+            ]
+        );
+
         try {
             $blogs = Blog::find($id);
             if ($request->hasFile('image')) {
@@ -114,7 +113,6 @@ class BlogsController extends Controller
             ];
 
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
 
@@ -139,8 +137,8 @@ class BlogsController extends Controller
         }  
         if (request()->wantsJson()) {
             return response()->json([
-                        'message' => trans('Xóa bài viết thành công'),
-                        'deleted' => $deleted,
+                'message' => trans('Xóa bài viết thành công'),
+                'deleted' => $deleted,
             ]);
         }
         return redirect()->back()->with(['message' => trans('Xóa bài viết thành công'), 'alert-class' => 'alert-success']);

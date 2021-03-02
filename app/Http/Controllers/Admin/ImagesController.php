@@ -17,6 +17,7 @@ class ImagesController extends Controller
     	$images = Image::paginate();
     	return view('admin.image.banner.index',compact('title','images'));
     }
+
     public function create()
     {
     	$image = new Image();
@@ -24,6 +25,7 @@ class ImagesController extends Controller
     	$title = 'Thêm mới banner';
     	return view('admin.image.banner.create',compact('title','image'));
     }
+
     public function store(Request $request)
     {
     	try{
@@ -59,6 +61,7 @@ class ImagesController extends Controller
         }
     	
     }
+    
     public function destroy() {
         $ids = Input::get('id');
         $arr_ids = explode(",", $ids);

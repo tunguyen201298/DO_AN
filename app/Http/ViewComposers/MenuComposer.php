@@ -4,9 +4,11 @@
  use Illuminate\View\View;
  use App\models\Category;
  use App\Models\Promotion;
+ use App\Models\ProductPromotion;
  use App\Models\Review;
  use App\Models\Blog;
  use Carbon\Carbon;
+ use Illuminate\Support\Facades\DB;
 
  class MenuComposer
  {
@@ -45,20 +47,35 @@
         $categories = Category::with('childrens')->select('*')
             ->whereParentId(0)
             ->get();
-        $id = Promotion::max('id');
-        if ($id != null) {
-            $promotion = Promotion::find($id);
-            $end_time = $promotion->end_date;
-            $mytime = Carbon::now('Asia/Ho_Chi_Minh');
-            $time = strtotime($end_time);
-            $newformat = date('Y/M/d',$time);
-            $view->with('promotion', $promotion);
-            $view->with('newformat', $newformat);
-        }
-        else{
-          $view->with('promotion', null);
-            $view->with('newformat', null);
-        }
+        DB::beginTransaction();
+        try {
+            $id = Promotion::max('id');
+            if ($id != null) {
+                $promotion = Promotion::find($id);
+                $end_time = $promotion->end_date;
+                $mytime = Carbon::now('Asia/Ho_Chi_Minh');
+                $time = strtotime($end_time);
+                if (strtotime($mytime) < $time) {
+                    $newformat = date('Y/M/d',$time);
+                    $view->with('promotion', $promotion);
+                    $view->with('newformat', $newformat);
+                } else {
+
+                    $products = Promotion::find($id)->productPromotion()->get();
+                    foreach($products as $item) {
+                        ProductPromotion::find($item->id)->delete();
+                    }
+                    Promotion::find($id)->delete();
+                }
+            }
+            else{
+              $view->with('promotion', null);
+                $view->with('newformat', null);
+            }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+        }   
         $sum_start = new Review();
         $blog_menu = Blog::orderBy('id', 'desc')
                ->take(10)

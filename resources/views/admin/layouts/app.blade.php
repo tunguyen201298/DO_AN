@@ -35,6 +35,8 @@
         <link href="{{ asset('public/register/vendor/mdi-font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('public/admin/css/style.css')}}">
+        <link href="{{ asset('public/admin/css/slider.css') }}" rel="stylesheet">
+
 
         <!-- jQuery 2.2.3 -->
         <script src="{{ asset('public/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>

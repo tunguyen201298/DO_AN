@@ -8,13 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Addresse;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Log;
 use Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class AccountsController extends Controller
 {
@@ -52,6 +50,68 @@ class AccountsController extends Controller
         } else {
             return redirect()->back()->with('message', 'Đăng nhập thất bại');
         }
+    }
+
+    public function profile()
+    {
+        $title = 'Thông tin người dùng';
+        $auth_id = Auth::user()->id;
+        $user = User::with('addresse')
+                    ->with(['bill' => function($query){
+                        $query->with('invoiceDetails')->get();
+                    }])
+                    ->find($auth_id);
+        
+        return view('accounts.profile', compact('user', 'title'));
+    }
+
+    public function editProfile()
+    {
+        $title = 'Chỉnh sửa thông tin';
+        $user = User::find(Auth::user()->id);
+        return view('accounts.edit_profile', compact('title', 'user'));
+    }
+
+    public function updateDefaultAddress(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $user->addresse()->where('default', 1)->update(['default' => 0]);
+        $resuft = $user->addresse()->where('id', $request->id)->update(['default' => 1]);
+        if (!$resuft) {
+            $data = [
+                'status' => false,
+                'mesage' => 'Đổi địa chỉ mặc định thất bại',
+            ];
+        }
+        $data = [
+            'status' => true,
+            'message' => 'Đổi địa chỉ mặc định thành công',
+        ];
+        return $data;
+    }
+
+
+    public function updateProfile(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function changePassword()
+    {
+        $title = 'Đổi mật khẩu';
+        return view('accounts.change_password', compact('title'));
+    }
+
+    public function checkPassword(Request $request)
+    {
+        $mes = '';
+        $pass = bcrypt($request->password);
+        $user = User::find(Auth::user()->id);
+        
+        if (!Hash::check($pass, $user)) {
+            $mes = 'Mật khẩu không đúng';
+        }
+        return response()->json(['message' => $mes]);
     }
 
     public function checkRegister(Request $request)
@@ -153,7 +213,7 @@ class AccountsController extends Controller
     {
         Cart::destroy();
         Auth::logout();
-        return redirect()->back();
+        return redirect(route('home'));
     }
 
 

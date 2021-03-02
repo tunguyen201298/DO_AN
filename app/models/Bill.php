@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Bill extends Model
 {
 	protected $fillable = [
+        'id',
    		'user_id',
-      'status_id',
+        'status_id',
    		'name',
    		'phone',
    		'address',
-   		'total'
+        'total',
+        'created_at'
    ];
 
    	public function invoiceDetails()
@@ -22,7 +24,7 @@ class Bill extends Model
 
     public function statusBill()
     {
-      return $this->belongsTo(\App\Models\StatusBill::class);
+      return $this->belongsTo(\App\Models\StatusBill::class, 'status_id');
     }
     public function user()
    {

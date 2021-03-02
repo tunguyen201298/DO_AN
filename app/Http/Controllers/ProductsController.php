@@ -97,7 +97,7 @@ class ProductsController extends Controller
     public function review(Request $request)
     {
         $id = $request->id;
-        $user = User::where('email','=', Auth::user()->email)->first();
+        $user = Auth::user();
         $user_id = $user->id;
         $name = $user->name;
         $title = !empty($request->title) ? $request->title : '';
@@ -132,20 +132,25 @@ class ProductsController extends Controller
     }
     public function successView($id)
     {
-        $bills = Bill::find($id);
         $title = "Kiểm tra đơn hàng";
-        $bills = Bill::find($id);
-        $user =Auth::user();
-        $cart = Cart::content();
-        $id_stt = $bills->status_id;
-        $stt = StatusBill::where('id',$id_stt)->first();
-        $add = Addresse::where([['user_id',$user->id],['default',1]])->first();
-        $invoice = InvoiceDetail::where('bill_id',$bills->id)->get();
-        return view('errors.success',compact('title','user','cart','add','bills','invoice','stt'));
+        $bill = Bill::with('invoiceDetails')->with('statusBill')->find($id);
+        $user = User::with(['addresse' => function ($query) {
+                    $query->where('default', 1);
+                }])
+                ->find(Auth::user()->id);
+        // dd($bill);
+        return view('errors.success',compact('title','user','bill'));
     }
     public function deleteBill($id)
     {
         DB::table('bills')->where('id',$id)->update(['status_id'=>3]);
+        $or = Bill::find($id);
+        foreach ($or->invoiceDetails as $value) {
+            $product = Product::find($value->product_id);
+            $qty = $product->quantity + $value->quantity;
+            DB::table('products')->where('id',$value->product_id)->update(['quantity' => $qty]);
+        }
+        
         return redirect()->back()->with('updatebill', 'Hủy đơn hàng thành công');
     }
 

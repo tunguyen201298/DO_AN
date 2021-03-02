@@ -4,7 +4,7 @@
 <script type="text/javascript">
     mn_selected = 'mn_area';</script>
 <ol class="breadcrumb">
-    <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
     <li>Sản phẩm</li>
 </ol>
 @stop
@@ -76,7 +76,7 @@
             </table>
             <div class="footer-table">
                 <div class="col-sm-6">
-                    <span class="total-record">{!!trans("Tổng cộng: <strong>:total</strong> kết quả", ['total' => $areas->total()])!!}</span>
+                    <span class="total-record">Tổng cộng: <strong>{{$counts}}</strong> kết quả</span>
                 </div>
                 <div class="col-sm-6">
                     <div class="pull-right">

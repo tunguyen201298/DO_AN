@@ -13,11 +13,13 @@ class ImportBillDetail extends Model
       'price',
    		'total'
    ];
-
-
 	
   public function importbill() 
   { 
-    return $this->belongsTo(\App\models\ImportBill::class);
+    return $this->belongsTo(\App\Models\ImportBill::class);
+  }
+  public function product() 
+  { 
+    return $this->belongsTo(\App\Models\Product::class);
   }
 }

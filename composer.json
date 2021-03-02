@@ -11,7 +11,8 @@
         "guzzlehttp/guzzle": "^6.5",
         "laravel/framework": "5.3.*",
         "laravelcollective/html": "5.3.0",
-        "league/flysystem-aws-s3-v3": "^1.0"
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "nesbot/carbon": "1.32.0 as 1.25"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

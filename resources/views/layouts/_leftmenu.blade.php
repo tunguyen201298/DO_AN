@@ -54,7 +54,7 @@
                                 SALE<br>{{$promotion->detail/1000 ."k"}}
                                 @endif
                             </span></div>
-                            <div class="timing-wrapper" id="clockdiv">
+                            <div class="timing-wrapper clockdiv" >
                                 <div class="box-wrapper">
                                     <div class="date box">
                                         <span class="key days"></span>
@@ -129,5 +129,13 @@
 
             
         </div><!-- /.sidemenu-holder -->
+        @section('scripts')
+            <script>
+                var deadline = '{{$newformat}}';
+                if (Date.parse(deadline) > Date.parse(new Date())) {
+                    initializeClock(deadline);
+                }
+            </script>
+        @stop
 
 

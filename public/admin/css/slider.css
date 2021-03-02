@@ -1,0 +1,69 @@
+.dz-preview {
+    border-style: dashed;
+    border-color: #9fa1a3;
+    height: 180px;
+    cursor: pointer;
+    background-color: gainsboro;
+}
+.dz-success-mark span {
+    display: none;
+}
+.dz-error-mark {
+    background-color: #fff;
+    height: 24px;
+    border-radius: 5px 5px 0 0;
+    /* box-shadow: 0 5px #888888; */
+    /* box-shadow: 10px 10px 5px 5px #888888; */
+}
+.dz-error-mark {
+    background-color: #fff;
+    background: -moz-linear-gradient(top, #ffffff 70%, #888888 30%);
+    background: -o-linear-gradient(top, #ffffff 70%, #888888 30%);
+    background: -ms-linear-gradient(top, #ffffff 70%, #888888 30%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0.4, #fff),color-stop(0.6, #d2d2d2));
+    
+}
+.dz-error-mark span {
+    /* color: red; */
+    float: right;
+    cursor: pointer;
+    padding: 0 5px;
+}
+.dz-error-mark span:hover {
+    color: #fff;
+    background-color: red;
+}
+.dz-title {
+    color: #ffffff;
+    text-align: center;
+    margin-top: 5rem;
+}
+.dropImages {
+    opacity: 0 !important;
+    display: block !important;
+    position: absolute;
+    width: 525px;
+    height: 17.5rem;
+    z-index: 1;
+    cursor: pointer;
+
+}
+.display-images {
+    position: absolute;
+    margin-top: 16px;
+    margin-left: 16px;
+    z-index: 1000;
+}
+.dz-details {
+    height: 150px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: 100px 150px;
+    display: inline-block;
+    margin-right: 5px;
+    z-index: 1000;
+    border-radius: 5px;
+}
+#image_slide {
+    display: none;
+}

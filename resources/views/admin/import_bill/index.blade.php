@@ -4,7 +4,7 @@
 <script type="text/javascript">
     mn_selected = 'mn_import-bills';</script>
 <ol class="breadcrumb">
-    <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> {{trans('Trang chủ')}}</a></li>
     <li>Phiếu nhập</li>
 </ol>
 @stop

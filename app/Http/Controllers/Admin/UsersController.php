@@ -5,11 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Addresse;
-use App\Models\Bill;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 class UsersController extends Controller
 {
     public function index()
@@ -20,6 +16,7 @@ class UsersController extends Controller
         $count = User::where('is_visible', 1)->count();
         return view('admin.user.index', compact('title','users','count'));
     }
+
     public function customer()
     {
     	$title = "Khách hàng";
@@ -28,10 +25,11 @@ class UsersController extends Controller
         $count = User::where('is_visible', 1)->count();
         return view('admin.user.index', compact('title','users','count'));
     }
+
     public function infoUser($id)
     {
         $title = "Chi tiết";
-        $info = User::find($id)->first();
+        $info = User::find($id);
         $add = User::find($id)->addresse()->get();
         $bills = User::find($id)->bill()->get();
         return view('admin.user.info_user', compact('title','info','add','bills'));
@@ -52,34 +50,34 @@ class UsersController extends Controller
         $title = 'Thêm mới nhân viên';
         return view('admin.user.create',compact('title','users'));
     }
+
     public function store(Request $request)
     {
         $this->validate(
-                $request,
-                [
-                'name' => 'required|min:5|max:255',
-                'phone' => 'required|numeric',
-                'username' => 'required|min:5|max:255',
-                'email' => 'required|email',
-                'role' => 'required',
-            ],
-
+            $request,
             [
-                'required' => '*:attribute không được để trống',
-                'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
-                'max' => '*:attribute không được lớn hơn :max ky tu',
-                'unique' => '*:attribute đã sử dụng',
-                'numeric' => '*:attribute phải là số',
-            ]
-            );
+            'name' => 'required|min:5|max:255',
+            'phone' => 'required|numeric',
+            'username' => 'required|min:5|max:255',
+            'email' => 'required|email',
+            'role' => 'required',
+        ],
+
+        [
+            'required' => '*:attribute không được để trống',
+            'min' => '*do dai cua :attribute phai nhieu hon :min ky tu',
+            'max' => '*:attribute không được lớn hơn :max ky tu',
+            'unique' => '*:attribute đã sử dụng',
+            'numeric' => '*:attribute phải là số',
+        ]
+        );
         try {
-            $user = User::find($id);
-            
+            $user = User::find($request->id);
             
             $user->name = $request->name;
             $user->username = $request->username;
             $user->email = $request->email;
-            $user->phone = $phone;
+            $user->phone = $request->phone;
             $user->address = $request->address;
             $user->role = $request->role;
             $response = [
@@ -95,8 +93,8 @@ class UsersController extends Controller
         } catch (ValidatorException $e) {
             if ($request->wantsJson()) {
                 return response()->json([
-                            'error' => true,
-                            'message' => $e->getMessageBag()
+                    'error' => true,
+                    'message' => $e->getMessageBag(),
                 ]);
             }
 
@@ -128,11 +126,10 @@ class UsersController extends Controller
         try {
             $user = User::find($id);
             
-            
             $user->name = $request->name;
             $user->username = $request->username;
             $user->email = $request->email;
-            $user->phone = $phone;
+            $user->phone = $request->phone;
             $user->address = $request->address;
             $user->role = $request->role;
             $response = [

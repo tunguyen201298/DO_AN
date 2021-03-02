@@ -2,7 +2,7 @@
 @section('title', $title)
 @section('breadcrumb')
 <ol class="breadcrumb">
-    <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> {{trans('Sản phẩm')}}</a></li>
+    <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> {{trans('Sản phẩm')}}</a></li>
     <li>Thêm mới</li>
 </ol>
 @stop

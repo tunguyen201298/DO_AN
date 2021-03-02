@@ -5,26 +5,26 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ImportBill;
-use App\Models\BillStatus;
 use App\Models\StatusBill;
+use App\Models\InvoiceDetail;
+use App\Models\Bill;
 use App\Models\Supplier;
 use App\Models\Product;
 use App\Models\ImportBillDetail;
 use Illuminate\Support\Facades\Input;
 use Exception;
 use PDF;
-use DB;
-
+use Illuminate\Support\Facades\DB;
 class ImportbillController extends Controller
 {
 	public function index()
 	{
-
 		$title = "Phiếu nhập";
 		$import_bills = ImportBill::paginate();
 		$counts = ImportBill::count();
 		return view('admin.import_bill.index',compact('title','import_bills','counts'));
-	}
+    }
+    
     public function create()
     {
         try{
@@ -43,7 +43,6 @@ class ImportbillController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
         $this->validate(
             $request,
             [
@@ -58,14 +57,10 @@ class ImportbillController extends Controller
             DB::beginTransaction();
             $import_bill = new ImportBill();
             $import_bill->supplier_id = $request->supplier;
-
-            //$import_bill_detail->import_bill_id = $import_bill_id;
-            //$import_bill_detail->quantity = $request->quantity;
             $importBillDetails = [];
-            $i = 0;
             $total = 0;
             foreach ($request->products as $value) {
-                $totalDetail = *$value['total'];
+                $totalDetail = $value['total'];
                 $importBillDetail = new ImportBillDetail([
                     'product_id' => $value['product_id'],
                     'quantity' => $value['quantity'],
@@ -75,31 +70,27 @@ class ImportbillController extends Controller
                 $total += $totalDetail;
                 array_push($importBillDetails, $importBillDetail);
             }
-
             $import_bill->total = $total;
             $import_bill->save();
-            
+
             if($importBillDetails){
                 $import_bill->importBillDetails()->saveMany($importBillDetails);
                 $updateqty = ImportBillDetail::where('import_bill_id',$import_bill_id)->get();
                 foreach ($updateqty as $value) {
-                    foreach $request->products as $value) {
+                    foreach ($request->products as $value) {
                         $pro = Product::where('id', $value['product_id'])->first();
                         DB::table('products')->where('id', $value['product_id'])->update(['quantity' => $value['quantity']+$pro->quantity]);
                     }
-                    
                 }
             }
 
-             DB::commit();
+            DB::commit();
             $response = [
                 'message' => trans('Thêm mới phiếu nhập thành công'),
                 'data' => $import_bill
             ];
 
-
             if ($request->wantsJson()) {
-
                 return response()->json($response);
             }
 
@@ -108,8 +99,8 @@ class ImportbillController extends Controller
             DB::rollback();
             if ($request->wantsJson()) {
                 return response()->json([
-                            'error' => true,
-                            'message' => $e->getMessage()
+                    'error' => true,
+                    'message' => $e->getMessage(),
                 ]);
             }
 
@@ -120,7 +111,7 @@ class ImportbillController extends Controller
     public function print($id)
     {
        $title = "Chi tiết hóa đơn";
-       $customer = Bill::find($id)->first();
+       $customer = Bill::find($id);
        $invoice = InvoiceDetail::where('bill_id', $id)->get();
        $no = 1;
        $pdf = PDF::loadView('admin.bill.print',compact('title','customer','invoice', 'no'));
@@ -128,7 +119,6 @@ class ImportbillController extends Controller
     }
 
     public function destroy() {
-        
         $ids = Input::get('id');
         $arr_ids = explode(",", $ids);
         foreach ($arr_ids as $arr_idss) {
@@ -136,8 +126,8 @@ class ImportbillController extends Controller
         }  
         if (request()->wantsJson()) {
             return response()->json([
-                        'message' => trans('Xóa hóa đơn thành công'),
-                        'update' => $update
+            'message' => trans('Xóa hóa đơn thành công'),
+            'update' => $update,
             ]);
         }
         return redirect()->back()->with(['message' => trans('Xóa hóa đơn thành công'), 'alert-class' => 'alert-success']);
@@ -145,9 +135,9 @@ class ImportbillController extends Controller
 
     public function active() {
         $a = Bill::whereId(Input::get("id"))->update(['is_visible' => Input::get("is_visible")]);
-        dd($a);
         return response()->json('ok');
     }
+
     public function updateStatus(Request $request)
     {
         try{

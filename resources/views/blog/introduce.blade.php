@@ -79,47 +79,7 @@
 
 		<div class="logo-slider-inner">	
 			<div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme" style="opacity: 1; display: block;">
-				<div class="owl-wrapper-outer"><div class="owl-wrapper" style="width: 3800px; left: 0px; display: block;"><div class="owl-item" style="width: 190px;"><div class="item m-t-15">
-					<a href="#" class="image">
-						<img src="assets/images/brands/brand1.png" alt="">
-					</a>	
-				</div></div><div class="owl-item" style="width: 190px;"><div class="item m-t-10">
-					<a href="#" class="image">
-						<img src="assets/images/brands/brand2.png" alt="">
-					</a>	
-				</div></div><div class="owl-item" style="width: 190px;"><div class="item">
-					<a href="#" class="image">
-						<img src="assets/images/brands/brand3.png" alt="">
-					</a>	
-				</div></div><div class="owl-item" style="width: 190px;"><div class="item">
-					<a href="#" class="image">
-						<img src="assets/images/brands/brand4.png" alt="">
-					</a>	
-				</div></div><div class="owl-item" style="width: 190px;"><div class="item">
-					<a href="#" class="image">
-						<img src="assets/images/brands/brand5.png" alt="">
-					</a>	
-				</div></div><div class="owl-item" style="width: 190px;"><div class="item">
-					<a href="#" class="image">
-						<img src="assets/images/brands/brand6.png" alt="">
-					</a>	
-				</div></div><div class="owl-item" style="width: 190px;"><div class="item">
-					<a href="#" class="image">
-						<img src="assets/images/brands/brand2.png" alt="">
-					</a>	
-				</div></div><div class="owl-item" style="width: 190px;"><div class="item">
-					<a href="#" class="image">
-						<img src="assets/images/brands/brand4.png" alt="">
-					</a>	
-				</div></div><div class="owl-item" style="width: 190px;"><div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand1.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div></div><div class="owl-item" style="width: 190px;"><div class="item">
-					<a href="#" class="image">
-						<img data-echo="assets/images/brands/brand5.png" src="assets\images\blank.gif" alt="">
-					</a>	
-				</div></div></div></div><!--/.item-->
+				</div></div></div><!--/.item-->
 
 				<!--/.item-->
 

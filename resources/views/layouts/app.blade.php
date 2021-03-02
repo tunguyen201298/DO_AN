@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="{{asset('public/assets/css/rateit.css')}}">
     <link rel="stylesheet" href="{{asset('public/assets/css/bootstrap-select.min.css')}}">
     <link href="{{asset('public/assets/css/lightbox.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('public/plugins/datepicker/datepicker3.css')}}">
+        <!-- Daterange picker -->
+        <link rel="stylesheet" href="{{ asset('public/plugins/daterangepicker/daterangepicker.css')}}">
     <!-- Icons/Glyphs -->
     <link rel="stylesheet" href="{{asset('public/assets/css/font-awesome.css')}}">
     <script>
@@ -59,16 +62,16 @@
     <script src="{{asset('public/assets/js/jquery.easing-1.3.min.js')}}"></script>
     <script src="{{asset('public/assets/js/bootstrap-slider.min.js')}}"></script>
     <script src="{{asset('public/js/jquery.rateit.js')}}"></script>
-    <script src="{{asset('public/assets/js/lightbox.min.js')}}"></script>
-    <script src="{{asset('public/js/layout.js')}}"></script>
-    <script src="{{asset('public/assets/js/bootstrap-select.min.js')}}"></script>
     <script src="{{asset('public/assets/js/wow.min.js')}}"></script>
     <script src="{{asset('public/assets/js/scripts.js')}}"></script>
     <script src="{{asset('public/admin/js/admin.js')}}"></script>
     <script src="{{asset('public/admin/js/app.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
+    <script src="{{asset('public/js/layout.js')}}"></script>
+    <script src="{{ asset('public/register/vendor/datepicker/moment.min.js') }}"></script>
+    <script src="{{ asset('public/register/vendor/datepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('public/register/js/global.js') }}"></script>
      @yield('scripts')
 </body>
 </html>

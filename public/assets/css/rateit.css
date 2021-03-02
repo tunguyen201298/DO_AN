@@ -121,7 +121,9 @@
     border:none;
     padding: 0;
 }
-
+.rateit-range  {
+    width: 70px !important;
+}
 .rateit button.rateit-reset:hover, .rateit button.rateit-reset:focus
 {
     background-position: 0 -14px;
